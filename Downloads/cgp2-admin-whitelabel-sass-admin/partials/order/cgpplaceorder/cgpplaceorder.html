@@ -1,0 +1,125 @@
+<!--create by nan -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>operationLogEdit</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../../ClientLibs/extjs/resources/custom-theme/custom_theme.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript" src="../../../js/order/view/cgpplaceorder/controller/pdf.js"></script>
+    <script type="text/javascript" src="../../../js/order/view/cgpplaceorder/controller/pdf.worker.js"></script>
+
+</head>
+<script>
+    //处理多文件
+    Ext.Loader.syncRequire(['CGP.order.view.cgpplaceorder.view.CreateOrderLineItemPanel']);
+    Ext.onReady(function () {
+        var productId = JSGetQueryString('productId');
+        var page = Ext.create('Ext.container.Viewport', {
+            layout: 'fit',
+        });
+        Ext.Ajax.request({
+            url: adminPath + 'api/productConfigs/' + productId + '/latest?context=PC',
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + Ext.util.Cookies.get('token')
+            },
+            success: function (response) {
+                var responseMessage = Ext.JSON.decode(response.responseText);
+                console.log(responseMessage)
+                if (responseMessage.success) {
+                    var productMaterialViewTypes = responseMessage.data.libraries.productMaterialViewTypes;
+                    if (productMaterialViewTypes && productMaterialViewTypes.length > 0) {//有需要定制页面
+                        /*   var tab = Ext.create('CGP.order.view.cgpplaceorder.view.ProductViewTypeTab', {
+                               productMaterialViewTypes: responseMessage.data.libraries.productMaterialViewTypes,
+                               materialViewTypes: responseMessage.data.libraries.materialViewTypes,
+                               productConfig: responseMessage.data,
+                               productId: productId
+                           });*/
+                        var outPanel = Ext.create('CGP.order.view.cgpplaceorder.view.OutPanel', {
+                            productMaterialViewTypes: responseMessage.data.libraries.productMaterialViewTypes,
+                            materialViewTypes: responseMessage.data.libraries.materialViewTypes,
+                            productConfig: responseMessage.data,
+                            productId: productId
+                        });
+                        var centerPanel = Ext.create('Ext.panel.Panel', {
+                            itemId: 'centerPanel',
+                            region: 'center',
+                            layout: 'fit',
+                            flex: 1,
+                        });
+                        var leftPanel = Ext.create('CGP.order.view.cgpplaceorder.view.LeftTreePanel', {
+                            productMaterialViewTypes: responseMessage.data.libraries.productMaterialViewTypes,
+                            materialViewTypes: responseMessage.data.libraries.materialViewTypes,
+                            productConfig: responseMessage.data,
+                            itemId: 'leftTreePanel',
+                            productId: productId,
+                        });
+                        outPanel.add([leftPanel, centerPanel]);
+                        page.add(outPanel);
+                    } else {//无需要定制的页面
+                        var controller = Ext.create('CGP.order.view.cgpplaceorder.controller.Controller');
+                        var productConfig = responseMessage.data;
+                        var jsonData = {
+                            "_id": JSGetCommonKey() + '',
+                            "productId": productId + '',
+                            "productConfigViewId": productConfig.productConfigView.id + '',
+                            "material": {
+                                "_id": productConfig.productConfigBom.productMaterialId + '',
+                                "clazz": "com.qpp.cgp.domain.bom.MaterialSpu"
+                            },
+                            "productConfigImpositionId": productConfig.productConfigImposition.id + '',
+                            "productMaterialViews": [],
+                            "photos": [],
+                            "clazz": "com.qpp.cgp.domain.bom.runtime.ProductInstance"
+                        };
+                        Ext.Ajax.request({
+                            url: adminPath + 'api/bom/productInstances',
+                            method: 'POST',
+                            headers: {
+                                Authorization: 'Bearer ' + Ext.util.Cookies.get('token')
+                            },
+                            async: false,
+                            jsonData: jsonData,
+                            success: function (response) {
+                                var responseMessage = Ext.JSON.decode(response.responseText);
+                                if (responseMessage.success) {
+                                    var productInstance = responseMessage.data;
+                                    console.log(responseMessage.data);
+                                    controller.createDiyOrderItem(productInstance);
+                                    JSOpen({
+                                        id: 'CGPPlaceOrderpage',
+                                        url: path + "partials/order/cgpplaceorder/cgpplaceorderitemgrid.html",
+                                        title: i18n.getKey('后台下单'),
+                                        refresh: true
+                                    })
+                                } else {
+                                    Ext.Msg.alert(i18n.getKey('requestFailed'), responseMessage.data.message);
+                                }
+                            },
+                            failure: function (response) {
+                                var responseMessage = Ext.JSON.decode(response.responseText);
+                                Ext.Msg.alert(i18n.getKey('requestFailed'), responseMessage.data.message);
+                            }
+                        })
+                    }
+
+                } else {
+                    Ext.Msg.alert(i18n.getKey('requestFailed'), responseMessage.data.message);
+                }
+            },
+            failure: function (response) {
+                var responseMessage = Ext.JSON.decode(response.responseText);
+                Ext.Msg.alert(i18n.getKey('requestFailed'), responseMessage.data.message);
+            }
+        })
+
+    })
+</script>
+<body>
+</body>
+</html>

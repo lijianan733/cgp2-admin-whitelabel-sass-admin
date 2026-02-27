@@ -1,0 +1,50 @@
+<!--create by nan -->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>text</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript"
+            src="../../../js/product/view/productconfig/productdesignconfig/view/imageIntegrationConfigs/view/ImageFieldSet.js"></script>
+    <script>
+        Ext.onReady(function () {
+            var page = Ext.create('Ext.container.Viewport', {
+                layout: 'border',
+                items: [
+                    Ext.create('CGP.product.view.productconfig.productdesignconfig.view.imageIntegrationConfigs.view.ImageFieldSet', {
+                        itemId: 'imageFieldSet'
+                    }),
+                    {
+                        xtype: 'displayfield',
+                        padding: '0 10 0 10 ',
+                        itemId: 'delete',
+                        value: '<img class="tag" title="点击进行清除数据" style="height:16px;width: 16px;cursor: pointer" src="' + path + 'ClientLibs/extjs/resources/themes/images/shared/fam/remove.png' + '">',
+                        listeners: {
+                            render: function (display) {
+                                var a = display.el.dom.getElementsByTagName('img')[0]; //获取到该html元素下的a元素
+                                var ela = Ext.fly(a); //获取到a元素的element封装对象
+                                ela.on("click", function () {
+                                    var imgFieldSet = display.ownerCt.ownerCt;
+                                    imgFieldSet.remove(display.ownerCt);
+                                });
+
+                            }
+                        }
+                    }
+                ]
+            });
+
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TaxEdit</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../../../ClientLibs/extjs/ext-lang.js"></script>
+<!--    <script type="text/javascript" src="Edit.js"></script>-->
+    <script type="text/javascript">
+        Ext.application({
+            requires: 'Ext.container.Viewport',
+            name: 'CGP.exception',
+            appFolder: '../../app',
+            controllers: [
+                'BusinessException'
+            ],
+            launch: function () {
+                Ext.create('CGP.exception.view.Edit', {
+                    id: 'exceptionEdit'
+                })
+            }
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

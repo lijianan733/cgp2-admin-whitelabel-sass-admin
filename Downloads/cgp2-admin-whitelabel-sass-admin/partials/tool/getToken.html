@@ -1,0 +1,19 @@
+<html>
+<script>
+    function onSubmit(token) {
+        console.log(token);
+        document.getElementById("demo-form").submit();
+    }
+</script>
+<head>
+    <title>reCAPTCHA demo: Simple page</title>
+    <script src="https://www.recaptcha.net/recaptcha/api.js"></script>
+</head>
+<body>
+<button class="g-recaptcha"
+        id="demo-form"
+        data-sitekey="6LdpdiIdAAAAAApxbg03UrjVSX1ET5wvq7c3TEvb"
+        data-callback='onSubmit'
+        data-action='submit'>Submit</button>
+</body>
+</html>

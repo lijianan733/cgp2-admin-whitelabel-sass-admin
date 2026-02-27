@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Order Redo</title>
+    <link rel="stylesheet" type="text/css" href="../../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <style>
+        .vertical-middle {
+            vertical-align: middle;
+        }
+        
+        .toolbar-button-display-none {
+            display: none
+        }
+        /** disable 的filefield 控件的button样式  **/
+        
+        .custom-disabled .x-btn-default-small-disabled {
+            opacity: .9;
+        }
+        /** disable 的 htmleditor 控件的mask样式覆盖 **/
+        
+        .custom-disabled .x-mask {
+            opacity: .1;
+            /* 透明度调为 0.1*/
+            
+            background: rgb(245, 245, 245);
+            z-index: 100;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            zoom: 1;
+        }
+        /** 覆盖disabled=true 的 Extjs的x-form-text 样式 **/
+        /** 对所有form下的 带有text文本框的控件 有效 **/
+        
+        .custom-disabled .x-form-text {
+            color: black;
+            padding: 4px 6px 3px 6px;
+            background: rgb(235, 235, 228);
+            border-width: 1px;
+            border-style: solid;
+            border-color: silver #d9d9d9 #d9d9d9;
+            height: 24px;
+            line-height: 15px;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="../../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
+
+<body>
+
+</body>
+
+</html>

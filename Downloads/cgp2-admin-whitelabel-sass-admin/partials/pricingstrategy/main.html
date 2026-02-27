@@ -1,0 +1,36 @@
+<!-- Created by nan on 2021/12/7 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>operationLogEdit</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript" src="../../js/product/view/pricingStrategyv2/main.js"></script>
+    <script>
+        Ext.onReady(function () {
+            var productId = JSGetQueryString('productId');
+            var partnerId = JSGetQueryString('partnerId');
+            var clazz = JSGetQueryString('clazz');
+            var page = Ext.create('Ext.container.Viewport', {
+                layout: 'border',
+                items: [Ext.create('CGP.product.view.pricingStrategyv2.main', {
+                    productId: productId,
+                    partnerId: partnerId,
+                    clazz: clazz,
+                })]
+            });
+        });
+    </script>
+</head>
+<script>
+</script>
+</head>
+<body>
+
+</body>
+</html>

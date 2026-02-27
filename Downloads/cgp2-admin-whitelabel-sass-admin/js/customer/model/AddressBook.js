@@ -1,0 +1,72 @@
+Ext.define('CGP.customer.model.AddressBook', {
+    extend: 'Ext.data.Model',
+    fields: [{
+        name: 'id',
+        type: 'int',
+        useNull: true
+    }, {
+        name: 'gender',
+        type: 'string'
+    }, {
+        name: 'firstName',
+        type: 'string'
+    }, {
+        name: 'lastName',
+        type: 'string'
+    }, {
+        name: 'countryCode2',
+        type: 'string'
+    }, {
+        name: 'countryName',
+        type: 'string'
+    }, {
+        name: 'state',
+        type: 'string'
+    }, {
+        name: 'city',
+        type: 'string'
+    }, {
+        name: 'postcode',
+        type: 'string'
+    }, {
+        name: 'suburb',
+        type: 'string'
+    }, {
+        name: 'streetAddress1',
+        type: 'string'
+    }, 'streetAddress2'
+        , {
+            name: 'telephone',
+            type: 'string'
+        }, {
+            name: 'mobile',
+            type: 'string'
+        }, {
+            name: 'emailAddress',
+            type: 'string'
+        }, {
+            name: 'company',
+            type: 'string'
+        }, {
+            name: 'sortOrder',
+            type: 'int'
+        }, {
+            name: 'locationType',
+            type: 'string'
+        }, {
+            name: 'userId',
+            type: 'int'
+        }, {
+            name: 'stateCode',
+            type: 'string'
+        }],
+    //20
+    proxy: {
+        type: 'uxrest',
+        url: adminPath + 'api/addressBooks',
+        reader: {
+            type: 'json',
+            root: 'data'
+        }
+    }
+});

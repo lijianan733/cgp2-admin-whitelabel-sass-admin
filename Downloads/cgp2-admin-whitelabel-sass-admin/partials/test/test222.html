@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Ticket</title>
+    <style>
+        .vertical-middle {
+            vertical-align: middle;
+        }
+
+        /**自定义file上传的按钮对齐 **/
+        .x-form-item-body td {
+            vertical-align: top;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <!--<script type="text/javascript" src="../../ClientLibs/extjs/ux/form/field/TriggerField.js"></script>-->
+    <!--<script type="text/javascript" src="../../ClientLibs/extjs/ux/form/field/FileField.js"></script>-->
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript">
+        var attrs = {
+            "PS_innerWidth": 65,
+            "PS_outerLength": 97.2,
+            "Printing_EasyFlow": "4C",
+            "Card_qty_innerHeight": 20.6,
+            "Card_qty_innerWidth": 65,
+            "productWidth": 65,
+            "Material_EasyFlow": "1.3",
+            "PS_innerHeight": 32.1,
+            "Box_type": "Custom",
+            "FinishEasyflow": "Smooth Finish",
+            "Finish_V2": "Matte laminated",
+            "productLength": 90,
+            "Custom_box_effect": [],
+            "Custom_box_effect_card": "Full color print",
+            "Card_qty_innerLength": 90,
+            "GameBoardFirstFinishing": "Matte laminated",
+            "productHeight": 32.1,
+            "Card_placement_direction": "Flatwise",
+            "TuckBox_Card_stock": "0.326",
+            "Card_qty_outerWidth": 72.2,
+            "Custom_box_effect_custom": "Full color print",
+            "BGM_Finish": "Matte laminated（smooth finish）",
+            "PS_innerLength": 90,
+            "PS_outerHeight": 34.7,
+            "TuckBox_Dimension": "Dynamic size",
+            "customized_Model": "Easy",
+            "Card_qty_outerHeight": 23.2,
+            "PS_outerWidth": 72.2,
+            "tuck_box_size_of_deck": 94,
+            "unit": "mm",
+            "Card_qty_outerLength": 97.2
+        };
+        function expression(args) { function isContained(aa,bb){if(typeof(bb)=="string" && /^[\d,/]+$/.test(bb)){bb=bb.split(",")}if(aa==null||aa==undefined||aa==""){return false}if(bb==null||bb==undefined||bb==""){return false};if(typeof bb=="string"||typeof bb=="number"){bb=[bb]}if(Array.isArray(bb)==false&&typeof bb!="string"){bb=Java.from(bb)}for(var i=0;i<bb.length;i++){var flag=false;for(var j=0;j<aa.length;j++){if(aa[j]==bb[i]){flag=true;break}}if(flag==false){return flag}}return flag};function equal(arr1,arr2){var flag=true;if(typeof(arr1)=="string"){arr1=arr1.split(",")}if(typeof(arr2)=="string"){arr2=arr2.split(",")}if(arr1==""||arr1==undefined||arr1==null){if(arr2.length==0){return true}else{return false}}if(arr2==""||arr2==undefined||arr2==null){if(arr1.length==0){return true}else{return false}}if(Array.isArray(arr1)==false&&typeof arr1!="string"){arr1=Java.from(arr1)}if(Array.isArray(arr2)==false&&typeof arr2!="string"){arr2=Java.from(arr2)}if(arr1.length!==arr2.length){flag=false}else{arr1.forEach(function(item,index,arr){if(!isContained(arr2,[item])){flag=false}})}return flag}; if(true){return ((function expression(args){var context = args;var d;
+            if(attrs['Material_EasyFlow'] == '1.3'){d = 600}else if(attrs['Material_EasyFlow'] == '1.6'){d = 1000}else if(attrs['Material_EasyFlow'] == '2.1'){d = 1300}else if(attrs['Material_EasyFlow'] == '2.5'){d = 1600}
+            var liner;
+            if(attrs['Material_EasyFlow'] == '1.3'){liner = 250}else if(attrs['Material_EasyFlow'] == '1.6'||attrs['Material_EasyFlow'] == '2.1'||attrs['Material_EasyFlow'] == '2.5'){liner = 100}
+            var cover;
+            if(!equal([],attrs["Custom_box_effect"]) ||(attrs["FinishEasyflow"]=="Linen Finish")){cover = 157}else{cover = 128}
+
+            var L=attrs["productLength"];
+            var W=attrs["productWidth"];
+            var H=attrs["productHeight"];
+            var TopL1=attrs["productLength"]+2*attrs["productHeight"]+8*Number(attrs["Material_EasyFlow"])+31;
+            var TopL2=attrs["productWidth"]+2*attrs["productHeight"]+8*Number(attrs["Material_EasyFlow"])+31;
+            var TopW1=attrs["productWidth"]+2*attrs["productHeight"]+8*Number(attrs["Material_EasyFlow"])+31;
+            var TopW2=attrs["productLength"]+2*attrs["productHeight"]+8*Number(attrs["Material_EasyFlow"])+31;
+            var TopL=L>W?TopL1:TopL2;
+            var TopW=L>W?TopW1:TopW2;
+            var BottomL1=attrs["productLength"]+2*attrs["productHeight"]+6*Number(attrs["Material_EasyFlow"])+29;
+            var BottomL2=attrs["productWidth"]+2*attrs["productHeight"]+6*Number(attrs["Material_EasyFlow"])+29;
+            var BottomW1=attrs["productWidth"]+2*attrs["productHeight"]+6*Number(attrs["Material_EasyFlow"])+29;
+            var BottomW2=attrs["productLength"]+2*attrs["productHeight"]+6*Number(attrs["Material_EasyFlow"])+29;
+            var BottomL=L>W?BottomL1:BottomL2;
+            var BottomW=L>W?BottomW1:BottomW2;
+            var TopgrayL1=attrs["productLength"]+2*attrs["productHeight"]+2*Number(attrs["Material_EasyFlow"])+2;
+            var TopgrayL2=attrs["productWidth"]+2*attrs["productHeight"]+2*Number(attrs["Material_EasyFlow"])+2;
+            var TopgrayW1=attrs["productWidth"]+2*attrs["productHeight"]+2*Number(attrs["Material_EasyFlow"])+2;
+            var TopgrayW2=attrs["productLength"]+2*attrs["productHeight"]+2*Number(attrs["Material_EasyFlow"])+2;
+            var TopgrayL=L>W?TopgrayL1:TopgrayL2;
+            var TopgrayW=L>W?TopgrayW1:TopgrayW2;
+            var BottomgrayL1=attrs["productLength"]+2*attrs["productHeight"];
+            var BottomgrayL2=attrs["productWidth"]+2*attrs["productHeight"];
+            var BottomgrayW1=attrs["productWidth"]+2*attrs["productHeight"];
+            var BottomgrayW2=attrs["productLength"]+2*attrs["productHeight"];
+            var BottomgrayL=L>W?BottomgrayL1:BottomgrayL2;
+            var BottomgrayW=L>W?BottomgrayW1:BottomgrayW2;
+            var TopWeight=(TopL*TopW-4*attrs["productHeight"]*(attrs["productHeight"]-15))/1000000*(cover+50)*1.05;
+            var BottomWeight=(BottomL*BottomW-4*attrs["productHeight"]*(attrs["productHeight"]-15))/1000000*(cover+50)*1.05;
+            var TopGrayWeight=(TopgrayL*TopgrayW-4*attrs["productHeight"]*(attrs["productHeight"]-attrs["Material_EasyFlow"]))/1000000*(d+liner+15)*1.05;
+            var BottomGrayWeight=(BottomgrayL*BottomgrayW-4*attrs["productHeight"]*(attrs["productHeight"]-attrs["Material_EasyFlow"]))/1000000*(d+liner+15)*1.05;
+            var Weight=TopWeight+BottomWeight+TopGrayWeight+BottomGrayWeight;
+            return Number(Weight).toFixed(2)})(args));}};
+        console.log(expression());
+    </script>
+
+
+</head>
+<body>
+
+</body>
+</html>

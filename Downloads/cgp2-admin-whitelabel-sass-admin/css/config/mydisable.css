@@ -1,0 +1,41 @@
+/* 自定义的form 下field的 disable 样式 */
+/**
+ * 使用 ：　 1、 在form输入控件中 创建时设置  disabled:true, 并设置 
+            disabledCls:'custom-disabled'。 
+              custom-disabled 名字要和下面的custom-disabled相同。
+              
+             	 单选和复选和radio 是没有输入框的 设置disabled为 true就可以了 。
+ *		2.在对应的html中加入下面的css样式。   
+ 			对于一些特殊的form下的控件像 file。 它有一个button 对应这个botton可以用下面的btn样式覆盖
+ 			其他像 htmleditor, 有mask 透明度。使用下面的htmleditor来覆盖
+ */
+
+/** disable 的filefield 控件的button样式  **/
+.custom-disabled .x-btn-default-small-disabled {
+    opacity: .9;
+}
+
+/** disable 的 htmleditor 控件的mask样式覆盖 **/
+.custom-disabled .x-mask {
+    opacity: .1; /* 透明度调为 0.1*/
+    background: rgb(245, 245, 245);
+    z-index: 100;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    zoom: 1;
+}
+
+
+/** 覆盖disabled=true 的 Extjs的x-form-text 样式 **/
+/** 对所有form下的 带有text文本框的控件 有效 **/
+.custom-disabled .x-form-text {
+    color: black;
+    padding: 4px 6px 3px 6px;
+    background: rgb(235, 235, 228);
+    border-width: 1px;
+    border-style: solid;
+    border-color: silver #d9d9d9 #d9d9d9;
+    line-height: 15px;
+    opacity: .9;
+}

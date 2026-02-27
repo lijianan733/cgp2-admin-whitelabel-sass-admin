@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Product</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript" src="../../js/website/model.js"></script>
+    <script type="text/javascript" src="../../js/website/store.js"></script>
+    <script type="text/javascript" src="../../js/product/model.js"></script>
+    <script type="text/javascript" src="../../js/product/store.js"></script>
+    <script type="text/javascript" src="../../js/product/controller.js"></script>
+    <script type="text/javascript" src="../../js/product/product.js"></script>
+    <script type="text/javascript" src="../../js/common/field/ProductCategoryCombo.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/data/proxy/PagingMemoryProxy.js"></script>
+    <script>
+        Ext.ux.util.uploadByJqueryForm = function (options) {
+            var scope = options.scope;
+            Ext.fly(options.form).down('input').dom.name = 'file';
+            $(options.form).ajaxSubmit({
+                type: 'post',
+                url: adminPath + 'api/admin/product/import?access_token=' + Ext.util.Cookies.get('token'),
+                success: function (data) {
+                    options.form.remove();
+                    //发送成功
+                    if (options.success) options.success.call(scope || this, data);
+                },
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    if (options.failure) options.failure.call(scope, textStatus);
+                }
+            });
+        }
+    </script>
+    <style>
+        /*颜色色块css*/
+
+        a.colorpick {
+            border: 2px solid #e7e7e7;
+            box-sizing: content-box;
+            display: inline-block;
+            height: 18px;
+            width: 18px;
+        }
+
+        .div-text-align-right {
+            display: inline-block;
+            text-align: right;
+            width: 90px
+        }
+
+        .menu-item-display-none {
+            display: none
+        }
+
+        .background-color-grey > .x-panel-header {
+            background-color: #f5f5f5;
+            border: 1px solid #f5f5f5;
+            color: #666;
+            font: bold 13px/15px helvetica, arial, verdana, sans-serif;
+        }
+
+        .background-color-grey > .x-panel-header .x-header-text-container {
+            color: #666
+        }
+
+        .vertical-middle {
+            vertical-align: middle;
+        }
+        .select_disable .x-grid-td
+        {
+            background:#dddddd;
+        }
+    </style>
+</head>
+
+<body>
+
+</body>
+
+</html>

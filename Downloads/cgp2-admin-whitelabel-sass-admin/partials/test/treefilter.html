@@ -1,0 +1,40 @@
+<div class="property-model-editor__container same-different-qty-customMode">
+    <div class="property-model-editor__content">
+        <div class="property-model-editor__attribute-container" ng-if="ctrl.runtimeViewModel.front">
+            <div class="property-model-editor__step-container"><span translate="STEPTITLE" translate-values="{indexNum:1}"></span></div>
+            <p class="property-model-editor__attribute-tip"><span translate="EDITOR_FRONTBACK_TIP_1"></span><b><span translate="EDITOR_FRONTBACK_TIP_FRONT" translate-values="{productKey:ctrl.runtimeViewModel.product}"></span></b></p>
+            <div class="button__content">
+                <p class="property-model-editor__image-text" translate="EDITOR_IMAGE_TITLE"></p>
+                <div class="step-operation__message"><label class="runtime-model-editor_label-btn" ng-class="{'model-editor__widget-wait-label':ctrl.isChanging,'runtime-model-editor__label-btn_checked':ctrl.runtimeViewModel['front'].attrOptions[0].isSelected}"><input class="label-btn__ckx-ipt" type="checkbox" ng-model="ctrl.runtimeViewModel['front'].attrOptions[0].isSelected" ng-change="ctrl.attributeChange(ctrl.runtimeViewModel['front'].attrOptions[0],ctrl.runtimeViewModel['front'])" ng-disabled="ctrl.isChanging"><span class="label-btn__span">Same for all
+                            front</span></label></div>
+                <div class="step-operation__message"><label class="runtime-model-editor_label-btn" ng-class="{'model-editor__widget-wait-label':ctrl.isChanging,'runtime-model-editor__label-btn_checked':ctrl.runtimeViewModel['front'].attrOptions[1].isSelected}"><input class="label-btn__ckx-ipt" type="checkbox" ng-model="ctrl.runtimeViewModel['front'].attrOptions[1].isSelected" ng-change="ctrl.attributeChange(ctrl.runtimeViewModel['front'].attrOptions[1],ctrl.runtimeViewModel['front'])" ng-disabled="ctrl.isChanging"><span class="label-btn__span">Different for all
+                            fronts</span></label></div>
+                <div ng-if="ctrl.runtimeViewModel.showColorModel"></div>
+            </div>
+        </div>
+        <div class="property-model-editor__attribute-container">
+            <p class="property-model-editor__attribute-tip"><span translate="EDITOR_FRONTBACK_TIP_1"></span><b><span translate="EDITOR_FRONTBACK_TIP_BACK" translate-values="{productKey:ctrl.runtimeViewModel.product}"></span></b></p>
+            <div class="button__content">
+                <p class="property-model-editor__image-text" translate="EDITOR_IMAGE_TITLE"></p>
+                <div class="step-operation__message"><label class="runtime-model-editor_label-btn" ng-class="{'model-editor__widget-wait-label':ctrl.isChanging,'runtime-model-editor__label-btn_checked':ctrl.runtimeViewModel['back'].attrOptions[0].isSelected}"><input class="label-btn__ckx-ipt" type="checkbox" ng-model="ctrl.runtimeViewModel['back'].attrOptions[0].isSelected" ng-change="ctrl.attributeChange(ctrl.runtimeViewModel['back'].attrOptions[0],ctrl.runtimeViewModel['back'])" ng-disabled="ctrl.isChanging"><span class="label-btn__span">Same for all back</span></label>
+                </div>
+                <div class="step-operation__message"><label class="runtime-model-editor_label-btn" ng-class="{'model-editor__widget-wait-label':ctrl.isChanging,'runtime-model-editor__label-btn_checked':ctrl.runtimeViewModel['back'].attrOptions[1].isSelected}"><input class="label-btn__ckx-ipt" type="checkbox" ng-model="ctrl.runtimeViewModel['back'].attrOptions[1].isSelected" ng-change="ctrl.attributeChange(ctrl.runtimeViewModel['back'].attrOptions[1],ctrl.runtimeViewModel['back'])" ng-disabled="ctrl.isChanging"><span class="label-btn__span">Different for all
+                            backs</span></label></div>
+            </div>
+        </div>
+        <div class="property-model-editor__attribute-container" ng-if="ctrl.runtimeViewModel.ModeSelect">
+            <div class="property-model-editor__step-container"><b><span translate="STEPTITLE" translate-values="{indexNum:2}"></span></b></div>
+            <p class="property-model-editor__attribute-tip">Please select which method to create your box</p>
+            <div class="button__content">
+                <div class="step-operation__message"><label class="runtime-model-editor_label-btn" ng-class="{'model-editor__disabled':ctrl.runtimeViewModel.ModeSelect.readOnly,'runtime-model-editor__label-btn_checked':ctrl.runtimeViewModel['ModeSelect'].attrOptions[0].isSelected}"><input class="label-btn__ckx-ipt" type="checkbox" ng-model="ctrl.runtimeViewModel['ModeSelect'].attrOptions[0].isSelected" ng-change="ctrl.attributeChange(ctrl.runtimeViewModel['ModeSelect'].attrOptions[0],ctrl.runtimeViewModel['ModeSelect'])" ng-disabled="ctrl.runtimeViewModel.ModeSelect.readOnly"><span class="label-btn__span">Easy
+                            Option</span></label></div>
+                <div class="step-operation__message"><label class="runtime-model-editor_label-btn" ng-class="{'model-editor__disabled':ctrl.runtimeViewModel.ModeSelect.readOnly,'runtime-model-editor__label-btn_checked':ctrl.runtimeViewModel['ModeSelect'].attrOptions[1].isSelected}"><input class="label-btn__ckx-ipt" type="checkbox" ng-model="ctrl.runtimeViewModel['ModeSelect'].attrOptions[1].isSelected" ng-change="ctrl.attributeChange(ctrl.runtimeViewModel['ModeSelect'].attrOptions[1],ctrl.runtimeViewModel['ModeSelect'])" ng-disabled="ctrl.runtimeViewModel.ModeSelect.readOnly"><span class="label-btn__span">Advanced Option</span></label></div>
+                <div ng-if="ctrl.runtimeViewModel.showColorModel"></div>
+                <p class="button__model_explain">This option is for the advanced designer which requires user to
+                    download a box template for design using their own graphicaediting software such as Ai before
+                    uploading it back to our builder.</p>
+            </div>
+        </div>
+    </div>
+    <p class="property-model-editor__notice">{{ctrl.runtimeViewModel.noticeKey|translate}}</p>
+</div>

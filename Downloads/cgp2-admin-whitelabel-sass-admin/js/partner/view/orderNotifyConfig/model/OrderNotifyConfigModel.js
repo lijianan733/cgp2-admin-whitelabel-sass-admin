@@ -1,0 +1,35 @@
+/**
+ * Created by nan on 2017/12/19.
+ */
+Ext.define('CGP.partner.view.orderNotifyConfig.model.OrderNotifyConfigModel',{
+    extend:'Ext.data.Model',
+    idProperty:'_id',
+    fields:[
+        {
+            name:'_id',
+            type:'string',
+            useNull:true
+        },
+        {
+            name:'clazz',
+            type:'string'
+        },
+        {
+            name:'statusId',
+            type:'string'
+        },
+        {
+            name:'statusName',
+            type:'string'
+        },
+        {
+            name:'test',
+            type:'boolean'
+        },
+        {
+            name:'restHttpRequestConfigs',
+            type:'object'
+        }
+
+    ]
+})

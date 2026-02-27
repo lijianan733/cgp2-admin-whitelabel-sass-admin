@@ -1,0 +1,148 @@
+<!-- Created by nan on 2022/1/25 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>operationLogEdit</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript"
+            src="../../js/common/field/RtTypeSelectField.js"></script>
+    <script type="text/javascript"
+            src="../../js/common/rttypetortobject/view/RtTypeToRtObjectForm.js"></script>
+</head>
+<style>
+</style><script>
+    Ext.onReady(function () {
+        //条件组件修改
+        var page = Ext.create('Ext.container.Viewport', {
+            layout: 'vbox',
+            defaults: {
+                width: 500,
+                height: 500
+            }
+        });
+        var form1 = Ext.widget('errorstrickform', {
+            defaults: {
+                margin: 25,
+            },
+            items: [
+                {
+                    xtype: 'rttypeselectfield',
+                    multiselect: true,
+                    fieldLabel: i18n.getKey('rtType'),
+                },
+                {
+                    xtype: 'displayfield',
+                    value: 'aaaaaaaaaaaaa',
+                    itemId: 'aaaaaaaaaaaaa',
+                    fieldLabel: i18n.getKey('rtType'),
+                    listeners: {
+                        el: {
+                            click: function (ev, li) {
+
+                                // Toggle a CSS class on the li when it is clicked
+                            }
+                        }
+                    }
+                },
+                {
+                    name: 'customTypeComp',
+                    xtype: 'uxtreecombohaspaging',
+                    fieldLabel: i18n.getKey('spuRtType'),
+                    itemId: 'customTypeComp',
+                    displayField: 'name',
+                    multiselect: true,
+                    infoUrl: adminPath + 'api/rtTypes/{id}',
+                    valueField: '_id',
+                    editable: false,
+                    rootVisible: false,
+                    selectChildren: false,
+                    canSelectFolders: true,
+                    width: 450,
+                    matchFieldWidth: true,
+                    store: Ext.create('CGP.material.store.RtType'),
+                    defaultColumnConfig: {
+                        renderer: function (value, metadata, record) {
+                            return record.get("name") + '<font color="green"><' + record.get('_id') + '></font>';
+                        }
+                    },
+                    showSelectColumns: [
+                        {
+                            dataIndex: '_id',
+                            flex: 1,
+                            text: i18n.getKey('id')
+                        },
+                        {
+                            dataIndex: 'name',
+                            text: i18n.getKey('name'),
+                            flex: 2
+                        }
+                    ],
+                    diySetValue: function (id) {
+                        var me = this;
+                        me.setInitialValue(id);
+                    },
+                    listeners: {
+                        expand: function () {
+
+                        }
+                    }
+                }
+            ],
+            tbar: [
+                {
+                    xtype: 'button',
+                    text: 'get',
+                    handler: function (btn) {
+                        var form = btn.ownerCt.ownerCt;
+                        var isValid = true;
+                        form.items.items.forEach(function (item) {
+                            if (item.disabled == false) {
+                                if (item.isValid() == false) {
+                                    isValid = false;
+                                }
+                            }
+                        });
+                        window.data = form.getValue();
+                        console.log(window.data)
+                    }
+                },
+                {
+                    xtype: 'button',
+                    text: 'set',
+                    handler: function (btn) {
+                        var form = btn.ownerCt.ownerCt;
+                        form.setValue(window.data);
+                    }
+                }
+            ]
+        });
+        /*        var RtTypeToRtObjectForm = Ext.create('CGP.common.rttypetortobject.view.RtTypeToRtObjectForm', {
+                    hideRtType: false,
+                    minHeight: 100,
+                    padding: 0,
+                    margin: 0,
+                    itemId: 'rtTypeToRtObjectForm',
+                    maxHeight: 300,
+                    autoScroll: true,
+                    name: 'rtObject',
+                    fieldLabel: '上下文',
+                    rtTypeId: null,
+                    rtType: null,
+                    viewConfig: {
+                        stripeRows: true,
+                    }
+                })*/
+        page.add([form1/*, RtTypeToRtObjectForm*/]);
+    })
+</script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>text</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../../ClientLibs/extjs/resources/css/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../ClientLibs/extjs/ux/grid/plugin/MultipleSort.css">
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-lang.js"></script>
+    <script src="../../../ClientLibs/jquery/jquery.magnific-popup.js"></script>
+
+    <style>
+        .vertical-middle {
+            vertical-align: middle;
+        }
+
+        /**自定义file上传的按钮对齐 **/
+        .x-form-item-body td {
+            vertical-align: top;
+        }
+    </style>
+    <script type="text/javascript">
+
+        Ext.onReady(function () {
+            Ext.create('Ext.container.Viewport', {
+                layout: 'border',
+                renderTo: Ext.getBody(),
+                items: [
+                    {
+                        region: 'north',
+                        html: '<h1 class="x-panel-header">Page Title</h1>',
+                        border: false,
+                        margins: '0 0 5 0'
+                    },
+                    Ext.create('Ext.form.Panel', {
+                        itemId: 'testForm',
+                        tbar: [
+                            {
+                                xtype: 'button',
+                                iconCls: 'icon_save',
+                                text: i18n.getKey('save'),
+                                handler: function (btn) {
+                                    var from = btn.ownerCt.ownerCt;
+                                    var data = from.getValues();
+                                    console.log(JSON.stringify(data));
+                                }
+                            }
+                        ],
+                        items: [
+                            {
+                                xtype: "textfield",
+                                fieldLabel: i18n.getKey('compose'),
+                                name: 'name',
+
+                            },
+                            {
+                                xtype: 'checkboxgroup',
+                                fieldLabel: i18n.getKey('compose') + i18n.getKey('type'),
+                                name: 'supportTypes',
+                                columns: 2,
+                                vertical: true,
+                                items: [
+                                    {
+                                        boxLabel: i18n.getKey('NORMAL') + i18n.getKey('compose'),
+                                        name: 'rb',
+                                        inputValue: 'DEFAULT'
+                                    },
+                                    {
+                                        boxLabel: i18n.getKey('template') + i18n.getKey('compose'),
+                                        name: 'rb',
+                                        inputValue: 'TEMPLATE'
+                                    }
+                                ]
+                            }
+                        ]
+                    })
+                ]
+            })
+
+        });
+    </script>
+
+
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+[{
+                            name: 'All Type',
+                            value: ''
+                        }, {
+                            name: 'TextField',
+                            value: 'TextField'
+                        },
+                        {
+                            name: 'TextArea',
+                            value: 'TextArea'
+                        },
+                        {
+                            name: 'Date',
+                            value: 'Date'
+                        },
+                        {
+                            name: 'File',
+                            value: 'File'
+                        },
+                        {
+                            name: 'Canvas',
+                            value: 'Canvas'
+                        },
+                        {
+                            name: 'DropList',
+                            value: 'DropList'
+                        },
+                        {
+                            name: 'CheckBox',
+                            value: 'CheckBox'
+                        },
+                        {
+                            name: 'RadioButtons',
+                            value: 'RadioButtons'
+                        },
+                        {
+                            name: 'YesOrNo',
+                            value: 'YesOrNo'
+                        },
+                        {
+                            name: 'Color',
+                            value: 'Color'
+                        },
+                        {
+                            name: 'DiyConfig',
+                            value: 'DiyConfig'
+                        },
+                        {
+                            name: 'DiyDesign',
+                            value: 'DiyDesign'
+                        }]

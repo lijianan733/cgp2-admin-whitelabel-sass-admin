@@ -1,0 +1,104 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "angular@^1.6.6",
+        "scope": null,
+        "escapedName": "angular",
+        "name": "angular",
+        "rawSpec": "^1.6.6",
+        "spec": ">=1.6.6 <2.0.0",
+        "type": "range"
+      },
+      "D:\\weixingren\\Git-items\\H5-builder"
+    ]
+  ],
+  "_cnpm_publish_time": 1533755997743,
+  "_from": "angular@>=1.6.6 <2.0.0",
+  "_hasShrinkwrap": false,
+  "_id": "angular@1.7.3",
+  "_inCache": true,
+  "_location": "/angular",
+  "_nodeVersion": "8.11.3",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/angular_1.7.3_1533755997590_0.24369997021574408"
+  },
+  "_npmUser": {
+    "name": "petebd",
+    "email": "pete@bacondarwin.com"
+  },
+  "_npmVersion": "5.6.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "angular@^1.6.6",
+    "scope": null,
+    "escapedName": "angular",
+    "name": "angular",
+    "rawSpec": "^1.6.6",
+    "spec": ">=1.6.6 <2.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/",
+    "/angular-ui-grid"
+  ],
+  "_resolved": "http://192.168.26.34:8081/repository/qp-npm-group/angular/-/angular-1.7.3.tgz",
+  "_shasum": "0f25a661d079fc84d5ccc877a2ef9d7178575ddb",
+  "_shrinkwrap": null,
+  "_spec": "angular@^1.6.6",
+  "_where": "D:\\weixingren\\Git-items\\H5-builder",
+  "author": {
+    "name": "Angular Core Team",
+    "email": "angular-core+npm@google.com"
+  },
+  "bugs": {
+    "url": "https://github.com/angular/angular.js/issues"
+  },
+  "dependencies": {},
+  "description": "HTML enhanced for web apps",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "0f25a661d079fc84d5ccc877a2ef9d7178575ddb",
+    "size": 620656,
+    "noattachment": false,
+    "tarball": "http://192.168.26.34:8081/repository/qp-npm-group/angular/-/angular-1.7.3.tgz"
+  },
+  "gitHead": "dbf96678470a684d972c44adce8a4b5c45351e4a",
+  "homepage": "http://angularjs.org",
+  "keywords": [
+    "angular",
+    "framework",
+    "browser",
+    "client-side"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "angular",
+      "email": "angular-core+npm@google.com"
+    },
+    {
+      "name": "angularcore",
+      "email": "angular-core+npm@google.com"
+    },
+    {
+      "name": "petebd",
+      "email": "pete@bacondarwin.com"
+    }
+  ],
+  "name": "angular",
+  "optionalDependencies": {},
+  "publish_time": 1533755997743,
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular/angular.js.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.7.3"
+}

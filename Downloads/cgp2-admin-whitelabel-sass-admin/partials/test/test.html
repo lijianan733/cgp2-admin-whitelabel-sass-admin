@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>text</title>
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js" ></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript" src="../../js/product/controller/AttributePropertyDtoTransformController.js"></script>
+    <content x y>
+        <style>
+            .vertical-middle {
+                vertical-align: middle;
+            }
+            /**自定义file上传的按钮对齐 **/
+            .x-form-item-body td {vertical-align: top;}
+        </style>
+        <script type="text/javascript">
+
+
+            /*Ext.onReady(function () {
+
+                var controller = Ext.create('CGP.product.controller.AttributePropertyDtoTransformController');
+
+                //测试单选
+                document.write("测试单选<br/>")
+                var propertyPathValue= {
+                    "clazz" : "com.qpp.cgp.domain.executecondition.operation.value.PropertyPathValue",
+                    "propertyName" : "Value",
+                    "attributeProfile" : {
+                        "clazz" : "com.qpp.cgp.domain.attributeconfig.AttributeProfile",
+                        "_id" : "1436950"
+                    },
+                    "skuAttributeId" : "133839",
+                    "skuAttribute" : {
+                        "id" : 133839,
+                        "code" : "",
+                        "name" : "",
+                        "inputType" : "",
+                        "options" : "",
+                        "displayName" : "Finish",
+                        "description" : "",
+                        "attribute" : {
+                            "id" : 133726,
+                            "name" : "Finish",
+                            "required" : true,
+                            "inputType" : "DropList",
+                            "validationExp" : "",
+                            "options" : [
+                                {
+                                    "id" : 133727,
+                                    "name" : "Matt Finish",
+                                    "sortOrder" : 0,
+                                    "imageUrl" : "",
+                                    "value" : "Matt Finish",
+                                    "displayValue" : "Matt Finish",
+                                    "multilingualKey" : "com.qpp.cgp.domain.attribute.AttributeOption"
+                                },
+                                {
+                                    "id" : 133728,
+                                    "name" : "Gloss Finish",
+                                    "sortOrder" : 1,
+                                    "imageUrl" : "",
+                                    "value" : "Gloss Finish",
+                                    "displayValue" : "Gloss Finish",
+                                    "multilingualKey" : "com.qpp.cgp.domain.attribute.AttributeOption"
+                                }
+                            ],
+                            "code" : "Function_Pentagon_box_Finish",
+                            "showInFrontend" : true,
+                            "sortOrder" : 0,
+                            "valueType" : "String",
+                            "selectType" : "SINGLE",
+                            "multilingualKey" : "com.qpp.cgp.domain.attribute.Attribute"
+                        },
+                        "isSku" : true,
+                        "detail" : "",
+                        "placeholder" : "",
+                        "attributeName" : "Finish<133839>"
+                    }
+                };
+                //测试value
+                var valueResult = controller.getPropertyPathValue(propertyPathValue);
+                document.write("value property path test result:")
+                document.write(valueResult == "profiles['1436950']['133839']['Value'][0]");
+
+                document.write("<br/>")
+
+                //测试enable
+                propertyPathValue.propertyName = 'Enable';
+                valueResult = controller.getPropertyPathValue(propertyPathValue);
+                document.write("enable property path test result:")
+                document.write(valueResult == "profiles['1436950']['133839']['enableOption'][0]");
+
+
+                function testBaseValue(baseValue) {
+                    if(baseValue.clazz  == 'FixValue'){
+
+
+                    }else if(baseValue.clazz  == 'CalculationTemplateValue'){
+
+                    }
+                }
+                function testCondition() {
+
+                }
+                function testOperation(operation) {
+                    if(operation.clazz == 'BetweenOperation'){
+
+                    }else if(operation.clazz == 'CompareOperation'){
+
+                    }
+                }
+                function testMappingRule() {
+
+                }
+                function testFixValue(fixValue) {
+                    if(baseValue.type == 'number'){
+                        Number(fixValue)
+                    }
+                }
+                function testCalculationTemplateValue(CalculationTemplateValueBearer 19adbd05-abff-441b-8ff1-31883658ae40) {
+
+                }
+            });*/
+            for (var i = 0;i <= 37; i++){
+                var id =  125179526+ i;
+                var task = new Ext.util.DelayedTask(function () {
+                    Ext.Ajax.request({
+                        method: 'PUT',
+                        url: 'http://192.168.13.33/cgp-rest/api/orderItems/'+arguments[0]+'/checkCustomsCategory?customsCategoryId=931707',
+                        headers: {
+                            Authorization: 'Bearer 86ab2593-9bd6-447e-adc7-0517899da02a'
+                        },
+                        success: function (resp, operation) {
+                            var response = Ext.JSON.decode(resp.responseText);
+                            if (response.success) {
+                                console.log(arguments[0]);
+                            } else {
+                                Ext.Msg.alert(i18n.getKey('requestFailed'), response.data.message);
+                            }
+                        },
+                        failure: function (resp, operation) {
+                            var response = Ext.JSON.decode(resp.responseText);
+                            Ext.Msg.alert(i18n.getKey('requestFailed'), response.data.message);
+                        }
+                    })
+                },[],[id,i]);
+                task.delay(4000*(i+1));
+            }
+        </script>
+
+
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!--create by nan -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>text</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+</head>
+<script>
+    Ext.onReady(function () {
+        var page = Ext.create('Ext.container.Viewport', {
+            layout: {
+                type: 'fit'
+            }
+        });
+        var form = Ext.create('Ext.form.Panel', {
+            layout: 'vbox',
+            bbar: [
+                '->',
+                {
+                    xtype: 'button',
+                    text: i18n.getKey('test'),
+                    handler: function (btn) {
+                        var form = btn.ownerCt.ownerCt;
+                        validExpressionContainer = form.items.items[0];
+                        var data = validExpressionContainer.getValidExpressionContainerValue();
+                        console.log(data);
+                    }
+                },
+                {
+                    xtype: 'button',
+                    text: i18n.getKey('text2'),
+                    handler: function (btn) {
+                    }
+                }
+            ]
+        })
+        var validExpressionContainer = Ext.create('CGP.common.valueExV3.view.ValidExpressionContainer', {
+            isCanUseTemplate: true
+        });
+        page.add(form);
+        form.add(validExpressionContainer);
+
+
+    })
+
+
+</script>
+<body>
+
+</body>
+</html>

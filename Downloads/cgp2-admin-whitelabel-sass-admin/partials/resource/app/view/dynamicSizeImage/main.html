@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../../../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../../../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../../../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../../../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../../../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript" src="Main.js"></script>
+    <script type="text/javascript">
+        Ext.application({
+            requires: 'Ext.container.Viewport',
+            name: 'CGP.resource',
+            appFolder: '../../../app',
+            controllers: [
+                'DynamicSizeImage'
+            ],
+            launch: function () {
+                Ext.create('CGP.resource.view.dynamicSizeImage.Main', {
+                    id:'dynamicSizeImageMain'
+                });
+            }
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

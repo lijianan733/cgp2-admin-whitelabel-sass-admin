@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>CGP后台管理网站</title>
+    <style>
+        body {
+            height: 2000px;
+            height: 20000px;
+            padding: 0;
+            margin: 0;
+        }
+
+        #canvas {
+            height: 100%;
+            width: 100%
+        }
+    </style>
+    <link rel="stylesheet" type="text/css"
+          href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/costombtn.css">
+    <link rel="stylesheet" type="text/css" href="../../bpmn-js-6.1.1/dist/assets/bpmn-font/css/bpmn.css"/>
+    <link rel="stylesheet" type="text/css" href="../../bpmn-js-6.1.1/dist/assets/diagram-js.css"/>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript"
+            src="../../js/product/view/productconfig/productdesignconfig/view/preprocessconfig/view/AddOperatorWin.js"></script>
+    <script src="../../bpmn-js-6.1.1/dist/bpmn-modeler.development.js"></script>
+
+</head>
+
+<body>
+<div id="canvas"></div>
+<script type="text/javascript">
+    var modeler = new BpmnJS({container: '#canvas'});
+    var elementFactory = modeler.get('elementFactory'),
+        modeling = modeler.get('modeling'),
+        canvas = modeler.get('canvas');
+    var createOrEdit = JSGetQueryString('createOrEdit');
+    var clazzId = JSGetQueryString('clazzId');
+    var initialDiagram = '';
+    if (createOrEdit == 'create') {
+        initialDiagram =
+            '<?xml version="1.0" encoding="UTF-8"?>' +
+            '<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+            'xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" ' +
+            'xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" ' +
+            'xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" ' +
+            'targetNamespace="http://bpmn.io/schema/bpmn" ' +
+            'id="Definitions_1">' +
+            '<bpmn:process id="Process_1" isExecutable="false">' +
+            '<bpmn:Task id="Task_1" name="target" calzz="sourceOprator" sourceType="target" clazzId="' + clazzId + '"/>' +
+            '</bpmn:process>' +
+            '<bpmndi:BPMNDiagram id="BPMNDiagram_1">' +
+            '<bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">' +
+            '<bpmndi:BPMNShape id="_BPMNShape_Task_2" bpmnElement="Task_1">' +
+            '<dc:Bounds height="80" width="100" x="173.0" y="102.0"/>' +
+            '</bpmndi:BPMNShape>' +
+            '</bpmndi:BPMNPlane>' +
+            '</bpmndi:BPMNDiagram>' +
+            '</bpmn:definitions>';
+    } else {
+        JSSendRequest('api/operatorcontroller/' + clazzId, 'GET', false, function (data) {
+            initialDiagram = data.graphData;
+        });
+    }
+
+    modeler.importXML(initialDiagram, function (evt) {
+
+        var eventBus = modeler.get('eventBus');
+
+        // you may hook into any of the following events
+        var events = [
+            'element.hover',
+            'element.out',
+            'element.click',
+            'element.dblclick',
+            'element.mousedown',
+            'element.mouseup'
+        ];
+        eventBus.on('element.dblclick', function (evt) {
+            var element = evt.element;
+            //console.log(element);
+            //console.log(initialDiagram);
+            if (element.type === 'bpmn:Task') {
+                //modeling.updateProperties(element,{x: 1000,y: 1000})
+                console.log(element);
+                //获取当前节点信息后执行回调，打开节点编辑弹窗
+                function callback(data) {
+                    var winTitle = element.businessObject.$attrs.clazz;
+                    if (element.businessObject.$attrs.sourceType == 'target') {
+                        winTitle = 'target';
+                    }
+                    Ext.create('CGP.product.view.productconfig.productdesignconfig.view.preprocessconfig.view.AddOperatorWin', {
+                        title: i18n.getKey('edit')+'(' + winTitle + ')',
+                        /*width: 200,
+                        height: 100,*/
+                        element: element,
+                        data: data,
+                        modal: true,
+                        bbar: ['->', {
+                            text: '保存',
+                            handler: function (btn) {
+                                //modeling.updateProperties(element,{name: 'source333','clazz': 'haha'});
+                                var win = btn.ownerCt.ownerCt;
+                                var form = win.form;
+                                if (form.isValid()) {
+                                    var sendData = {};
+                                    Ext.Array.each(form.items.items, function (item) {
+                                        sendData[item.name] = item.getValue();
+                                    })
+                                    //form.getValues();
+                                    for (var key in sendData) {
+                                        if (Ext.isEmpty(sendData[key])) {
+                                            sendData[key] = null;
+                                        }
+                                    }
+                                    sendData.source = data.source;
+                                    sendData.target = data.target;
+                                    var graphData = '';
+                                    modeler.saveXML({}, function (err, xml) {
+                                        sendData.graphData = xml;
+                                        graphData = xml;
+                                    });
+                                    //获取根节点信息并更新图形数据
+                                    function updateRootData(){
+
+                                        function getReturnValue(data) {
+                                            //替换为最新的图形数据
+                                            data.graphData = graphData;
+                                            //更新根节点数据
+                                            JSSendRequest('api/operatorcontroller/' + clazzId, 'PUT', false, null, data);
+                                            win.close();
+                                        }
+                                        //获取根节点数据
+                                        JSSendRequest('api/operatorcontroller/' + clazzId, 'GET', false, getReturnValue, null);
+                                    }
+                                    //保存当前编辑节点信息
+                                    JSSendRequest('api/operatorcontroller/' + element.businessObject.$attrs.clazzId, 'PUT', true, updateRootData, sendData);
+
+
+
+                                }
+
+                            }
+                        }, {
+                            xtype: 'button',
+                            text: i18n.getKey('cancel'),
+                            handler: function (btn) {
+                                var win = btn.ownerCt.ownerCt;
+                                win.close();
+                            }
+                        }]
+                    }).show();
+                };
+                var url = 'api/operatorcontroller/' + element.businessObject.$attrs.clazzId;
+                var method = 'GET';
+                //获取当前节点信息
+                JSSendRequest(url, method, true, callback);
+
+            }
+            //点击元素，弹出页面可以在这里写
+            //alert(0);
+        });
+
+    })
+
+</script>
+</body>
+
+
+</html>

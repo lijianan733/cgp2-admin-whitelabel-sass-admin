@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Ticket</title>
+    <style>
+        .vertical-middle {
+            vertical-align: middle;
+        }
+        /**自定义file上传的按钮对齐 **/
+        .x-form-item-body td {vertical-align: top;}
+    </style>
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js" ></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../js/test/TestA.js"></script>
+    <script type="text/javascript">
+        var data = [
+            {
+                "id" : 9838441,
+                "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavBarDto",
+                "description" : "骰子-主导航1",
+                "isOrderly" : true,
+                "useHistory" : true
+            },
+            {
+                "id" : 9838454,
+                "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavItemDto",
+                "parent" : {
+                    "id" : 9838441,
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavBarDto"
+                },
+                "displayName" : "Customize",
+                "displayTitle" : "STEP_NAME_ONE_TITLE",
+                "targetSelector" : {
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.config.IdTargetSelector",
+                    "targetId" : 0
+                }
+            },
+            {
+                "id" : 9838529,
+                "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavBarDto",
+                "parent" : {
+                    "id" : 9838454,
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavItemDto"
+                },
+                "description" : "骰子-子导航",
+                "isOrderly" : false
+            },
+            {
+                "id" : 9838530,
+                "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavItemDto",
+                "parent" : {
+                    "id" : 9838529,
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavBarDto"
+                },
+                "displayName" : "top",
+                "displayTitle" : "STEP_NAME_TOP",
+                "targetSelector" : {
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.config.IdTargetSelector",
+                    "targetId" : 0
+                }
+            },
+            {
+                "id" : 9838855,
+                "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavItemDto",
+                "parent" : {
+                    "id" : 9838529,
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavBarDto"
+                },
+                "displayName" : "front",
+                "displayTitle" : "STEP_NAME_FRONT",
+                "targetSelector" : {
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.config.IdTargetSelector",
+                    "targetId" : 0
+                }
+            },
+            {
+                "id" : 9838860,
+                "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavItemDto",
+                "parent" : {
+                    "id" : 9838529,
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavBarDto"
+                },
+                "displayName" : "right",
+                "displayTitle" : "STEP_NAME_RIGHT",
+                "targetSelector" : {
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.config.IdTargetSelector",
+                    "targetId" : 0
+                }
+            },
+            {
+                "id" : 9838865,
+                "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavItemDto",
+                "parent" : {
+                    "id" : 9838529,
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavBarDto"
+                },
+                "displayName" : "back",
+                "displayTitle" : "STEP_NAME_BACK",
+                "targetSelector" : {
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.config.IdTargetSelector",
+                    "targetId" : 0
+                }
+            },
+            {
+                "id" : 9838866,
+                "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavItemDto",
+                "parent" : {
+                    "id" : 9838529,
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavBarDto"
+                },
+                "displayName" : "left",
+                "displayTitle" : "STEP_NAME_LEFT",
+                "targetSelector" : {
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.config.IdTargetSelector",
+                    "targetId" : 0
+                }
+            },
+            {
+                "id" : 9838894,
+                "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavItemDto",
+                "parent" : {
+                    "id" : 9838529,
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavBarDto"
+                },
+                "sortOrder" : 6,
+                "displayName" : "bottom",
+                "displayTitle" : "STEP_NAME_BOTTOM",
+                "targetSelector" : {
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.config.IdTargetSelector",
+                    "targetId" : 0
+                }
+            },
+            {
+                "id" : 10154905,
+                "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavBarDto",
+                "parent" : {
+                    "id" : 9838894,
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavItemDto"
+                },
+                "description" : "test1",
+                "isOrderly" : true,
+                "useHistory" : true
+            },
+            {
+                "id" : 10154942,
+                "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavBarDto",
+                "parent" : {
+                    "id" : 9838894,
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavItemDto"
+                },
+                "description" : "test1",
+                "isOrderly" : true,
+                "useHistory" : true
+            },
+            {
+                "id" : 10155226,
+                "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavBarDto",
+                "parent" : {
+                    "id" : 9838894,
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavItemDto"
+                },
+                "description" : "test1",
+                "isOrderly" : true,
+                "useHistory" : true
+            },{
+                "id" : 222222,
+                "displayName" : "left",
+                "displayTitle" : "STEP_NAME_LEFT",
+                "targetSelector" : {
+                    "targetId" : 0,
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.config.IdTargetSelector"
+                },
+                "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavItemDto",
+                "parent" : {
+                    "id" : 10155226,
+                    "clazz" : "com.qpp.cgp.domain.product.config.view.navigation.dto.FixedNavBarDto"
+                }
+            }
+        ];
+        dataStructureCreate(data);
+
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

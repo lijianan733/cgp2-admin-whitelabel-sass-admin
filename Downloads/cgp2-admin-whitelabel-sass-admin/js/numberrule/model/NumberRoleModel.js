@@ -1,0 +1,50 @@
+/**
+ * Created by nan on 2017/12/14.
+ */
+Ext.define('CGP.numberrule.model.NumberRoleModel',{
+    extend:'Ext.data.Model',
+    idProperty:'id',
+    fields:[
+        {
+            name:'id',
+            type:'int',
+            useNull:true
+        },
+        {
+            name:'format',
+            type:'string'
+        },
+        {
+            name:'largest',
+            type:'int'
+        },
+        {
+            name:'name',
+            type:'string'
+        },
+        {
+            name:'serial',
+            type:'int'
+        },
+        {
+            name:'serialRegenBaseDay',
+            type:'boolean'
+        },
+        {
+            name:'smallest',
+            type:'int'
+        },
+        {
+            name:'website',
+            type:'object'
+        }
+    ],
+    proxy : {
+        type : 'uxrest',
+        url : adminPath + 'api/numberRules',
+        reader:{
+            type:'json',
+            root:'data'
+        }
+    }
+})

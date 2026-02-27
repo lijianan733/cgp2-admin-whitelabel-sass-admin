@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>edit</title>
+    <style>
+        .vertical-middle {
+            vertical-align: middle;
+        }
+        .padding-right-ten {
+            padding-right:10px
+        }
+        /**自定义file上传的按钮对齐 **/
+        .x-form-item-body td {vertical-align: top;}
+    </style>
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js" ></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript" src="../../js/threedpreviewplan/edit.js"></script>
+    <script type="text/javascript">
+        Ext.onReady(function () {
+            var page = Ext.create('Ext.container.Viewport', {
+                layout: 'fit'
+            });
+            var formPanel = Ext.create('CGP.threedpreviewplan.edit', {
+
+            });
+            page.add(formPanel);
+        })
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

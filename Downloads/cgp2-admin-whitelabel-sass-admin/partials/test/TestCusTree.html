@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Ticket</title>
+    <style>
+        .vertical-middle {
+            vertical-align: middle;
+        }
+        /**自定义file上传的按钮对齐 **/
+        .x-form-item-body td {vertical-align: top;}
+    </style>
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js" ></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript">
+
+        Ext.onReady(function () {
+            var store = Ext.create('Ext.data.TreeStore', {
+                root: {
+                    expanded: true,
+                    children: [
+                        { text: "detention", leaf: true },
+                        { text: "homework", expanded: true, children: [
+                                { text: "book report", leaf: true },
+                                { text: "algebra", leaf: true}
+                            ] },
+                        { text: "buy lottery tickets", leaf: true }
+                    ]
+                },
+                proxy: 'memory'
+            });
+
+            Ext.create('Ext.tree.Panel', {
+                title: 'Simple Tree',
+                width: 500,
+                height: 500,
+                store: store,
+                rootVisible: false,
+                renderTo: Ext.getBody(),
+                tbar: ['->',{
+                    xtype: 'button',
+                    text: 'get',
+                    handler: function(){
+                        var tree = this.ownerCt.ownerCt;
+                        console.log(tree.getSelectionModel().getSelection()[0]);
+                        console.log(tree.getStore().getRootNode().childNodes[1].childNodes[0]);
+                        //me.getStore().add([{id: 1,name: 'test2'}])
+                    }
+                },{
+                    xtype: 'button',
+                    text: 'getaaa',
+                    handler: function(){
+                        var tree = this.ownerCt.ownerCt;
+                        tree.getSelectionModel().getSelection()[0].set('text','yyyyyyy')
+                        //console.log(me.getStore().getById(1))
+                    }
+                },{
+                    xtype: 'button',
+                    text: 'load',
+                    handler: function(){
+                        var tree = this.ownerCt.ownerCt;
+                        tree.getStore().load({
+                            node: tree.getSelectionModel().getSelection()[0].parentNode
+                        });
+                        //console.log(me.getStore().getById(1))
+                    }
+                }]
+            });
+            /*var page = Ext.create('CGP.test.TreeField',{
+                renderTo: Ext.getBody(),
+                fieldLabel: 'options',
+                itemId: 'options',
+                id: 'options'
+            });*/
+        });
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

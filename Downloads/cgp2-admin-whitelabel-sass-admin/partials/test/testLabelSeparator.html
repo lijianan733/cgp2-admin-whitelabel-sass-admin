@@ -1,0 +1,224 @@
+<!--create by nan -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>operationLogEdit</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+</head>
+<script>
+    Ext.onReady(function () {
+        Ext.define('Base', {
+            override: 'Ext.form.field.Base',
+            initRenderTpl: function () {
+                var me = this;
+               ;
+                me.labelSeparator = me.allowBlank ? ':' : ':<span style="color: rgb(255, 0, 0); padding-left: 2px;">*</span>';
+                if (!me.hasOwnProperty('renderTpl')) {
+                    me.renderTpl = me.getTpl('labelableRenderTpl');
+                }
+                return me.callParent();
+            }
+        });
+        Ext.define('fieldContainer', {
+            override: 'Ext.form.FieldContainer',
+            initRenderTpl: function () {
+                var me = this;
+               ;
+                me.labelSeparator = me.allowBlank ? ':' : ':<span style="color: rgb(255, 0, 0); padding-left: 2px;">*</span>';
+                if (!me.hasOwnProperty('renderTpl')) {
+                    me.renderTpl = me.getTpl('labelableRenderTpl');
+                }
+                return me.callParent();
+            }
+        });
+        var page = Ext.create('Ext.container.Viewport', {
+            layout: 'fit'
+        });
+        var form = Ext.create('Ext.form.Panel', {
+            tbar: [{
+                xtype: 'button',
+                handler: function (btn) {
+                    btn.ownerCt.ownerCt.isValid();
+                }
+            }],
+            items: [
+                {
+                    xtype: 'textfield',
+                    text: i18n.getKey('text'),
+                    allowBlank: false,
+                    fieldLabel: 'text',
+                    listeners: {
+                        'afterrender': function () {
+                            var me = this;
+                            me.allowBlank = true;
+                            me.labelSeparator = ':';
+                            me.setFieldLabel('adf');
+
+                        }
+                    }
+
+                }, {
+                    xtype: 'textfield',
+                    text: i18n.getKey('text'),
+                    allowBlank: true,
+                    fieldLabel: 'text'
+
+                },
+                {
+                    xtype: 'fieldcontainer',
+                    allowBlank: false,
+                    fieldLabel: 'fieldcontainer',
+                    items: [
+                        {
+                            xtype: 'textfield',
+                            text: i18n.getKey('text'),
+                            allowBlank: true,
+                            fieldLabel: 'text'
+                        }
+                    ]
+                },
+                {
+                    xtype: 'fieldcontainer',
+                    allowBlank: true,
+                    fieldLabel: 'fieldcontainer',
+                    items: [
+                        {
+                            xtype: 'textfield',
+                            text: i18n.getKey('text'),
+                            allowBlank: true,
+                            fieldLabel: 'text'
+                        }
+                    ]
+                },
+                {
+                    xtype: 'gridfield',
+                    name: 'inputs',
+                    itemId: 'inputs',
+                    allowBlank: false,
+                    fieldLabel: i18n.getKey('input'),
+                    width: 665,
+                    height: 200,
+                    msgTarget: 'none',
+                    gridConfig: {
+                        height: 200,
+                        width: 545,
+                        store: Ext.create('Ext.data.Store', {
+                            autoSync: true,
+                            fields: [
+                                {name: 'name', type: 'string'},
+                                {name: 'clazz', type: 'string'},
+                                {name: 'value', type: 'object'}
+                            ],
+                            data: []
+                        }),
+                        columns: [
+                            {
+                                xtype: 'actioncolumn',
+                                tdCls: 'vertical-middle',
+                                itemId: 'actioncolumn',
+                                width: 60,
+                                sortable: false,
+                                resizable: false,
+                                menuDisabled: true,
+                                items: [
+                                    {
+                                        iconCls: 'icon_edit icon_margin',
+                                        itemId: 'actionedit',
+                                        tooltip: 'Edit',
+                                        handler: function (view, rowIndex, colIndex) {
+                                            me.handlerEdit(view, rowIndex);
+                                        }
+                                    },
+                                    {
+                                        iconCls: 'icon_remove icon_margin',
+                                        itemId: 'actionremove',
+                                        tooltip: 'Remove',
+                                        handler: function (view, rowIndex, colIndex) {
+                                            var store = view.getStore();
+                                            store.removeAt(rowIndex);
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                text: i18n.getKey('type'),
+                                dataIndex: 'clazz',
+                                width: 150,
+                                tdCls: 'vertical-middle',
+                                renderer: function (value, metadata) {
+                                    metadata.tdAttr = 'data-qtip="' + value.substring(value.lastIndexOf('.') + 1, (value.length)) + '"';//显示的文本
+                                    return value.substring(value.lastIndexOf('.') + 1, (value.length));
+                                }
+                            },
+                            {
+                                text: i18n.getKey('name'),
+                                dataIndex: 'name',
+                                tdCls: 'vertical-middle'
+
+                            },
+                            {
+                                text: i18n.getKey('value'),
+                                dataIndex: 'value',
+                                tdCls: 'vertical-middle',
+                                width: 200,
+                                xtype: 'componentcolumn',
+                                renderer: function (value, metadata) {
+                                    var id = JSGetUUID();
+                                    var expression = null;
+                                    var returnstr = '';
+                                    for (var i in value) {
+                                        if (i == 'clazz') {
+                                            returnstr += i + ' :  ' + value[i].substring(value[i].lastIndexOf('.') + 1, value[i].length) + '<br>';
+                                        } else if (i == 'expression') {
+                                            returnstr += '<a href="#" id=' + id + '>' + '查看表达式' + '</a>';
+                                            expression = value[i];
+                                        } else {
+                                            returnstr += i + ' :  ' + value[i] + '<br>';
+                                        }
+                                    }
+                                    return {
+                                        xtype: 'displayfield',
+                                        value: returnstr,
+                                        listeners: {
+                                            render: function (display) {
+                                                var clickElement = document.getElementById(id);
+                                                if (!Ext.isEmpty(clickElement)) {
+                                                    clickElement.addEventListener('click', function () {
+                                                        me.showExpression(expression);
+                                                    }, false);
+                                                }
+                                            }
+                                        }
+                                    };
+                                }
+                            }
+                        ],
+                        tbar: [
+                            {
+                                text: i18n.getKey('create'),
+                                iconCls: 'icon_create',
+                                handler: function (view) {
+                                    me.handlerCreate(view, this.ownerCt.ownerCt.store);
+                                }
+                            }
+                        ]
+
+                    }
+                }
+
+            ]
+        });
+        page.add([form]);
+    })
+</script>
+<body>
+
+
+</body>
+</html>

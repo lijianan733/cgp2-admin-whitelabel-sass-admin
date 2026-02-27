@@ -1,0 +1,64 @@
+<!--create by nan -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>operationLogEdit</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../../../../ClientLibs/extjs/resources/custom-theme/custom_theme.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../../../../ClientLibs/extjs/resources/css/icon.css">
+    <style>
+        .vertical-middle {
+            vertical-align: middle;
+        }
+    </style>
+    <script type="text/javascript" src="../../../../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../../../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../../../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript"
+            src="../../../../../js/product/view/productconfig/productdesignconfig/view/productmaterialviewtype/EditTab.js"></script>
+    <script type="text/javascript"
+            src="../../../../../js/product/view/productconfig/productdesignconfig/view/productmaterialviewtype/model/ProductMaterialViewTypeVersionFiveModel.js"></script>
+    <script type="text/javascript">
+        Ext.onReady(function () {
+            var page = Ext.create('Ext.container.Viewport', {
+                layout: 'fit'
+            });
+            var schemaVersion =JSGetQueryString('schemaVersion');//配置版本'4,'5'
+            var editOrNew = JSGetQueryString('recordId');
+            var recordId = JSGetQueryString('recordId');
+            var productId = JSGetQueryString('productId');
+            var productConfigDesignId = JSGetQueryString('productConfigDesignId');
+            var productBomConfigId = JSGetQueryString('productBomConfigId');
+            var tabPanel = Ext.create('CGP.product.view.productconfig.productdesignconfig.view.productmaterialviewtype.EditTab', {
+                editOrNew: editOrNew,
+                recordId: recordId,
+                productId: productId,
+                schemaVersion: schemaVersion,
+                productBomConfigId: productBomConfigId,
+                productConfigDesignId: productConfigDesignId
+            });
+            if (recordId) {
+                CGP.product.view.productconfig.productdesignconfig.view.productmaterialviewtype.model.ProductMaterialViewTypeVersionFiveModel.load(recordId, {
+                    scope: this,
+                    failure: function (record, operation) {
+                        //do something if the load failed
+                    },
+                    success: function (record, operation) {
+                        //do something if the load succeeded
+                        var data = record.getData();
+                        tabPanel.setValue(data);
+                    },
+                    callback: function (record, operation) {
+                        //do something whether the load succeeded or failed
+                    }
+                })
+            }
+            page.add(tabPanel);
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>

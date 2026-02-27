@@ -1,0 +1,1 @@
+Ext.define('CGP.contactInformations.contorller.Contorller',{})

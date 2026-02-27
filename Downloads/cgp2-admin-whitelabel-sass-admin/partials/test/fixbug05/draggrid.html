@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>text</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../../ClientLibs/extjs/resources/css/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../ClientLibs/extjs/ux/grid/plugin/MultipleSort.css">
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-lang.js"></script>
+    <script src="../../../ClientLibs/jquery/jquery.magnific-popup.js"></script>
+    <script src="../../../ClientLibs/extjs/ux/form/field/JsonPathSelector.js"></script>
+    <style>
+        .vertical-middle {
+            vertical-align: middle;
+        }
+
+        /**自定义file上传的按钮对齐 **/
+        .x-form-item-body td {
+            vertical-align: top;
+        }
+    </style>
+    <script type="text/javascript">
+
+        Ext.onReady(function () {
+            var data = [
+                {
+                    fullName: 'n1',
+                    email: 'e1'
+                },
+                {
+                    fullName: 'n2',
+                    email: 'e2'
+                },
+                {
+                    fullName: 'n3',
+                    email: 'e3'
+                },
+                {
+                    fullName: 'n4',
+                    email: 'e4'
+                },
+                {
+                    fullName: 'n5',
+                    email: 'e5'
+                }
+            ];
+            var page = Ext.create('Ext.container.Viewport', {
+                layout: 'border',
+                items: [
+                    Ext.create('Ext.grid.Panel', {
+                        requires: [
+                            'Ext.grid.plugin.RowDragDrop'
+                        ],
+                        viewConfig: {
+                            plugins: {
+                                ptype: 'gridviewdragdrop',
+                                dragText: 'Drag and drop to reorganize'
+                            }
+                        },
+                        columns: [
+                            {xtype: 'rownumberer'},
+                            {header: 'Name', dataIndex: 'fullName', width: 100},
+                            {header: 'Email', dataIndex: 'email', flex: 1}
+                        ],
+
+                        store: Ext.create('Ext.data.Store', {
+                            fields: ['fullName', 'email'],
+                            autoLoad: true,
+                            data: data,
+                            proxy: {
+                                type: 'memory',
+                                reader: 'json'
+                            }
+                        })
+                    })
+                ]
+            });
+        });
+    </script>
+
+
+</head>
+<body>
+
+</body>
+</html>

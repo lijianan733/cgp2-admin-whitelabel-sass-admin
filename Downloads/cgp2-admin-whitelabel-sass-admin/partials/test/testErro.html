@@ -1,0 +1,186 @@
+<!--create by nan -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Ticket</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script>
+        var input = [{"0":{"name":"HP5500","paperSize":{"l":19,"w":13},"printSize":{"l":19,"w":13},"filter":{}},"1":{"name":"HP10000","paperSize":{"l":30,"w":21},"printSize":{"l":30,"w":21},"filter":{}},"2":{"name":"EPSON9908","paperSize":{"l":43,"w":31},"printSize":{"l":43,"w":31},"filter":{}},"3":{"name":"Offset1","paperSize":{"l":21.5,"w":15.5},"printSize":{"l":20.5,"w":14.75},"filter":{}},"4":{"name":"Offset2","paperSize":{"l":26,"w":17.5},"printSize":{"l":25,"w":16.75},"filter":{}},"5":{"name":"Offset3","paperSize":{"l":31,"w":20},"printSize":{"l":30,"w":19.25},"filter":{}},"6":{"name":"Offset4","paperSize":{"l":35,"w":23.5},"printSize":{"l":34,"w":22.75},"filter":{}},"7":{"name":"Offset5","paperSize":{"l":42,"w":29.5},"printSize":{"l":41,"w":28.75},"filter":{}},"8":{"name":"EPSON9908(3126)","paperSize":{"l":31,"w":26},"printSize":{"l":31,"w":26},"filter":{}}},{"0":{"name":"cover","weight":105,"cost":9},"1":{"name":"body","weight":1300,"cost":2.35},"2":{"name":"liner","weight":128,"cost":3}},{"0":{"group":"PrintingTop","technologies":{"0":{"name":"HP5500","moq":2,"costs":{"0":{"qty":1,"cost":2},"1":{"qty":201,"cost":1.5},"2":{"qty":500,"cost":1.3}}},"1":{"name":"HP10000","moq":2.5,"costs":{"0":{"qty":1,"cost":2.5},"1":{"qty":201,"cost":2},"2":{"qty":500,"cost":1.8}}},"2":{"name":"EPSON9908","moq":50,"costs":{"0":{"qty":1,"cost":50},"1":{"qty":201,"cost":50},"2":{"qty":500,"cost":50}}},"3":{"name":"EPSON9908(3126)","moq":30,"costs":{"0":{"qty":1,"cost":30},"1":{"qty":201,"cost":30},"2":{"qty":500,"cost":30}}},"4":{"name":"Offset","moq":2000,"costs":{"0":{"qty":1,"cost":2},"1":{"qty":2,"cost":2},"2":{"qty":6,"cost":2},"3":{"qty":30,"cost":2},"4":{"qty":50,"cost":2},"5":{"qty":100,"cost":2},"6":{"qty":250,"cost":2},"7":{"qty":500,"cost":2},"8":{"qty":1000,"cost":2},"9":{"qty":2000,"cost":1},"10":{"qty":2500,"cost":0.7},"11":{"qty":5000,"cost":0.6},"12":{"qty":7500,"cost":0.45},"13":{"qty":10000,"cost":0.4},"14":{"qty":12500,"cost":0.3},"15":{"qty":15000,"cost":0.25},"16":{"qty":20000,"cost":0.22},"17":{"qty":50000,"cost":0.17}}}},"selector":{}},"1":{"group":"DiecutTop","technologies":{"0":{"name":"PS","moq":0,"costs":{"0":{"qty":1,"cost":5},"1":{"qty":2,"cost":5},"2":{"qty":6,"cost":4},"3":{"qty":30,"cost":3},"4":{"qty":50,"cost":3},"5":{"qty":100,"cost":2.5},"6":{"qty":250,"cost":2.5},"7":{"qty":500,"cost":2},"8":{"qty":1000,"cost":2},"9":{"qty":2000,"cost":2},"10":{"qty":2500,"cost":2},"11":{"qty":5000,"cost":2},"12":{"qty":7500,"cost":2},"13":{"qty":10000,"cost":2},"14":{"qty":12500,"cost":2},"15":{"qty":15000,"cost":2},"16":{"qty":20000,"cost":1.5},"17":{"qty":50000,"cost":1.5}}},"1":{"name":"OEM","moq":500,"costs":{"0":{"qty":1,"cost":0.1},"1":{"qty":2,"cost":0.1},"2":{"qty":6,"cost":0.1},"3":{"qty":30,"cost":0.1},"4":{"qty":50,"cost":0.1},"5":{"qty":100,"cost":0.1},"6":{"qty":250,"cost":0.1},"7":{"qty":500,"cost":0.1},"8":{"qty":1000,"cost":0.1},"9":{"qty":2000,"cost":0.5},"10":{"qty":2500,"cost":0.5},"11":{"qty":5000,"cost":0.45},"12":{"qty":7500,"cost":0.35},"13":{"qty":10000,"cost":0.25},"14":{"qty":12500,"cost":0.25},"15":{"qty":15000,"cost":0.22},"16":{"qty":20000,"cost":0.2},"17":{"qty":50000,"cost":0.2}}}},"selector":{}},"2":{"group":"PrintingBase","technologies":{"0":{"name":"HP5500","moq":2,"costs":{"0":{"qty":1,"cost":2},"1":{"qty":201,"cost":1.5},"2":{"qty":500,"cost":1.3}}},"1":{"name":"HP10000","moq":2.5,"costs":{"0":{"qty":1,"cost":2.5},"1":{"qty":201,"cost":2},"2":{"qty":500,"cost":1.8}}},"2":{"name":"EPSON9908","moq":50,"costs":{"0":{"qty":1,"cost":50},"1":{"qty":201,"cost":50},"2":{"qty":500,"cost":50}}},"3":{"name":"EPSON9908(3126)","moq":30,"costs":{"0":{"qty":1,"cost":30},"1":{"qty":201,"cost":30},"2":{"qty":500,"cost":30}}},"4":{"name":"Offset","moq":2000,"costs":{"0":{"qty":1,"cost":2},"1":{"qty":2,"cost":2},"2":{"qty":6,"cost":2},"3":{"qty":30,"cost":2},"4":{"qty":50,"cost":2},"5":{"qty":100,"cost":2},"6":{"qty":250,"cost":2},"7":{"qty":500,"cost":2},"8":{"qty":1000,"cost":2},"9":{"qty":2000,"cost":1},"10":{"qty":2500,"cost":0.7},"11":{"qty":5000,"cost":0.6},"12":{"qty":7500,"cost":0.45},"13":{"qty":10000,"cost":0.4},"14":{"qty":12500,"cost":0.3},"15":{"qty":15000,"cost":0.25},"16":{"qty":20000,"cost":0.22},"17":{"qty":50000,"cost":0.17}}}},"selector":{}},"3":{"group":"DiecutBase","technologies":{"0":{"name":"PS","moq":0,"costs":{"0":{"qty":1,"cost":5},"1":{"qty":2,"cost":5},"2":{"qty":6,"cost":4},"3":{"qty":30,"cost":3},"4":{"qty":50,"cost":3},"5":{"qty":100,"cost":2.5},"6":{"qty":250,"cost":2.5},"7":{"qty":500,"cost":2},"8":{"qty":1000,"cost":2},"9":{"qty":2000,"cost":2},"10":{"qty":2500,"cost":2},"11":{"qty":5000,"cost":2},"12":{"qty":7500,"cost":2},"13":{"qty":10000,"cost":2},"14":{"qty":12500,"cost":2},"15":{"qty":15000,"cost":2},"16":{"qty":20000,"cost":1.5},"17":{"qty":50000,"cost":1.5}}},"1":{"name":"OEM","moq":500,"costs":{"0":{"qty":1,"cost":0.1},"1":{"qty":2,"cost":0.1},"2":{"qty":6,"cost":0.1},"3":{"qty":30,"cost":0.1},"4":{"qty":50,"cost":0.1},"5":{"qty":100,"cost":0.1},"6":{"qty":250,"cost":0.1},"7":{"qty":500,"cost":0.1},"8":{"qty":1000,"cost":0.1},"9":{"qty":2000,"cost":0.5},"10":{"qty":2500,"cost":0.5},"11":{"qty":5000,"cost":0.45},"12":{"qty":7500,"cost":0.35},"13":{"qty":10000,"cost":0.25},"14":{"qty":12500,"cost":0.25},"15":{"qty":15000,"cost":0.22},"16":{"qty":20000,"cost":0.2},"17":{"qty":50000,"cost":0.2}}}},"selector":{}}},{"0":{"group":"finishing","technologies":{"0":{"name":"Lamination","moq":0,"costs":{"0":{"qty":1,"cost":8},"1":{"qty":2,"cost":5},"2":{"qty":6,"cost":4},"3":{"qty":30,"cost":4},"4":{"qty":50,"cost":3.5},"5":{"qty":100,"cost":3.5},"6":{"qty":250,"cost":3},"7":{"qty":500,"cost":2.5},"8":{"qty":1000,"cost":1},"9":{"qty":2000,"cost":0.7},"10":{"qty":2500,"cost":0.7},"11":{"qty":5000,"cost":0.68},"12":{"qty":7500,"cost":0.6},"13":{"qty":10000,"cost":0.6},"14":{"qty":12500,"cost":0.55},"15":{"qty":15000,"cost":0.55},"16":{"qty":20000,"cost":0.55},"17":{"qty":50000,"cost":0.5}}},"1":{"name":"Varnish","moq":0,"costs":{"0":{"qty":1,"cost":5},"1":{"qty":2,"cost":4},"2":{"qty":6,"cost":3.5},"3":{"qty":30,"cost":3.5},"4":{"qty":50,"cost":3.3},"5":{"qty":100,"cost":3},"6":{"qty":250,"cost":2.8},"7":{"qty":500,"cost":2},"8":{"qty":1000,"cost":0.9},"9":{"qty":2000,"cost":0.5},"10":{"qty":2500,"cost":0.4},"11":{"qty":5000,"cost":0.3},"12":{"qty":7500,"cost":0.25},"13":{"qty":10000,"cost":0.2},"14":{"qty":12500,"cost":0.15},"15":{"qty":15000,"cost":0.1},"16":{"qty":20000,"cost":0.1},"17":{"qty":50000,"cost":0.08}}}},"selector":{}},"1":{"group":"pantone","technologies":{"0":{"name":"Pantone","moq":400,"costs":{"0":{"qty":1,"cost":0.1},"1":{"qty":2,"cost":0.1},"2":{"qty":6,"cost":0.1},"3":{"qty":30,"cost":0.1},"4":{"qty":50,"cost":0.1},"5":{"qty":100,"cost":0.1},"6":{"qty":250,"cost":0.1},"7":{"qty":500,"cost":0.1},"8":{"qty":1000,"cost":0.1},"9":{"qty":2000,"cost":0.1},"10":{"qty":2500,"cost":0.25},"11":{"qty":5000,"cost":0.2},"12":{"qty":7500,"cost":0.14},"13":{"qty":10000,"cost":0.12},"14":{"qty":12500,"cost":0.12},"15":{"qty":15000,"cost":0.11},"16":{"qty":20000,"cost":0.1},"17":{"qty":50000,"cost":0.1}}}},"selector":{}},"2":{"group":"finishing2","technologies":{"0":{"name":"Linen","moq":0,"costs":{"0":{"qty":1,"cost":10},"1":{"qty":2,"cost":8},"2":{"qty":6,"cost":7},"3":{"qty":30,"cost":6},"4":{"qty":50,"cost":5},"5":{"qty":100,"cost":2},"6":{"qty":250,"cost":1.5},"7":{"qty":500,"cost":1.2},"8":{"qty":1000,"cost":1},"9":{"qty":2000,"cost":0.8},"10":{"qty":2500,"cost":0.5},"11":{"qty":5000,"cost":0.45},"12":{"qty":7500,"cost":0.38},"13":{"qty":10000,"cost":0.35},"14":{"qty":12500,"cost":0.3},"15":{"qty":15000,"cost":0.3},"16":{"qty":20000,"cost":0.25},"17":{"qty":50000,"cost":0.2}}},"1":{"name":"FoilStamping","moq":500,"costs":{"0":{"qty":1,"cost":0.1},"1":{"qty":2,"cost":0.1},"2":{"qty":6,"cost":0.1},"3":{"qty":30,"cost":0.1},"4":{"qty":50,"cost":0.1},"5":{"qty":100,"cost":0.1},"6":{"qty":250,"cost":0.1},"7":{"qty":500,"cost":0.1},"8":{"qty":1000,"cost":0.5},"9":{"qty":2000,"cost":0.45},"10":{"qty":2500,"cost":0.45},"11":{"qty":5000,"cost":0.4},"12":{"qty":7500,"cost":0.35},"13":{"qty":10000,"cost":0.3},"14":{"qty":12500,"cost":0.3},"15":{"qty":15000,"cost":0.3},"16":{"qty":20000,"cost":0.28},"17":{"qty":50000,"cost":0.25}}},"2":{"name":"silverFoilStamping","moq":500,"costs":{"0":{"qty":1,"cost":0.1},"1":{"qty":2,"cost":0.1},"2":{"qty":6,"cost":0.1},"3":{"qty":30,"cost":0.1},"4":{"qty":50,"cost":0.1},"5":{"qty":100,"cost":0.1},"6":{"qty":250,"cost":0.1},"7":{"qty":500,"cost":0.1},"8":{"qty":1000,"cost":0.5},"9":{"qty":2000,"cost":0.45},"10":{"qty":2500,"cost":0.45},"11":{"qty":5000,"cost":0.4},"12":{"qty":7500,"cost":0.35},"13":{"qty":10000,"cost":0.3},"14":{"qty":12500,"cost":0.3},"15":{"qty":15000,"cost":0.3},"16":{"qty":20000,"cost":0.28},"17":{"qty":50000,"cost":0.25}}}},"selector":{}}},{"0":{"name":"BoxMaking","moq":0,"costs":{"0":{"qty":1,"cost":5.0},"1":{"qty":2,"cost":4.0},"2":{"qty":6,"cost":3.5},"3":{"qty":30,"cost":3.2},"4":{"qty":50,"cost":3.0},"5":{"qty":100,"cost":3.0},"6":{"qty":250,"cost":2.5},"7":{"qty":500,"cost":2.3},"8":{"qty":1000,"cost":2.0},"9":{"qty":2000,"cost":1.25},"10":{"qty":2500,"cost":1.0},"11":{"qty":5000,"cost":0.9},"12":{"qty":7500,"cost":0.9},"13":{"qty":10000,"cost":0.8},"14":{"qty":12500,"cost":0.7},"15":{"qty":15000,"cost":0.6},"16":{"qty":20000,"cost":0.6},"17":{"qty":50000,"cost":0.6}}},"1":{"name":"Assembly","moq":0,"costs":{"0":{"qty":1,"cost":5.0},"1":{"qty":2,"cost":4.0},"2":{"qty":6,"cost":3.5},"3":{"qty":30,"cost":3.2},"4":{"qty":50,"cost":3.0},"5":{"qty":100,"cost":3.0},"6":{"qty":250,"cost":2.5},"7":{"qty":500,"cost":2.3},"8":{"qty":1000,"cost":2.0},"9":{"qty":2000,"cost":1.0},"10":{"qty":2500,"cost":0.85},"11":{"qty":5000,"cost":0.75},"12":{"qty":7500,"cost":0.5},"13":{"qty":10000,"cost":0.5},"14":{"qty":12500,"cost":0.4},"15":{"qty":15000,"cost":0.4},"16":{"qty":20000,"cost":0.35},"17":{"qty":50000,"cost":0.35}}},"2":{"name":"ShrinkWrap","moq":0,"costs":{"0":{"qty":1,"cost":5.0},"1":{"qty":2,"cost":4.0},"2":{"qty":6,"cost":3.5},"3":{"qty":30,"cost":3.2},"4":{"qty":50,"cost":3.0},"5":{"qty":100,"cost":3.0},"6":{"qty":250,"cost":2.8},"7":{"qty":500,"cost":2.5},"8":{"qty":1000,"cost":2.0},"9":{"qty":2000,"cost":1.0},"10":{"qty":2500,"cost":1.0},"11":{"qty":5000,"cost":0.85},"12":{"qty":7500,"cost":0.75},"13":{"qty":10000,"cost":0.75},"14":{"qty":12500,"cost":0.7},"15":{"qty":15000,"cost":0.7},"16":{"qty":20000,"cost":0.65},"17":{"qty":50000,"cost":0.6}}}},{"diecutNum":1,"printNum":1,"thick":2,"size":{"inner":{},"outer":{}},"openSize":{"l":30.39,"w":20.39},"printing":1,"sliverStamping":{"sliverStamping":false,"printNum":1},"goldStamping":{"goldStamping":false,"printNum":1},"finishing":0,"isLinen":false},1,{"0":{"qty":1,"gp":0.75},"1":{"qty":2,"gp":0.7},"2":{"qty":6,"gp":0.65},"3":{"qty":30,"gp":0.6},"4":{"qty":50,"gp":0.55},"5":{"qty":100,"gp":0.5},"6":{"qty":250,"gp":0.5},"7":{"qty":500,"gp":0.5},"8":{"qty":1000,"gp":0.45},"9":{"qty":2000,"gp":0.6},"10":{"qty":2500,"gp":0.55},"11":{"qty":5000,"gp":0.5},"12":{"qty":7500,"gp":0.5},"13":{"qty":10000,"gp":0.45},"14":{"qty":12500,"gp":0.45},"15":{"qty":15000,"gp":0.45},"16":{"qty":20000,"gp":0.4},"17":{"qty":50000,"gp":0.4}}];
+        function expression(args) {
+            var printers = args[0];
+            var materials = args[1];
+            var printings = args[2];
+            var technologies = args[3];
+            var packings = args[4];
+            var attr = args[5];
+            var qty = args[6];
+            var qtyPercents = args[7];
+            var diecutNum = attr.diecutNum;
+            this.rounding = function (n) {
+                return Number(n.toFixed(3))
+            };
+            this.getOpenSizeNum = function (p, a) {
+                var n1 = Math.floor(p.printSize.l / a.openSize.l) * Math.floor(p.printSize.w / a.openSize.w);
+                var n2 = Math.floor(p.printSize.l / a.openSize.w) * Math.floor(p.printSize.w / a.openSize.l);
+                return Math.max(n1, n2)
+            };
+            this.getLots = function (n) {
+                return n > 0 ? attr.printNum * Math.ceil(qty / n) : 0
+            };
+            this.findQtyCost = function (l, q) {
+                var m;
+                for (var i = 0; i < l.length; i++) {
+                    var o = l[i];
+                    if (o.qty == q) {
+                        return o.cost
+                    } else {
+                        if (o.qty > q) {
+                            return m.cost
+                        } else {
+                            m = l[i]
+                        }
+                    }
+                }
+                return m ? m.cost : 0
+            };
+            this.getMaterialBaseCost = function (p, m) {
+                return rounding(p.paperSize.l * p.paperSize.w * m.weight * m.cost * 1.2 / 1333 / 500)
+            };
+            this.getTechnologyCost = function (t, i, n) {
+                var tech = t.technologies[i];
+                var tCost = findQtyCost(tech.costs, n);
+                return Math.max(tCost * n, tech.moq)
+            };
+            this.getTotalCost = function () {
+                var arr = [];
+                var pps = [];
+                for (var i = 0; i < printers.length; i++) {
+                    var p = printers[i];
+                    var num = getOpenSizeNum(p, attr);
+                    var handNum = num == 1 && attr.printNum == 2 ? 2 : 1;
+                    var pp = {printer: p, openSizeNum: num, qty: qty};
+                    if (p.filter(attr) && num > 0) {
+                        var lot = getLots(num);
+                        var techNum = num == 1 && attr.printNum == 2 ? lot / 2 : lot;
+                        pp.lot = lot;
+                        pp.techNum = techNum;
+                        var cost = 0;
+                        pp.materials = [];
+                        for (var j = 0; j < materials.length; j++) {
+                            var m = materials[j];
+                            var mCost = getMaterialBaseCost(p, m) * lot / attr.printNum;
+                            cost += mCost;
+                            pp.materials.push({name: m.name, result: mCost})
+                        }
+                        pp.printings = [];
+                        for (var j = 0; j < printings.length; j++) {
+                            var print = printings[j];
+                            var index = print.selector(p, handNum);
+                            if (index != null) {
+                                var pCost = getTechnologyCost(print, index, techNum);
+                                if (print.group == 'DiecutTop' || print.group == 'DiecutBase') {
+                                    cost += diecutNum * pCost
+                                } else {
+                                    cost += pCost
+                                }
+                                pp.printings.push({group: print.group, name: print.technologies[index].name, result: pCost})
+                            }
+                        }
+                        pp.technologies = [];
+                        for (var j = 0; j < technologies.length; j++) {
+                            var techno = technologies[j];
+                            var tArr = techno.selector(attr, handNum);
+                            if (tArr) {
+                                for (var k = 0; k < tArr.length; k++) {
+                                    var tCost = getTechnologyCost(techno, tArr[k], techNum);
+                                    cost += tCost;
+                                    pp.technologies.push({
+                                        group: techno.group,
+                                        name: techno.technologies[tArr[k]].name,
+                                        result: tCost
+                                    })
+                                }
+                            }
+                        }
+                        pp.packings = [];
+                        for (var j = 0; j < packings.length; j++) {
+                            var pk = packings[j];
+                            var pCost = findQtyCost(pk.costs, qty) * qty;
+                            cost += pCost;
+                            pp.packings.push({name: pk.name, result: pCost})
+                        }
+                        arr.push(cost);
+                        pp.cost = cost
+                    }
+                    pps.push(pp)
+                }
+                return Math.round(Math.min.apply(null, arr))
+            };
+            this.findQtyGP = function (l, q) {
+                var m;
+                for (var i = 0; i < l.length; i++) {
+                    var o = l[i];
+                    if (o.qty == q) {
+                        return o.gp
+                    } else {
+                        if (o.qty > q) {
+                            return m.gp
+                        } else {
+                            m = l[i]
+                        }
+                    }
+                }
+                return m ? m.gp : 0
+            };
+            this.qpRound = function (price) {
+                var resultPrice = '';
+                var arr = price.split('.');
+                var integer = arr[0];
+                var decimal = arr[1];
+                if (decimal == undefined) {
+                    return price
+                }
+                if (decimal.length < 2) {
+                    return price
+                }
+                var resultArr = [decimal[0], decimal[1]];
+                if (resultArr[1] > 5) {
+                    resultArr[0] = (parseInt(resultArr[0]) + 1).toString();
+                    if (resultArr[0] == '10') {
+                        integer = (parseInt(integer) + 1).toString();
+                        resultArr[0] = '0'
+                    }
+                    resultArr[1] = '0'
+                } else {
+                    if (resultArr[1] < 6) {
+                        resultArr[1] = '5'
+                    }
+                }
+                for (var i = 0; i < resultArr.length; i++) {
+                    resultPrice += resultArr[i]
+                }
+                resultPrice = integer + '.' + resultPrice;
+                return resultPrice
+            };
+            this.getUnitPrice = function () {
+                var cost = getTotalCost();
+                var gp = findQtyGP(qtyPercents, qty);
+                var price = (cost / 7.8 / qty / (1 - gp)).toFixed(2);
+                var resultPrice = qpRound(price);
+                return Number(resultPrice)
+            };
+            return getUnitPrice()
+        };
+        console.log(expression(input));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

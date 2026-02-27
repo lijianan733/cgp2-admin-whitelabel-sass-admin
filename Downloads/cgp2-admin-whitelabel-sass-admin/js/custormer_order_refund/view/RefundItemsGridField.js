@@ -1,0 +1,414 @@
+/**
+ * @Description:
+ * @author nan
+ * @date 2025/05/23
+ */
+Ext.Loader.syncRequire([
+    'CGP.custormer_order_refund.model.CustomerOrderItemRefundModel'
+])
+Ext.define('CGP.custormer_order_refund.view.RefundItemsGridField', {
+    extend: 'Ext.ux.form.field.GridFieldExtendContainer',
+    alias: 'widget.refund_items_gridfield',
+    fieldLabel: i18n.getKey('产品退款'),
+    name: 'refundItems',
+    itemId: 'refundItems',
+    valueType: 'idRef',
+    hidden: true,
+    isFormField: true,
+    msgTarget: 'side',
+    allowRefundItems: null,
+    getErrors: function () {
+        var me = this;
+        return me.errorInfo;
+    },
+    isValid: function () {
+        var me = this;
+        var grid = me._grid;
+        var selection = grid.getSelectionModel().getSelection();
+        var isValid = true;
+        if (me.readOnly == false && me.isVisible() == true) {
+            selection.map(function (item) {
+                var index = item.index;
+                var refundQty = grid.query('[itemId*=refundQty_row_' + index + ']');
+                var refundAmount = grid.query('[itemId*=refundAmount_row_' + index + ']');
+                refundQty.map(function (refundQtyItem) {
+                    me.errorInfo = '有非法输入值';
+                    refundQtyItem.isValid() == false ? isValid = false : null;
+                });
+                refundAmount.map(function (refundAmountItem) {
+                    me.errorInfo = '有非法输入值';
+                    refundAmountItem.isValid() == false ? isValid = false : null;
+                });
+            });
+            if (selection.length == 0) {
+                me.errorInfo = '产品退款数量不能为空';
+                isValid = false;
+            }
+        }
+        if (isValid == true) {
+            me.activeError = me.errorInfo = '';
+            me.unsetActiveError();
+        } else {
+            me.setActiveErrors(me.errorInfo);
+        }
+        return isValid;
+    },
+    setFieldStyle: function () {
+    },
+    diySetValue: function (data) {
+        var me = this;
+        if (data) {
+            var grid = me._grid;
+            me.setSubmitValue(data);
+            var records = [];
+            me.getStore().each(function (record) {
+                if (record.get('refundQty') > 0) {
+                    records.push(record);
+                }
+            });
+            //选中有退款的订单项
+            if (grid.rendered == true) {
+                grid.getSelectionModel().select(records);
+            } else {
+                grid.on('afterrender', function () {
+                    //不知道为啥,得一段时间后才触发select事件
+                    setTimeout(function () {
+                        grid.getSelectionModel().select(records);
+                    }, 100);
+                })
+            }
+        }
+    },
+    diyGetValue: function () {
+        var me = this;
+        var type = me.ownerCt.getComponent('type').getValue();
+        var grid = me._grid;
+        if (type == 'FullOrder') {
+            //全单退款时,直接根据可提款订单项信息直接返回
+            var result = [];
+            me.getStore().each(function name(record) {
+                result.push({
+                    "orderItemId": record.raw.id || record.raw._id,
+                    "refundAmount": record.raw.canRefundedPrice,
+                    "refundQty": record.raw.canRefundedQty
+                });
+            });
+            return result;
+        } else if (type == 'Product') {
+            //退部分产品
+            var selection = grid.getSelectionModel().getSelection();
+            var result = [];
+            if (me.readOnly == true && me.isVisible() == true) {
+                me.getStore().data.items.map(function (item) {
+                    var orderItemId = item.get('_id');
+                    result.push({
+                        "orderItemId": orderItemId,
+                        "refundAmount": item.get('amountRefunded'),
+                        "refundQty": item.get('refundQty')
+                    });
+                });
+            } else {
+                selection.map(function (item) {
+                    var orderItemId = item.get('id');
+                    var index = item.index;
+                    var refundQty = grid.query('[itemId*=refundQty_row_' + index + ']')[0];
+                    var refundAmount = grid.query('[itemId*=refundAmount_row_' + index + ']')[0];
+                    result.push({
+                        "orderItemId": orderItemId,
+                        "refundAmount": refundAmount.getValue(),
+                        "refundQty": refundQty.getValue()
+                    });
+                });
+            }
+            return result;
+        } else {
+            return null;
+        }
+    },
+    setReadOnly: function (tag) {
+        var me = this;
+        me.readOnly = tag;
+        if (me.rendered == true) {
+            var grid = me._grid;
+            grid.readOnly = tag;
+            var refundQtys = grid.query('[itemId*=refundQty_row_]');
+            refundQtys.map(function (item) {
+                item.setReadOnly(grid.readOnly);
+            });
+            var refundAmounts = grid.query('[itemId*=refundAmount_row_]');
+            refundAmounts.map(function (item) {
+                item.setReadOnly(grid.readOnly);
+            });
+        } else {
+        }
+    },
+    initComponent: function () {
+        var me = this;
+        var currencyCode = me.currencyCode;
+        me.gridConfig = {
+            autoScroll: true,
+            store: {
+                xtype: 'store',
+                model: 'CGP.custormer_order_refund.model.CustomerOrderItemRefundModel',
+                data: me.allowRefundItems,
+                proxy: {
+                    type: 'memory'
+                }
+            },
+            viewConfig: {
+                onRowSelect: function (rowIdx) {
+                    var me = this;
+                    me.addRowCls(rowIdx, me.selectedItemCls);
+                    if (me.isRowStyleFirst(rowIdx)) {
+                        me.getRowStyleTableEl(rowIdx).addCls(me.tableSelectedFirstCls);
+                    } else {
+                        me.addRowCls(rowIdx - 1, me.beforeSelectedItemCls);
+                    }
+                },
+            },
+            readOnly: !Ext.isEmpty(JSGetQueryString('_id')),
+            selModel: Ext.create("Ext.selection.CheckboxModel", {
+                mode: "simple",//multi,simple,single,默认为多选multi
+                checkOnly: true,//如果值为true，则只用点击checkbox列才能选中此条记录
+            }),
+            columns: {
+                defaults: {
+                    menuDisabled: true,
+                    sortable: false,
+                    width: 100,
+                },
+                items: [
+                    {
+                        xtype: 'rownumberer'
+                    },
+                    {
+                        dataIndex: 'thumbnail',
+                        text: i18n.getKey('preview'),
+                        xtype: 'imagecolumn',
+                        width: 120,
+                        buildUrl: function (value, metadata, record) {
+                            return imageServer + 'composingPreview/' + value;
+                        },
+                        buildPreUrl: function (value, metadata, record) {
+                            return imageServer + 'composingPreview/' + value;
+                        },
+                    },
+                    {
+                        dataIndex: 'productName',
+                        text: i18n.getKey('product'),
+                        width: 250,
+                        renderer: function (value, metadata, record) {
+                            var productModel = record.get('productModel');
+                            var productSku = record.get("productSku");
+                            var productId = record.get("productId");
+                            var productName = record.get("productName")
+                            var items = [
+                                {
+                                    title: i18n.getKey('产品编号'),
+                                    value: productId
+                                },
+                                {
+                                    title: i18n.getKey('name'),
+                                    value: productName
+                                }, {
+                                    title: i18n.getKey('model'),
+                                    value: productModel
+                                }, {
+                                    title: 'Sku',
+                                    value: productSku
+                                }];
+                            return JSCreateHTMLTable(items);
+                        }
+                    },
+                    {
+                        text: i18n.getKey('零售价'),
+                        dataIndex: 'priceStr',
+                        width: 130,
+                        renderer: function (value, metaData, record) {
+                            var amountStr = record.get('amountStr');
+                            var priceStr = record.get('priceStr');
+                            var items = [
+                                {
+                                    title: '单价',
+                                    value: priceStr
+                                },
+                                {
+                                    title: '总价',
+                                    value: amountStr
+                                }
+                            ];
+                            return JSCreateHTMLTable(items);
+                        }
+                    },
+                    {
+                        text: i18n.getKey('重量'),
+                        dataIndex: 'productWeight',
+                        width: 130,
+                        renderer: function (value, metaData, record) {
+                            var productWeight = record.get('productWeight');
+                            var productSumWeight = record.get('productSumWeight');
+                            var items = [
+                                {
+                                    title: '单个重量',
+                                    value: productWeight
+                                },
+                                {
+                                    title: '总重量',
+                                    value: productSumWeight
+                                }
+                            ];
+                            return JSCreateHTMLTable(items);
+                        }
+                    },
+                    {
+                        text: i18n.getKey('可退产品数量'),
+                        dataIndex: 'canRefundedQty',
+                        width: 100,
+                        hidden: !Ext.isEmpty(JSGetQueryString('_id')),
+                    },
+                    {
+                        text: i18n.getKey('可退产品金额'),
+                        width: 100,
+                        dataIndex: 'canRefundedPrice',
+                        hidden: !Ext.isEmpty(JSGetQueryString('_id')),
+                    },
+                    {
+                        xtype: 'componentcolumn',
+                        text: i18n.getKey('退款数量'),
+                        dataIndex: 'refundQty',
+                        width: 150,
+                        renderer: function (value, mete, record, rowIndex, colIndex, store, gridView) {
+                            var productPrice = record.get('price');
+
+                            if (!Ext.isEmpty(JSGetQueryString('_id'))) {
+                                return {
+                                    xtype: 'displayfield',
+                                    itemId: 'refundQty_row_' + rowIndex,
+                                    value: Number(value)
+                                }
+                            } else {
+                                return {
+                                    xtype: 'numberfield',
+                                    value: value,
+                                    minValue: 1,
+                                    allowDecimal: false,
+                                    vtype: 'maxValue',
+                                    allowBlank: false,
+                                    maxValue: record.raw.canRefundedQty,
+                                    itemId: 'refundQty_row_' + rowIndex,
+                                    readOnly: true,
+                                    fieldStyle: true ? 'background-color: silver' : null,//设置文本框的样式
+                                    listeners: {
+                                        change: function (field, newValue, oldValue) {
+                                            var form = gridView.ownerCt.ownerCt.ownerCt;
+                                            var grid = gridView.ownerCt;
+                                            if (field.isValid()) {
+                                                //計算运费
+                                                form.fireEvent('productQtyChange', grid);
+                                                //改变总价
+                                                var totalAccount = Number((newValue * productPrice).toFixed(2));
+                                                var refundAmount = grid.query('[itemId*=refundAmount_row_' + rowIndex + ']')[0];
+                                                refundAmount.setValue(totalAccount);
+                                                grid.gridField.isValid()
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        xtype: 'componentcolumn',
+                        text: i18n.getKey('退款总额'),
+                        dataIndex: 'canRefundedPrice',
+                        minWidth: 150,
+                        renderer: function (value, mete, record, rowIndex, colIndex, store, gridView) {
+                            var canRefundedPrice = record.get('canRefundedPrice');
+                            var amountRefunded = record.get('amountRefunded');
+
+                            if (!Ext.isEmpty(JSGetQueryString('_id'))) {
+                                return {
+                                    xtype: 'displayfield',
+                                    itemId: 'refundAmount_row_' + rowIndex,
+                                    value: Number(amountRefunded).toLocaleString('zh', {
+                                        style: 'currency',
+                                        currency: currencyCode
+                                    })
+                                }
+                            } else {
+                                return {
+                                    xtype: 'numberfield',
+                                    itemId: 'refundAmount_row_' + rowIndex,
+                                    readOnly: true,
+                                    //value: value,
+                                    minValue: 0,
+                                    editable: false,
+                                    width: '100%',
+                                    flex: 1,
+                                    hideTrigger: true,
+                                    vtype: 'maxValue',
+                                    allowBlank: false,
+                                    maxValue: canRefundedPrice,
+                                    fieldStyle: true ? 'background-color: silver' : null,//设置文本框的样式
+                                    listeners: {
+                                        change: function (field, newValue, oldValue) {
+                                            var gridField = gridView.ownerCt;
+                                            var form = gridField.ownerCt.ownerCt;
+                                            var grid = gridView.ownerCt;
+                                            form.fireEvent('productRefundChange', grid);
+                                            grid.gridField.isValid()
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
+            listeners: {
+                beforeselect: function () {
+                    return !this.readOnly;
+                },
+                beforedeselect: function () {
+                    return !this.readOnly;
+                },
+                select: function (selectModel, record, rowIndex) {
+                    var grid = selectModel.view.ownerCt;
+                    var form = grid.ownerCt.ownerCt;
+                    var refundQty = grid.query('[itemId*=refundQty_row_' + rowIndex + ']')[0];
+                    var refundAmount = grid.query('[itemId*=refundAmount_row_' + rowIndex + ']')[0];
+                    refundQty?.setReadOnly(false);
+                    refundAmount?.setReadOnly(false);
+                    refundQty?.setDisabled(false);
+                    refundAmount?.setDisabled(false);
+                    refundQty?.setFieldStyle('background-color: white');
+                    //refundAmount?.setFieldStyle('background-color: white');
+                    refundQty?.setValue(record.get('canRefundedQty'));
+                    refundAmount?.setValue(record.get('canRefundedPrice'));
+                    grid.ownerCt.isValid();
+                    /*    form.fireEvent('productRefundChange', grid);
+                        form.fireEvent('productQtyChange', grid);*/
+                },
+                deselect: function (selectModel, record, rowIndex) {
+                    var grid = selectModel.view.ownerCt;
+                    var form = grid.ownerCt.ownerCt;
+                    var refundQty = grid.query('[itemId*=refundQty_row_' + rowIndex + ']')[0];
+                    var refundAmount = grid.query('[itemId*=refundAmount_row_' + rowIndex + ']')[0];
+                    refundQty?.setReadOnly(true);
+                    refundAmount?.setReadOnly(true);
+                    refundQty?.setDisabled(true);
+                    refundAmount?.setDisabled(true);
+                    refundQty?.setFieldStyle('background-color: silver');
+                    refundAmount?.setFieldStyle('background-color: silver');
+                    refundQty.setValue();
+                    refundAmount.setValue();
+                    grid.ownerCt.isValid();
+                    /*form.fireEvent('productRefundChange', grid);
+                    form.fireEvent('productQtyChange', grid);*/
+                }
+            }
+        };
+        me.callParent(arguments);
+    }
+})

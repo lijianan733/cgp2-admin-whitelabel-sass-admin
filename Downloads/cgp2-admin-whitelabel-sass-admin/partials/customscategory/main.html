@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>customscategory</title>
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js" ></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript" src="../../js/customscategory/main.js"></script>
+    <script>
+        Ext.ux.util.uploadByJqueryForm = function (options) {
+
+            var scope = options.scope;
+            //Ext.fly(options.form).down('input').dom.name= 'file';
+            $(options.form).ajaxSubmit({
+                type: 'post',
+                url: options.url,
+                success: function (data) {
+                    options.form.remove();
+                    //发送成功
+                    if (options.success) options.success.call(scope || this, data);
+                },
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    if (options.failure) options.failure.call(scope, textStatus);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

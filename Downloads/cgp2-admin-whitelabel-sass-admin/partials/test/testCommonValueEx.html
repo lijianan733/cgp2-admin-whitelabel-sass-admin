@@ -1,0 +1,60 @@
+<!--create by nan -->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>haha</title>
+    <style>
+        .vertical-middle {
+            vertical-align: middle;
+        }
+
+        /**自定义file上传的按钮对齐 **/
+        .x-form-item-body td {
+            vertical-align: top;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css"
+          href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    &lt;!&ndash; 样式表 &ndash;&gt;
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script>
+        Ext.onReady(function () {
+            var page = Ext.create('Ext.container.Viewport', {
+                layout: 'fit'
+            });
+            var expression = Ext.create('CGP.common.valueExV2.GroupGridTab', {
+                commonPartFieldConfig: {
+                    defaultValueConfig: {
+                        type: 'Boolean',
+                        clazz: 'com.qpp.cgp.value.ExpressionValueEx',
+                    },
+                    isCanUseTemplate: true
+
+                }
+            });
+            /*        var form = Ext.create('Ext.form.Panel', {
+                        tbar: [
+                            {
+                                text: '获取到Expression中的数据',
+                                handler: function () {
+                                    this.ownerCt.ownerCt.items.items[0].getValue()
+                                    console.log(this);
+                                }
+                            }
+                        ],
+                        items: [
+                            expression
+                        ]
+                    });*/
+            page.add(expression);
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

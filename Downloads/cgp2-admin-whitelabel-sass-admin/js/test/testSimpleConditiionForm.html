@@ -1,0 +1,284 @@
+<!--create by nan -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>operationLogEdit</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script>
+        Ext.onReady(function () {
+            var page = Ext.create('Ext.container.Viewport', {
+                layout: 'fit'
+            });
+            var productId = null || 1976311;
+            var skuAttributeId = 191307;
+            var CalculateContinuousAttributeValueConstraint = null;
+            var ConditionOneWayValueMapping = null;
+            var skuAttributeStore = Ext.create('CGP.product.view.managerskuattribute.skuattributeconstrainterversion2.store.ProductAttributeStore', {
+                productId: productId,
+            });
+            var grid = Ext.create('Ext.grid.Panel', {
+                width: '100%',
+                layout: 'vbox',
+                store: Ext.create('CGP.product.view.singlewayattributepropertyrelevanceconfigversion2.store.SingleWayProductAttributeMappingStore', {
+                    params: {
+                        filter: Ext.JSON.encode([{
+                            name: 'clazz',
+                            type: 'string',
+                            value: 'com.qpp.cgp.domain.attributemapping.oneway.ConditionOneWayValueMapping'
+                        }, {
+                            name: 'productId',
+                            type: 'number',
+                            value: productId
+                        }])
+                    }
+                }),
+                controller: Ext.create('CGP.product.view.singlewayattributepropertyrelevanceconfigversion2.controller.Controller'),
+                title: '范围约束（固定值）',
+                viewConfig: {
+                    enableTextSelection: true,
+                    stripeRows: true
+                },
+                features: [
+                    {
+                        ftype: 'grouping',
+                        groupHeaderTpl: [
+                            ' {name:this.isSku}',
+                            {
+                                isSku: function (name) {
+
+                                    if (name == 'com.qpp.cgp.domain.attributeconstraint.single.CalculateContinuousFixValueConstraint') {
+                                        return '范围约束（固定值）'
+                                    } else {
+                                        return '范围约束(受其他属性影响)'
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ],
+                tbar: [
+                    {
+                        xtype: 'splitbutton',
+                        text: '范围约束(固定值)',
+                        handler: function () {
+                            var win = Ext.create('CGP.product.view.managerskuattribute.skuattributeconstainerv2.view.CalculateContinuousFixValueConstraintWindow', {
+                                productId: productId,
+                                createOrEdit: 'create',
+                                record: null,
+                                skuAttributeId: skuAttributeId
+                            });
+                            win.show();
+                        },
+                        menu: new Ext.menu.Menu({
+                            items: [
+                                {
+                                    text: i18n.getKey('范围约束(固定值)'),
+                                    handler: function () {
+                                        var win = Ext.create('CGP.product.view.managerskuattribute.skuattributeconstainerv2.view.CalculateContinuousFixValueConstraintWindow', {
+                                            productId: productId,
+                                            createOrEdit: 'create',
+                                            record: null,
+                                            skuAttributeId: skuAttributeId
+                                        });
+                                        win.show();
+                                    }
+                                },
+                                {
+                                    text: i18n.getKey('范围约束(受其他属性影响)'),
+                                    handler: function () {
+                                        var win = Ext.create('CGP.product.view.managerskuattribute.skuattributeconstainerv2.view.CalculateContinuousAttributeValueConstraintWindow', {
+                                            productId: productId,
+                                            createOrEdit: 'create',
+                                            record: null,
+                                            skuAttributeId: skuAttributeId
+                                        });
+                                        win.show();
+                                        win.refreshData(CalculateContinuousAttributeValueConstraint);
+                                    }
+                                },
+                                {
+                                    text: i18n.getKey('输入属性规则'),
+                                    handler: function () {
+                                        var win = Ext.create('CGP.product.view.singlewayattributepropertyrelevanceconfigversion2.view.AdvancedSingleMappingWindow', {
+                                            productId: productId,
+                                            createOrEdit: 'create',
+                                            record: null,
+                                            skuAttributeStore: skuAttributeStore,
+                                            grid: grid
+                                        });
+                                        win.show();
+                                    }
+                                },
+                                {
+                                    text: i18n.getKey('test'),
+                                    handler: function () {
+                                        var win = Ext.create('CGP.product.view.managerskuattribute.skuattributeconstrainterversion2.view.SingleAttributeDiscreteValueConstraintWindow', {
+                                            productId: productId,
+                                            createOrEdit: 'create',
+                                            record: null,
+                                            skuAttributeStore: skuAttributeStore
+                                        });
+                                        win.show();
+                                        win.refreshData(ConditionOneWayValueMapping);
+                                    }
+                                }
+                            ]
+                        })
+                    }
+                ],
+                columns: [
+                    {
+                        xtype: 'rownumberer',
+                        sortable: false,
+                        tdCls: 'vertical-middle'
+                    },
+                    {
+                        xtype: 'actioncolumn',
+                        width: 50,
+                        tdCls: 'vertical-middle',
+                        items: [
+                            {
+                                iconCls: 'icon_edit icon_margin',  // Use a URL in the icon config
+                                tooltip: 'Edit',
+                                handler: function (view, rowIndex, colIndex, a, b, record) {
+                                    var win = null;
+                                    var grid = view.ownerCt;
+                                    if (record.get('clazz') == 'com.qpp.cgp.domain.attributeconstraint.single.CalculateContinuousFixValueConstraint') {
+                                        win = Ext.create('CGP.product.view.managerskuattribute.skuattributeconstainerv2.view.CalculateContinuousFixValueConstraintWindow', {
+                                            productId: productId,
+                                            createOrEdit: 'edit',
+                                            record: record,
+                                            grid: grid,
+                                            skuAttributeId: skuAttributeId
+                                        });
+                                    } else if (false) {
+                                        win = Ext.create('CGP.product.view.managerskuattribute.skuattributeconstainerv2.view.CalculateContinuousAttributeValueConstraintWindow', {
+                                            productId: productId,
+                                            createOrEdit: 'edit',
+                                            record: record,
+                                            grid: grid,
+                                            skuAttributeId: skuAttributeId
+                                        });
+                                    } else if (record.get('clazz') == 'com.qpp.cgp.domain.attributemapping.oneway.ConditionOneWayValueMapping') {
+                                        win = Ext.create('CGP.product.view.singlewayattributepropertyrelevanceconfigversion2.view.AdvancedSingleMappingWindow', {
+                                            productId: productId,
+                                            createOrEdit: 'edit',
+                                            record: record,
+                                            grid: grid,
+                                            skuAttributeStore: skuAttributeStore
+                                        });
+                                        win.show();
+                                    }
+                                    win.show();
+                                    win.refreshData(record.raw);
+                                }
+                            },
+                            {
+                                iconCls: 'icon_remove icon_margin',
+                                tooltip: 'Delete',
+                                handler: function (view, rowIndex, colIndex, a, b, record) {
+                                    var grid = view.ownerCt;
+                                    Ext.Msg.confirm('提示', '确定删除？', callback);
+
+                                    function callback(id) {
+                                        if (id === 'yes') {
+                                            grid.controller.deleteOneWayValueMapping(record, grid);
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        dataIndex: '_id',
+                        tdCls: 'vertical-middle',
+                        sortable: false,
+                        text: i18n.getKey('id')
+                    },
+                    {
+                        dataIndex: 'executeCondition',
+                        tdCls: 'vertical-middle',
+                        sortable: false,
+                        xtype: 'componentcolumn',
+                        text: i18n.getKey('executeCondition'),
+                        renderer: function (value, metadata, record) {
+                            console.log(value);
+                            if (value.executeAttributeInput.operation.operations.length > 0) {
+                                return {
+                                    xtype: 'displayfield',
+                                    value: '<a href="#")> 查看条件</a>',
+                                    listeners: {
+                                        render: function (display) {
+                                            var a = display.el.dom.getElementsByTagName('a')[0]; //获取到该html元素下的a元素
+                                            var ela = Ext.fly(a); //获取到a元素的element封装对象
+                                            ela.on("click", function () {
+                                                var multiAttributeConditionFieldPanel = Ext.create('CGP.product.view.managerskuattribute.skuattributeconstainerv2.view.AttributeMappingRuleFieldSet', {
+                                                    productId: productId,
+                                                    width: 800,
+                                                    itemId: 'multiAttributeConditionFieldPanel',
+                                                    title: '执行规则的前提条件',
+                                                    disabled: true
+                                                });
+                                                var win = Ext.create('Ext.window.Window', {
+                                                    modal: true,
+                                                    items: [
+                                                        multiAttributeConditionFieldPanel
+                                                    ]
+                                                })
+                                                win.show();
+                                                multiAttributeConditionFieldPanel.setValue(value.executeAttributeInput);
+                                            });
+                                        }
+                                    }
+                                };
+                            } else {
+                                return null
+                            }
+                        }
+                    }, {
+                        dataIndex: 'description',
+                        tdCls: 'vertical-middle',
+                        width: 250,
+                        sortable: false,
+                        text: i18n.getKey('description')
+                    }, {
+                        dataIndex: 'promptTemplate',
+                        sortable: false,
+                        width: 250,
+                        text: i18n.getKey('promptTemplate')
+                    }, {
+                        dataIndex: 'operator',
+                        tdCls: 'vertical-middle',
+                        sortable: false,
+                        flex: 1,
+                        xtype: 'componentcolumn',
+                        text: i18n.getKey('constraints'),
+                        renderer: function (value, metadata, record) {
+                            var result = null;
+                            var clazz = record.get('clazz');
+                            var minValue = null;
+                            var maxvalue = null;
+                            if (clazz == '') {
+
+                            }
+                            if (Ext.Array.contains(['[min,max]', '[min,max)', '(min,max)', '(min,max]'], value)) {
+
+                            }
+                        }
+                    }
+                ]
+            });
+            page.add([grid]);
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

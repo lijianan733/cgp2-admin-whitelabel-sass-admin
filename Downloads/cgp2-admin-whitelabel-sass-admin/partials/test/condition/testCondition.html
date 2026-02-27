@@ -1,0 +1,340 @@
+<!-- Created by nan on 2021/12/8 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>operationLogEdit</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../../ClientLibs/extjs/resources/custom-theme/custom_theme.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript" src="../../../partials/test/config/NewInputConditionData.js"></script>
+    <script type="text/javascript"
+            src="../../../js/product/view/productattributeprofile/model/ProfileModel.js"></script>
+    <script type="text/javascript"
+            src="../../../js/product/view/productattributeprofile/store/ProfileStore.js"></script>
+    <script type="text/javascript" src="../../../js/product/view/mappinglink/model/MappingLinkModel.js"></script>
+    <script type="text/javascript" src="../../../partials/test/config/NewInputConditionData.js"></script>
+    <script type="text/javascript" src="../../../js/common/condition/ConditionFieldV3.js"></script>
+    <script type="text/javascript" src="../../../js/common/condition/view/ConditionContainer.js"></script>
+    <script type="text/javascript" src="../../../js/common/condition/view/ConditionFieldContainer.js"></script>
+    <script type="text/javascript" src="../../../js/common/condition/view/ConditionGrid.js"></script>
+    <script type="text/javascript" src="../../../js/common/condition/view/ConditionValueGrid.js"></script>
+
+    <script type="text/javascript" src="../config/attribute.js"></script>
+    <script>
+        Ext.Loader.syncRequire([
+            'CGP.common.condition'
+        ]);
+        Ext.onReady(function () {
+            //条件组件修改
+            var content = {
+                args: {
+                    "context": {
+                        "pcsContext": {
+                            "7718083": 7718084
+                        },
+                        "attributeValueContext": {
+                            "7718083": 7718084
+                        },
+                        "propertyModelContext": {
+                            "_id": "10924860",
+                            "clazz": "com.qpp.cgp.domain.attributecalculate.PropertyModel",
+                            "modifiedDate": 1598487945646,
+                            "modifiedBy": "798",
+                            "productConfigId": "7718864",
+                            "configurableProductId": "7718864",
+                            "profileModels": [
+                                {
+                                    "profile": {
+                                        "_id": "7962426",
+                                        "clazz": "com.qpp.cgp.domain.attributeconfig.AttributeProfile",
+                                        "multilingualKey": "com.qpp.cgp.domain.attributeconfig.AttributeProfile"
+                                    },
+                                    "isActive": true,
+                                    "attributeList": [
+                                        {
+                                            "profileId": "7962426",
+                                            "groupName": "Easy",
+                                            "groupId": "7962425",
+                                            "skuAttributeId": 7718875,
+                                            "displayName": "WoodenSize",
+                                            "required": false,
+                                            "hidden": false,
+                                            "enable": true,
+                                            "valueType": "String",
+                                            "selectType": "SINGLE",
+                                            "attrOptions": [
+                                                {
+                                                    "id": 7718084,
+                                                    "name": "16mm Dice",
+                                                    "displayValue": "16mm Dice",
+                                                    "value": "16mm Dice",
+                                                    "hidden": false,
+                                                    "isSelected": true,
+                                                    "sortOrder": 0,
+                                                    "enable": true
+                                                },
+                                                {
+                                                    "id": 7718085,
+                                                    "name": "25mm Dice",
+                                                    "displayValue": "25mm Dice",
+                                                    "value": "25mm Dice",
+                                                    "hidden": false,
+                                                    "isSelected": false,
+                                                    "sortOrder": 0,
+                                                    "enable": true
+                                                },
+                                                {
+                                                    "id": 7718086,
+                                                    "name": "20mm Dice",
+                                                    "displayValue": "20mm Dice",
+                                                    "value": "20mm Dice",
+                                                    "hidden": false,
+                                                    "isSelected": false,
+                                                    "sortOrder": 0,
+                                                    "enable": true
+                                                }
+                                            ],
+                                            "isLegal": true,
+                                            "value": [
+                                                7718084
+                                            ],
+                                            "isDirty": true,
+                                            "isSku": true,
+                                            "sortOrder": 0,
+                                            "readOnly": false
+                                        }
+                                    ]
+                                }
+                            ],
+                            "isLegal": true,
+                            "multilingualKey": "com.qpp.cgp.domain.attributecalculate.PropertyModel"
+                        }
+                    }
+                }
+            };
+            var page = Ext.create('Ext.container.Viewport', {
+                layout: 'fit'
+            });
+            var productController = Ext.create('CGP.product.view.productconfig.controller.Controller');
+            var contentData = productController.buildPMVTContentData(133829);
+            var contentAttributeStore = Ext.create('CGP.common.condition.store.ContentAttributeStore', {
+                storeId: 'contentAttributeStore',
+                data: contentData
+            });
+            var qtyStore = Ext.create('CGP.common.condition.store.ContentAttributeStore', {
+                data: [
+                    {
+                        key: 'qty',
+                        type: 'skuAttribute',
+                        valueType: 'Number',
+                        selectType: 'NON',
+                        attrOptions: [],
+                        required: true,
+                        displayName: 'Qty',
+                        path: 'args.context.nanteste',//该属性在上下文中的路径
+                        attributeInfo: {}
+                    }
+                ]
+
+            });
+            var form = Ext.widget('errorstrickform', {
+                layout: {
+                    type: 'auto',
+                },
+                autoScroll: true,
+                defaults: {
+                    margin: '5 25 5 25',
+                },
+                items: [
+                    {
+                        xtype: 'conditionfieldv3',
+                        allowBlank: false,
+                        fieldLabel: i18n.getKey('ConditionFieldV3'),
+                        itemId: 'conditionfieldv3',
+                        /*
+                                                contentTemplate: content,
+                        */
+                        width: 500,
+                        contentData: contentData,
+                        conditionDTO: {
+                            "clazz": "com.qpp.cgp.domain.executecondition.InputCondition",
+                            "conditionType": "custom",
+                            "operation": {
+                                "operations": [],
+                                "clazz": "com.qpp.cgp.domain.executecondition.operation.CustomExpressionOperation",
+                                "expression": "function expression(args){return true;}"
+                            }
+                        },
+                        conditionWindowConfig: {
+                            conditionFieldContainerConfig: {
+                                conditionPanelItems: {
+                                    diyConditionGridPanel: {
+                                        operationType: 'nantest',
+                                        xtype: 'conditiongrid',
+                                        title: i18n.getKey('nantest'),
+                                        hideConditionModel: true,
+                                        collapsed: false,
+                                        contentAttributeStore: contentAttributeStore,
+                                        itemId: 'simpleConditionGrid22222',
+                                    },
+                                    qtyConditionGridPanel: {
+                                        hidden: false,
+                                        contentAttributeStore: qtyStore,
+                                    }
+                                }
+                            }
+                        }
+
+                    },
+                    {
+                        xtype: 'attributejsexpressioninputfield',
+                        attribute: attributeData.attribute[3],
+                        labelAlign: 'left',
+                        width: 500,
+                        JSExpressionInputFieldConfig: {
+                            contextData: contentData
+                        },
+                        name: 'attributejsexpressioninputfield',
+                        fieldLabel: i18n.getKey('attributejsexpression inputfield'),
+                    },
+                    {
+                        xtype: 'conditionfieldcontainer',
+                        maxHeight: 350,
+                        width: '100%',
+                        colspan: 2,
+                        height: 350,
+                        itemId: 'conditionfieldcontainer',
+                        name: 'conditionfieldcontainer',
+                        minHeight: 150,
+                        fieldLabel: i18n.getKey('conditionfield container'),
+                        contentData: contentData,
+                        conditionPanelItems: {
+                            qtyConditionGridPanel: {
+                                hidden: true,
+                            },
+                            diyConditionGridPanel: {
+                                xtype: 'conditiongrid',
+                                title: i18n.getKey('nantest'),
+                                hideConditionModel: true,
+                                collapsed: false,
+                                contentAttributeStore: contentAttributeStore,
+                                itemId: 'simpleConditionGrid2',
+                            }
+                        }
+                    },
+                    {
+                        xtype: 'conditiongrid',
+                        title: i18n.getKey('简单条件'),
+                        hideConditionModel: false,
+                        colspan: 2,
+                        contentAttributeStore: Ext.data.StoreManager.lookup('contentAttributeStore'),
+                    },
+                    {
+                        xtype: 'conditionvaluegrid',
+                        itemId: 'conditionValueGrid',
+                        colspan: 2,
+                        allowBlank: false,
+                    },
+                ],
+                tbar: [
+                    {
+                        xtype: 'button',
+                        text: 'get',
+                        handler: function (btn) {
+                            var form = btn.ownerCt.ownerCt;
+                            var conditionfieldv3 = form.getComponent('conditionfieldv3');
+                            var conditionfieldcontainer = form.getComponent('conditionfieldcontainer');
+                            window.data = conditionfieldv3.getValue();
+                            console.log(window.data);
+                            console.log(conditionfieldv3.getExpression());
+                            console.log(conditionfieldcontainer.getExpression());
+                        }
+                    },
+                    {
+                        xtype: 'button',
+                        text: 'set',
+                        handler: function (btn) {
+                            var form = btn.ownerCt.ownerCt;
+                            var conditionfieldv3 = form.getComponent('conditionfieldv3');
+                            conditionfieldv3.setValue(window.data);
+                        }
+                    },
+                    {
+                        xtype: 'button',
+                        text: 'window',
+                        handler: function (btn) {
+                            var win = Ext.create('Ext.window.Window', {
+                                width: 800,
+                                height: 500,
+                                maximizable: true,
+                                layout: 'fit',
+                                items: [
+                                    {
+                                        xtype: 'errorstrickform',
+                                        isValidForItems: true,
+                                        maxHeight: '100%',
+                                        defaults: {
+                                            margin: '5 25 5 25',
+                                            allowBlank: false,
+                                        },
+                                        layout: 'vbox',
+                                        items: [
+                                            {
+                                                name: 'description',
+                                                itemId: 'description',
+                                                xtype: 'textfield',
+                                                width: 350,
+                                                fieldLabel: i18n.getKey('description')
+                                            },
+                                            {
+                                                name: 'outputValueType',
+                                                itemId: 'outputValueType',
+                                                xtype: 'hiddenfield',
+                                            },
+                                            {
+                                                name: 'clazz',
+                                                itemId: 'clazz',
+                                                xtype: 'hiddenfield',
+                                                value: 'com.qpp.cgp.domain.product.config.material.mapping2dto.MappingRule'
+                                            },
+                                            {
+                                                xtype: 'conditionfieldcontainer',
+                                                name: 'condition',
+                                                itemId: 'condition',
+                                                labelAlign: 'top',
+                                                flex: 1,
+                                                width: '100%',
+                                                height: '100%',
+                                                margin: '5 25 25 25',
+                                                allowBlank: true,
+                                                contentData: contentData,
+                                                rawData: null,
+                                                allowElse: true,//默认不使用else选项
+                                                functionTemplate: null,
+                                                fieldLabel: i18n.getKey('condition'),
+                                            }
+                                        ]
+                                    }
+                                ]
+                            });
+                            win.show();
+                        }
+                    }
+                ]
+            });
+            page.add(form);
+        })
+    </script>
+</head>
+<script>
+</script>
+</head>
+<body>
+
+</body>
+</html>

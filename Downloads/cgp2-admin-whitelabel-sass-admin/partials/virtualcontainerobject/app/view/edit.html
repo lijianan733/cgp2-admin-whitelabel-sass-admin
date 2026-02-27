@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../../../ClientLibs/extjs/ext-lang.js"></script>
+<!--    <script type="text/javascript" src="Edit.js"></script>-->
+    <script type="text/javascript">
+        Ext.application({
+            requires: [
+                'Ext.container.Viewport',
+                'CGP.virtualcontainertype.view.PCLayoutFieldSet',
+                'CGP.product.view.productconfig.productdesignconfig.view.productmaterialmappingV3.view.condition.ConditionFieldContainer'
+            ],
+            name: 'CGP.virtualcontainerobject',
+            appFolder: '../../app',
+            stores: [
+                'VirtualContainerObject',
+                'ContentMapItem'
+            ],
+            models: ['VirtualContainerObject','ContentMapItem'],
+            views: [
+
+            ],
+            controllers: [
+                'VirtualContainerObject'
+            ],
+            launch: function () {
+                Ext.create('Ext.container.Viewport', {
+                    layout: 'fit',
+                    items: [
+                        {
+                            xtype:'vcoedit',
+                            itemId:'vcoEdit',
+                            region:'center',
+                        }
+                    ]
+                });
+            }
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

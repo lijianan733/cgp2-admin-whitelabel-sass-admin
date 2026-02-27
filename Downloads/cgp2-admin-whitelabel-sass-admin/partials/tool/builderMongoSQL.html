@@ -1,0 +1,223 @@
+<!-- Created by nan on 2021/9/16 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>operationLogEdit</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+</head>
+<script>
+
+    Ext.onReady(function () {
+        var getAllResource = function () {
+            var data = [];
+            var requestConfig = {
+                url: adminPath + 'api/resources',
+                method: 'GET',
+                params: {
+                    type: 'CaptionRes',
+                    locale: Ext.util.Cookies.get('lang')
+                },
+                async: false,
+                headers: {
+                    Authorization: 'Bearer ' + Ext.util.Cookies.get('token')
+                },
+                callback: function (options, success, response) {
+                    var resp = eval('(' + response.responseText + ')');
+                    data = resp.data;
+                }
+            }
+            Ext.Ajax.request(requestConfig);
+            var store = new Ext.data.Store({
+                model: 'qpp.model.Resource',
+                data: data
+            });
+            return store;
+        };
+        top.resStore = getAllResource();
+        var navigateTpl = new Ext.XTemplate('db.getCollection("navigators").insert(\n' +
+            '{"_id":NumberLong({_id}),\n' +
+            '"pid":NumberLong({parentNodeId}),\n' +
+            '"text":"{navigateName}",\n' +
+            '"leaf":true,\n' +
+            '"url":"{lowerCase}/main",\n' +
+            '"block":"{lowerCase}",\n' +
+            '"permission":"AUTH_{upperCase}_DELETE,AUTH_{upperCase}_CREATE,AUTH_{upperCase}_READ,AUTH_{upperCase}_UPDATE",\n' +
+            '"hidden":false,\n' +
+            '"sortOrder":0.0,\n' +
+            '"clazz":"com.qpp.cgp.domain.management.Navigator"' +
+            '})');
+        var authResourceTpl = new Ext.XTemplate('db.getCollection("authresources").insert(\n' +
+            '{"_id":NumberLong({_id}),\n' +
+            '"code":"{upperCase}",\n' +
+            '"name":"{navigateName}",\n' +
+            '"clazz":"com.qpp.cgp.domain.permission.Resource"' +
+            '})');
+        var permissionsTpl = new Ext.XTemplate('db.getCollection("permissions").insert(\n' +
+            '{"_id":NumberLong({_id}),\n' +
+            '"resourceId":NumberLong({resourceId}),\n' +
+            '"operationId":NumberLong({operationId}),\n' +
+            '"title":"{navigateName} {operation}",\n' +
+            '"name":"{upperCase}_{upperOperation}",\n' +
+            '"roleIds":[],\n' +
+            '"permissionType":"atom",\n' +
+            '"clazz":"com.qpp.cgp.domain.permission.AtomPermission"' +
+            '})\n');
+        var page = Ext.create('Ext.container.Viewport', {
+            layout: 'fit'
+        });
+
+
+        var form = Ext.create('Ext.form.Panel', {
+            defaults: {
+                margin: 25
+            },
+            autoScroll: true,
+            tbar: [
+                {
+                    xtype: 'button',
+                    text: 'generate',
+                    handler: function (btn) {
+                        var form = btn.ownerCt.ownerCt;
+                        var navigateName = form.getComponent('navigateName').getValue();
+                        var parentNodeId = form.getComponent('parentNodeId').getValue();
+                        var authResource = form.getComponent('authResource');
+                        var permissions = form.getComponent('permissions');
+                        var navigate = form.getComponent('navigate');
+                        if (navigateName && parentNodeId) {
+                            var navigateId = JSGetCommonKey();
+                            var navigateStr = navigateTpl.apply({
+                                _id: navigateId,
+                                parentNodeId: parentNodeId,
+                                navigateName: navigateName,
+                                lowerCase: navigateName.toLowerCase(),
+                                upperCase: navigateName.toUpperCase()
+                            });
+                            navigate.setValue(navigateStr)
+
+                            var authResourceId = JSGetCommonKey();
+                            var authResourceStr = authResourceTpl.apply({
+                                _id: authResourceId,
+                                parentNodeId: parentNodeId,
+                                navigateName: navigateName,
+                                lowerCase: navigateName.toLowerCase(),
+                                upperCase: navigateName.toUpperCase()
+                            });
+                            authResource.setValue(authResourceStr);
+
+                            var permissionStr = '';
+                            var map = ['delete', 'create', 'read', 'update'];
+                            for (var i = 1; i <= 4; i++) {
+                                var permissionId = JSGetCommonKey();
+                                permissionStr += permissionsTpl.apply({
+                                    _id: permissionId,
+                                    resourceId: authResourceId,
+                                    parentNodeId: parentNodeId,
+                                    navigateName: navigateName,
+                                    lowerCase: navigateName.toLowerCase(),
+                                    upperCase: navigateName.toUpperCase(),
+                                    operationId: i,
+                                    operation: map[i - 1],
+                                    upperOperation: map[i - 1].toUpperCase()
+                                }) + '\n';
+                            }
+                            permissions.setValue(permissionStr);
+
+                        }
+                    }
+                },
+            ],
+            items: [
+                {
+                    xtype: 'textfield',
+                    name: 'navigateName',
+                    allowBlank: true,
+                    width: 500,
+                    itemId: 'navigateName',
+                    fieldLabel: ('navigateName')
+                },
+                {
+                    xtype: 'combo',
+                    name: 'parentNodeId',
+                    width: 500,
+                    itemId: 'parentNodeId',
+                    fieldLabel: ('parentNodeId'),
+                    valueField: 'id',
+                    displayField: 'text',
+                    store: {
+                        xtype: 'store',
+                        fields: [
+                            'clazz',
+                            'id',
+                            'leaf',
+                            'sortOrder',
+                            {
+                                name: 'text',
+                                type: 'string',
+                                convert: function (value) {
+                                    return i18n.getKey(value)
+                                }
+                            }
+                        ],
+                        proxy: {
+                            type: 'uxrest',
+                            url: adminPath + 'api/navigators?id=0',
+                            reader: {
+                                type: 'json',
+                                root: 'data'
+                            }
+                        },
+                        autoLoad: true,
+                        params: null,
+                    }
+                },
+                {
+                    xtype: 'toolbar',
+                    border: false,
+                    items: [
+                        {
+                            xtype: 'displayfield',
+                            value: '<font color="green" >结果</font>'
+                        }
+                    ]
+
+                },
+                {
+                    xtype: 'textarea',
+                    name: 'authResource',
+                    width: 800,
+                    height: 200,
+                    itemId: 'authResource',
+                    fieldLabel: ('authResource')
+                },
+                {
+                    xtype: 'textarea',
+                    name: 'permissions',
+                    width: 800,
+                    height: 200,
+                    itemId: 'permissions',
+                    fieldLabel: ('permissions')
+                }, {
+                    xtype: 'textarea',
+                    name: 'navigate',
+                    width: 800,
+                    height: 200,
+                    itemId: 'navigate',
+                    fieldLabel: ('navigate')
+                },
+            ]
+        });
+        page.add(form);
+    })
+</script>
+</head>
+<body>
+
+</body>
+</html>

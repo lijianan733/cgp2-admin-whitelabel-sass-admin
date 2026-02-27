@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>text</title>
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/ext-theme-neptune/ext-theme-neptune-all.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js" ></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <content x y>
+        <style>
+            .vertical-middle {
+                vertical-align: middle;
+            }
+            /**自定义file上传的按钮对齐 **/
+            .x-form-item-body td {vertical-align: top;}
+        </style>
+        <script type="text/javascript">
+            var bookletInfoList = [{name: '2fold',cardQtyArr: [{material:'S27',cardQty: 1},{material:'S30',cardQty: 1},{material:'M28',cardQty: 1},{material:'M29',cardQty: 1},{material:'M32',cardQty: 1},{material:'M31',cardQty: 1},{material:'S33',cardQty: 1},{material:'P10',cardQty: 1},{material:'M30',cardQty: 1},{material:'A35',cardQty: 1},{material:'E27',cardQty: 1}]},
+                {name: '4zfold',cardQtyArr: [{material:'S27',cardQty: 3},{material:'S30',cardQty: 3},{material:'M28',cardQty: 3},{material:'M29',cardQty: 3},{material:'M32',cardQty: 3},{material:'M31',cardQty: 3},{material:'S33',cardQty: 3},{material:'P10',cardQty: 3},{material:'M30',cardQty: 3},{material:'A35',cardQty: 2},{material:'E27',cardQty: 3}]},
+                {name: '6zfold',cardQtyArr: [{material:'S27',cardQty: 3},{material:'S30',cardQty: 3},{material:'M28',cardQty: 3},{material:'M29',cardQty: 3},{material:'M32',cardQty: 3},{material:'M31',cardQty: 3},{material:'S33',cardQty: 3},{material:'P10',cardQty: 3},{material:'M30',cardQty: 3},{material:'A35',cardQty: 2},{material:'E27',cardQty: 3}]},
+                {name: '8zfold',cardQtyArr: [{material:'S27',cardQty: 5},{material:'S30',cardQty: 4},{material:'M28',cardQty: 4},{material:'M29',cardQty: 4},{material:'M32',cardQty: 5},{material:'M31',cardQty: 5},{material:'S33',cardQty: 5},{material:'P10',cardQty: 4},{material:'M30',cardQty: 5},{material:'A35',cardQty: 3},{material:'E27',cardQty: 4}]},
+                {name: '12zfold',cardQtyArr: [{material:'S27',cardQty: 6},{material:'S30',cardQty: 5},{material:'M28',cardQty: 5},{material:'M29',cardQty: 5},{material:'M32',cardQty: 6},{material:'M31',cardQty: 6},{material:'S33',cardQty: 6},{material:'P10',cardQty: 5},{material:'M30',cardQty: 6},{material:'A35',cardQty: 4},{material:'E27',cardQty: 5}]},
+                {name: '16zfold',cardQtyArr: [{material:'S27',cardQty: 7},{material:'S30',cardQty: 6},{material:'M28',cardQty: 6},{material:'M29',cardQty: 6},{material:'M32',cardQty: 6},{material:'M31',cardQty: 6},{material:'S33',cardQty: 6},{material:'P10',cardQty: 6},{material:'M30',cardQty: 7},{material:'A35',cardQty: 5},{material:'E27',cardQty: 6}]},
+                {name: '20zfold',cardQtyArr: [{material:'S27',cardQty: 8},{material:'S30',cardQty: 7},{material:'M28',cardQty: 7},{material:'M29',cardQty: 7},{material:'M32',cardQty: 8},{material:'M31',cardQty: 7},{material:'S33',cardQty: 7},{material:'P10',cardQty: 7},{material:'M30',cardQty: 8},{material:'A35',cardQty: 6},{material:'E27',cardQty: 7}]},
+                {name: '24zfold',cardQtyArr: [{material:'S27',cardQty: 9},{material:'S30',cardQty: 8},{material:'M28',cardQty: 8},{material:'M29',cardQty: 8},{material:'M32',cardQty: 9},{material:'M31',cardQty: 9},{material:'S33',cardQty: 9},{material:'P10',cardQty: 8},{material:'M30',cardQty: 9},{material:'A35',cardQty: 6},{material:'E27',cardQty: 8}]},
+                {name: '32zfold',cardQtyArr: [{material:'S27',cardQty: 12},{material:'S30',cardQty: 10},{material:'M28',cardQty: 10},{material:'M29',cardQty: 10},{material:'M32',cardQty: 11},{material:'M31',cardQty: 11},{material:'S33',cardQty: 11},{material:'P10',cardQty: 10},{material:'M30',cardQty: 12},{material:'A35',cardQty: 8},{material:'E27',cardQty: 10}]},
+                {name: '36zfold',cardQtyArr: [{material:'S27',cardQty: 13},{material:'S30',cardQty: 12},{material:'M28',cardQty: 12},{material:'M29',cardQty: 12},{material:'M32',cardQty: 13},{material:'M31',cardQty: 12},{material:'S33',cardQty: 12},{material:'P10',cardQty: 11},{material:'M30',cardQty: 13},{material:'A35',cardQty: 9},{material:'E27',cardQty: 11}]},
+                {name: '40zfold',cardQtyArr: [{material:'S27',cardQty: 16},{material:'S30',cardQty: 14},{material:'M28',cardQty: 14},{material:'M29',cardQty: 14},{material:'M32',cardQty: 15},{material:'M31',cardQty: 15},{material:'S33',cardQty: 15},{material:'P10',cardQty: 14},{material:'M30',cardQty: 16},{material:'A35',cardQty: 11},{material:'E27',cardQty: 14}]},
+                {name: '48zfold',cardQtyArr: [{material:'S27',cardQty: 19},{material:'S30',cardQty: 17},{material:'M28',cardQty: 17},{material:'M29',cardQty: 17},{material:'M32',cardQty: 18},{material:'M31',cardQty: 17},{material:'S33',cardQty: 17},{material:'P10',cardQty: 16},{material:'M30',cardQty: 19},{material:'A35',cardQty: 13},{material:'E27',cardQty: 16}]},
+                {name: '56zfold',cardQtyArr: [{material:'S27',cardQty: 21},{material:'S30',cardQty: 18},{material:'M28',cardQty: 18},{material:'M29',cardQty: 18},{material:'M32',cardQty: 19},{material:'M31',cardQty: 19},{material:'S33',cardQty: 19},{material:'P10',cardQty: 18},{material:'M30',cardQty: 21},{material:'A35',cardQty: 14},{material:'E27',cardQty: 17}]}
+            ];
+            var materialThickMap =
+                {'A35':0.426,'M31': 0.311,'S33':0.313,
+                    'E27': 0.359,'S27': 0.284,'S30':0.326,
+                    'M28': 0.326,'M29': 0.326,'P10':0.319,
+                    'M32': 0.298,'M30': 0.282}
+            ;
+            var bookletInfos = [];
+            Ext.Array.each(bookletInfoList,function (item){
+                var bookletInfo = {
+                    name: item.name,
+                    maxThick: 0,
+                    minThick: 0,
+                    thickInfos: [],
+                    thicks:[]
+                };
+                Ext.Array.each(item.cardQtyArr,function (cardQtyItem){
+                    bookletInfo.thickInfos.push(
+                        {name: cardQtyItem.material,cardQty: cardQtyItem.cardQty,thick: cardQtyItem.cardQty*materialThickMap[cardQtyItem.material]}
+                    );
+                    bookletInfo.thicks.push(cardQtyItem.cardQty*materialThickMap[cardQtyItem.material]);
+                });
+                bookletInfo.maxThick = Ext.Array.max(bookletInfo.thicks);
+                bookletInfo.minThick = Ext.Array.min(bookletInfo.thicks);
+                bookletInfos.push(bookletInfo);
+            });
+
+            console.log(bookletInfos);
+        </script>
+
+
+</head>
+<body>
+
+</body>
+</html>

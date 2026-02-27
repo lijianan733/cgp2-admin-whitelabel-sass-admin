@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>text</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../../ClientLibs/extjs/resources/css/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../../ClientLibs/extjs/ux/grid/plugin/MultipleSort.css">
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-lang.js"></script>
+    <script src="../../../ClientLibs/jquery/jquery.magnific-popup.js"></script>
+    <!--    <script src="../../../js/product/view/productconfig/productimpositionconfig/view/compositionconfig/view/textparameter/Main.js"></script>-->
+    <script src="../../../js/product/view/productconfig/productimpositionconfig/view/compositionconfig/view/textparameter/view/ParameterGrid.js"></script>
+    <style>
+        .vertical-middle {
+            vertical-align: middle;
+        }
+
+        /**自定义file上传的按钮对齐 **/
+        .x-form-item-body td {
+            vertical-align: top;
+        }
+    </style>
+    <script type="text/javascript">
+        Ext.onReady(function () {
+            var data={"description":"aa","condition":{"clazz":"com.qpp.cgp.domain.executecondition.InputCondition","conditionType":"normal","operation":{"clazz":"com.qpp.cgp.domain.executecondition.operation.LogicalOperation","operations":[{"clazz":"com.qpp.cgp.domain.executecondition.operation.CompareOperation","operations":[{"clazz":"com.qpp.cgp.domain.executecondition.operation.value.VariableValue","name":"15039669","valueType":"STRING"},{"clazz":"com.qpp.cgp.domain.executecondition.operation.value.FixValue","valueType":"String","value":"15039670"}],"operator":"!=","operationType":"simple"}],"operator":"AND"}},"value":{"clazz":"com.qpp.cgp.domain.executecondition.operation.value.CalculationTemplateValue","calculationExpression":"lineItems[0].productInstance.productAttributeValueMap['undefined'].attributeValue+22"}};
+            var page = Ext.create('Ext.container.Viewport', {
+                layout: 'border',
+                items: [
+                    // Ext.create('CGP.product.view.productconfig.productimpositionconfig.view.compositionconfig.view.textparameter.view.ValueGrid', {
+                    //     fieldLabel: i18n.getKey('valueGrid'),
+                    //     itemId: 'valueGrid',
+                    //     labelAlign:'top',
+                    //     minHeight: 360,
+                    // })
+                    // Ext.create('CGP.product.view.productconfig.productimpositionconfig.view.compositionconfig.view.textparameter.Edit',{
+                    //     itemId:'parameterEdit'
+                    // })
+                    // Ext.create('CGP.product.view.productconfig.productimpositionconfig.view.compositionconfig.view.textparameter.view.ParameterGrid',{
+                    //     itemId:'parameterGrid',
+                    //     fieldLabel: i18n.getKey('parameterGrid'),
+                    //     labelAlign:'top',
+                    //     minHeight: 360,
+                    //     width:'50%',
+                    //     listener:{
+                    //         select:function (row,record,index){
+                    //             // var valueGrid = row.view.ownerCt.ownerCt.getComponent('valueGrid');
+                    //             // valueGrid.setSubmitValue(record.get('values'));
+                    //             // valueGrid.data=record.get('values');
+                    //         }
+                    //     }
+                    // }),
+
+                    Ext.create('CGP.product.view.productconfig.productimpositionconfig.view.compositionconfig.view.textparameter.view.ValueEdit',{
+                        itemId:'ValueEdit',
+                        width:'100%',
+                        data:data
+                    })
+                ]
+            });
+        })
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

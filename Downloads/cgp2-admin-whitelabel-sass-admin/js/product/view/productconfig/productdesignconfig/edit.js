@@ -1,0 +1,237 @@
+Ext.Loader.syncRequire(['CGP.product.view.productconfig.productdesignconfig.model.ProductDesignCfgModel']);
+Ext.onReady(function () {
+
+
+    var builderConfigTab = window.parent.Ext.getCmp('builderConfigTab');
+    var materialViewTypeStore = Ext.data.StoreManager.lookup('materialViewTypeStore');
+    var bomConfigStore = Ext.create('CGP.product.view.productconfig.productbomconfig.store.ProductBomConfigStore', {
+        params: {
+            filter: '[{"name":"productConfigId","value":' + builderConfigTab.productConfigId + ',"type":"number"}]'
+        }
+    });
+    var store = Ext.create('CGP.product.view.productconfig.productdesignconfig.store.ProductDesignCfgStore', {
+        pageSize: 1000,
+        params: {
+            filter: '[{"name":"productConfigId","value":' + builderConfigTab.productConfigId + ',"type":"number"}]'
+        }
+    });
+    var status = {'0': '删除', '1': '草稿', '3': '上线', '2': '测试'};
+
+    var page = Ext.widget({
+        block: 'product',
+        xtype: 'uxeditpage',
+        gridPage: 'productdesigneconfig.html',
+        tbarCfg: {
+            btnCreate: {
+                hidden: true
+            },
+            btnCopy: {
+                handler: function () {
+                    var basicForm = this.ownerCt.ownerCt.form;
+                    var me = basicForm;
+                    me.changeMode(me.mode.creating);
+                    me._rawModels.each(function (m) {
+                        var rec = m.copy();
+                        rec.setId(null);
+                        var configVersion = rec.get('configVersion');
+                        rec.set('configVersion', parseInt(configVersion) + 1);
+                        Ext.data.Model.id(rec);
+                        me.loadModel(rec);
+                    });
+                }
+            }
+        },
+        formCfg: {
+            model: 'CGP.product.view.productconfig.productdesignconfig.model.ProductDesignCfgModel',
+            remoteCfg: false,
+            columnCount: 1,
+            isRefreshField: false,
+            items: [
+
+                {
+                    name: 'productConfigId',
+                    xtype: 'numberfield',
+                    fieldLabel: i18n.getKey('productConfigId'),
+                    itemId: 'builderConfigId',
+                    hidden: true,
+                    value: builderConfigTab.productConfigId,
+                    allowBlank: false
+                },
+                {
+                    name: 'status',
+                    xtype: 'combo',
+                    editable: false,
+                    allowBlank: false,
+                    fieldLabel: i18n.getKey('status'),
+                    itemId: 'status',
+                    store: Ext.create('Ext.data.Store', {
+                        fields: ['type', "value"],
+                        data: [
+                            {
+                                type: '草稿', value: 1
+                            },
+                            {
+                                type: '测试', value: 2
+                            }, {
+                                type: '上线', value: 3
+                            }
+                        ]
+                    }),
+                    displayField: 'type',
+                    valueField: 'value',
+                    queryMode: 'local',
+                    value:1
+
+                }, {
+                    name: "configVersion",
+                    xtype: "textfield",
+                    readOnly: true,
+                    fieldStyle: 'background-color:silver',
+                    id: 'configVersion',
+                    fieldLabel: i18n.getKey('configVersion'),
+                    itemId: 'configVersion'
+                }, {
+                    name: "mappingVersion",
+                    xtype: "textfield",
+                    readOnly: true,
+                    fieldStyle: 'background-color:silver',
+                    listeners: {
+                        change: function (comp,newValue,oldValue){
+                            if(Ext.isEmpty(newValue)){
+                                comp.setValue('2');
+                            }
+                        }
+                    },
+                    id: 'mappingVersion',
+                    fieldLabel: i18n.getKey('mappingVersion'),
+                    itemId: 'mappingVersion',
+                    value: "2"
+                }, {
+                    xtype: 'gridcombo',
+                    matchFieldWidth: false,
+                    itemId: 'bomCompatibilities',
+                    editable: false,
+                    fieldLabel: i18n.getKey('bomVersions'),
+                    name: 'bomCompatibilities',
+                    multiSelect: true,
+                    displayField: 'configVersion',
+                    valueField: 'configVersion',
+                    width: 380,
+                    allowBlank: false,
+                    listeners: {
+                        expand: function (comp) {
+                            var toolbar = comp.picker.grid.getDockedItems('toolbar[dock="bottom"]')[0];
+                            if (toolbar) {
+                                toolbar.updateInfo();
+                            }
+                        }
+                    },
+                    labelWidth: 100,
+                    store: bomConfigStore,
+                    queryMode: 'remote',
+                    gridCfg: {
+                        store: bomConfigStore,
+                        height: 300,
+                        width: 650,
+                        listeners: {
+                            select: function (model, record) {
+                                var me = this;
+                                var selectModel = me.getSelectionModel();
+                                var records = selectModel.getSelection();
+                                var toolbar = me.getDockedItems('toolbar[dock="bottom"]')[0];
+                                var displayItem = toolbar.child('#displayItem');
+                                for (var i = 0; i < records.length; i++) {
+                                    if (records[i].get('schemaVersion') != record.get('schemaVersion')) {
+                                        var bomComp = page.form.getComponent('bomCompatibilities');
+                                        //bomComp.setActiveError('和已选bom版本结构冲突');
+                                        selectModel.deselect(record);
+                                        //toolbar.emptyMsg = '和已选bom版本结构冲突';
+                                        //toolbar.setActiveError('和已选bom版本结构冲突');
+                                        displayItem.setText('<text style="color: #ff0000;font-weight: bold">' + '与已选bom结构版本冲突，请重选!' + '</text>');
+                                        var selected = selectModel.getSelection();
+                                        var selectedArr = [];
+                                        Ext.Array.each(selected, function (item) {
+                                            selectedArr.push(item.data);
+                                        });
+                                        bomComp.setValue(selectedArr, false);
+                                        break;
+                                    } else {
+                                        toolbar.updateInfo();
+                                    }
+                                }
+                            }
+                        },
+                        selType: 'checkboxmodel',
+                        columns: [{
+                            text: i18n.getKey('configVersion'),
+                            width: 120,
+                            dataIndex: 'configVersion'
+                        }, {
+                            text: i18n.getKey('schemaVersion'),
+                            width: 80,
+                            dataIndex: 'schemaVersion'
+                        }, {
+                            text: i18n.getKey('status'),
+                            width: 120,
+                            dataIndex: 'status',
+                            renderer: function (value, metaData, record) {
+                                return status[value];
+                            }
+                        }, {
+                            text: i18n.getKey('builderContext'),
+                            width: 120,
+                            dataIndex: 'context'
+                        }, {
+                            text: i18n.getKey('id'),
+                            width: 80,
+                            dataIndex: 'id'
+                        }],
+                        bbar: Ext.create('Ext.PagingToolbar', {
+                            store: bomConfigStore,
+                            displayInfo: true,
+                            emptyMsg: i18n.getKey('noData')
+                        })
+                    }
+                }, {
+                    name: "configValue",
+                    xtype: "textarea",
+                    width: 650,
+                    height: 250,
+                    id: 'configValue',
+                    fieldLabel: i18n.getKey('configValue'),
+                    itemId: 'configValue'
+                }
+            ]
+        },
+        listeners: {
+            "render": function (page) {
+                if (page.form.getCurrentMode() == 'creating') {
+                    store.on('load', function () {
+                        var lastRecord = store.getAt(store.getCount() - 1);
+                        if (Ext.isEmpty(lastRecord)) {
+                            Ext.getCmp('configVersion').setValue('1');
+                        } else {
+                            var configVersion = parseInt(lastRecord.get('configVersion')) + 1 + '';
+                            Ext.getCmp('configVersion').setValue(configVersion);
+                        }
+                    })
+                }
+                /*if(page.form.getCurrentMode() == 'editing'){
+                    var mappingVersion = Ext.getCmp('mappingVersion');
+                    if(Ext.isEmpty(mappingVersion.getValue())){
+                        mappingVersion.setValue('2')
+                    }
+                }*/
+            },
+            afterrender: function () {
+                var page = this;
+                var builderConfigTab = window.parent.Ext.getCmp('builderConfigTab');
+                var productId = builderConfigTab.productId;
+                var isLock = JSCheckProductIsLock(productId);
+                if (isLock) {
+                    JSLockConfig(page);
+                }
+            }
+        }
+    });
+});

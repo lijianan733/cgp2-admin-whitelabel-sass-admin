@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>预览builder测试</title>
+    <link rel="icon" href="icon-twrap.svg">
+    <link rel="stylesheet" href="../../../js/test/pcCompare/angularComp/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../../../js/test/pcCompare/angularComp/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
+    <script src="../../../js/test/pcCompare/angularComp/angular/angular.js"></script>
+    <script src="../../../js/test/pcCompare/angularComp/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+</head>
+<style>
+    html, body {
+        margin: 0px;
+        height: 100%;
+    }
+
+    #center {
+        width: 200px;
+        height: 100%;
+        background-color: #666666;
+        border: 1px solid red;
+    }
+</style>
+<body ng-controller="myCtrl as vm">
+<div width="100%" height="10%" >
+    <button class="btn btn-default" ng-click="vm.saveAsImage()">saveAsImage</button>
+    <button class="btn btn-default" ng-click="vm.dragRestoration()">dragRestoration</button>
+</div>
+<!-- PC对比图使用 -->
+<iframe width="100%" height="95%" name="builderId" id="iframe1"
+        src="https://dev-sz-qpson-nginx.qppdev.com/whitelabel-site/h5builder/builder-page-test/index.html">
+</iframe>
+
+<!-- <iframe width="1200px" height="800px" name="builderId"id="iframe1"
+    src="http://192.168.41.153:8888/whitelabel-site/h5builder/builder-page-test/index.html">
+</iframe> -->
+
+</body>
+<script src="../../../js/test/pcCompare/angularComp/preview-builder-test.js"></script>
+<!--<script>
+    var vm = this;
+    var iwindow;
+    vm.testData = top.buidlerCompareData;
+
+    window.previewBuilder = {
+        api: {
+            "initialized": function () {
+                return vm.testData;
+            },
+            "loaded": loaded
+        }
+    };
+
+    function loaded() {
+        //获取到builder window;
+        iwindow = window.frames['builderId'];
+    };
+
+    vm.pcUpdate = function () {
+        vm.testData = top.buidlerCompareData;
+        iwindow.previewBuilder.updatePageContent();
+    };
+
+    vm.saveAsImage = function () {
+        iwindow.previewBuilder.saveAsImage();
+    };
+
+    vm.dragRestoration = function () {
+        iwindow.previewBuilder.dragRestoration();
+    };
+</script>-->
+
+</html>

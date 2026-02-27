@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="ext-strict x-viewport">
+<title>JSON在线视图查看器</title>
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="./static/bejson/js/clipboard.min.js"></script>
+    <script type="text/javascript" src="./static/bejson/js/bignumber.min.js"></script>
+    <script type="text/javascript" src="./static/bejson/js/component/jsonview/jsonview_files/ext-base.js"></script>
+    <script type="text/javascript" src="./static/bejson/js/component/jsonview/jsonview_files/ext-all.js"></script>
+    <link rel="stylesheet" type="text/css" href="./static/bejson/js/component/jsonview/jsonview_files/ext-all.css">
+    <script type="text/javascript"
+            src="./static/bejson/js/component/jsonview/jsonview_files/jsonviewercn_encode.js"></script>
+    <style type="text/css">
+        .br0 {
+            COLOR: #009900
+        }
+
+        .st0 {
+            COLOR: #3366cc
+        }
+
+        .sy0 {
+            COLOR: #339933
+        }
+
+        .copy-success {
+            position: fixed;
+            z-index: 999999;
+            top: 50%;
+            left: 50%;
+            margin-left: -75px;
+            width: 200px;
+            background-color: rgba(0, 0, 0, .5);
+            color: #fff;
+            text-align: center;
+            display: none;
+            padding: 10px 0;
+        }
+    </style>
+
+</head>
+<button id="copyTxt" style="height: 0;width: 0;overflow: hidden"></button>
+<div class="copy-success" id="copySuccess"></div>
+<div id="cpbtn"></div>
+<div id="google-ad1">
+
+</div>
+<script>
+    window.onload = function () {
+        var oTxt = document.getElementById("edit");
+        oTxt.onkeydown = function (ev) {
+            var oEvent = ev || event;
+            if (oEvent.keyCode == 9) {
+                if (oEvent.preventDefault) {
+                    oEvent.preventDefault();
+                } else {
+                    window.event.returnValue = false;
+                }
+                oTxt.value += "    "; //这里放入了4个空格
+            }
+
+        }
+
+        var temp_str = sessionStorage.getItem('temp_str');
+        if (temp_str) {
+            document.getElementById("edit").value = temp_str;
+
+        }
+
+        setTimeout(function () {
+            let ins = document.createElement("ins");
+            ins.setAttribute("class", "adsbygoogle");
+            ins.setAttribute("style", "display:inline-block;width:970px;height:90px");
+            ins.setAttribute("data-ad-client", "ca-pub-1130438465287629");
+            ins.setAttribute("data-ad-slot", "8181570098");
+            document.getElementById("google-ad1").appendChild(ins);
+
+            let script2 = document.createElement("script");
+            script2.innerText = "(adsbygoogle = window.adsbygoogle || []).push({});"
+            document.getElementById("google-ad1").appendChild(script2);
+        }, 1000);
+
+    }
+</script>
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4aa52dbe1c3f25aa133d68ee023b1c61";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<div class="property-model-editor__container">
+    <div class="property-model-editor__content"><!--qty-->
+        <div class="property-model-editor__qty-container" ng-if="ctrl.runtimeViewModel.qty">
+            <div class="property-model-editor__step-container"><b><span translate="STEPTITLE"
+                                                                        translate-values="{indexNum:1}"></span></b>
+            </div>
+            <div class="property-model-editor__qty-content"><p class="property-model-editor__qty-description"><span>Enter number of cards for your deck(max</span><span
+                    ng-bind="ctrl.runtimeViewModel.maxQty.value"></span><span>)</span></p><input class="step-qty__input"
+                                                                                                 ng-model="ctrl.runtimeViewModel[\'qty\'].value"
+                                                                                                 type="number"
+                                                                                                 placeholder="cards number"
+                                                                                                 min="1"
+                                                                                                 string-to-number
+                                                                                                 ng-class="{\'un-legal-border\':!ctrl.runtimeViewModel[\'qty\'].isLegal}"
+                                                                                                 ng-disabled="ctrl.isChanging"
+                                                                                                 ng-change="ctrl.attributeChange(ctrl.runtimeViewModel.qty.value,ctrl.runtimeViewModel.qty)"
+                                                                                                 ng-model-options="{ debounce: 400 }">
+            </div>
+            <p ng-if="!ctrl.runtimeViewModel[\'qty\'].isLegal && ctrl.runtimeViewModel[\'qty\'].errorMsg && ctrl.runtimeViewModel[\'qty\'].errorMsg.code !=\'\'"
+               ng-bind="ctrl.runtimeViewModel[\'qty\'].errorMsg.code" style="color: red;"></p></div><!--front-->
+        <div class="property-model-editor__attribute-container" ng-if="ctrl.runtimeViewModel.front"><!--??-->
+            <div class="property-model-editor__step-container"><b><span translate="STEPTITLE"
+                                                                        translate-values="{indexNum:2}"></span></b>
+            </div>
+            <p class="property-model-editor__attribute-tip"><span translate="EDITOR_FRONTBACK_TIP_1"></span><b><span
+                    translate="EDITOR_FRONTBACK_TIP_FRONT"
+                    translate-values="{productKey:ctrl.runtimeViewModel.product}"></span></b></p>
+            <div class=""><b><p class="property-model-editor__image-text" translate="EDITOR_IMAGE_TITLE"></p></b>
+                <div class="step-operation__message"><label class="runtime-model-editor_label-btn"
+                                                            ng-class="{\'model-editor__widget-wait-label\':ctrl.isChanging,\'runtime-model-editor__label-btn_checked\':ctrl.runtimeViewModel[\'front\'].attrOptions[0].isSelected}"><input
+                        class="label-btn__ckx-ipt" type="checkbox"
+                        ng-model="ctrl.runtimeViewModel[\'front\'].attrOptions[0].isSelected"
+                        ng-change="ctrl.attributeChange(ctrl.runtimeViewModel[\'front\'].attrOptions[0],ctrl.runtimeViewModel[\'front\'])"
+                        ng-disabled="ctrl.isChanging"><span class="label-btn__span">Same image</span></label><span
+                        class="step-operation__detail">Same for all front*</span></div>
+                <div class="step-operation__message"><label class="runtime-model-editor_label-btn"
+                                                            ng-class="{\'model-editor__widget-wait-label\':ctrl.isChanging,\'runtime-model-editor__label-btn_checked\':ctrl.runtimeViewModel[\'front\'].attrOptions[1].isSelected}"><input
+                        class="label-btn__ckx-ipt" type="checkbox"
+                        ng-model="ctrl.runtimeViewModel[\'front\'].attrOptions[1].isSelected"
+                        ng-change="ctrl.attributeChange(ctrl.runtimeViewModel[\'front\'].attrOptions[1],ctrl.runtimeViewModel[\'front\'])"
+                        ng-disabled="ctrl.isChanging"><span class="label-btn__span">Different image</span></label><span
+                        class="step-operation__detail">Different for all fronts</span></div><!--color-->
+                <div ng-if="ctrl.runtimeViewModel.showColorModel"></div>
+            </div>
+        </div><!--back-->
+        <div class="property-model-editor__attribute-container">
+            <!--<div class="property-model-editor__step-container"><b><span translate="STEPTITLE"translate-values="{indexNum:3}"translate-values="{indexNum:ctrl.stepIndex.back}"></span></b></div>-->
+            <p class="property-model-editor__attribute-tip"><span translate="EDITOR_FRONTBACK_TIP_1"></span><b><span
+                    translate="EDITOR_FRONTBACK_TIP_BACK"
+                    translate-values="{productKey:ctrl.runtimeViewModel.product}"></span></b></p>
+            <div class=""><b><p class="property-model-editor__image-text" translate="EDITOR_IMAGE_TITLE"></p></b>
+                <div class="step-operation__message"><label class="runtime-model-editor_label-btn"
+                                                            ng-class="{\'model-editor__widget-wait-label\':ctrl.isChanging,\'runtime-model-editor__label-btn_checked\':ctrl.runtimeViewModel[\'back\'].attrOptions[0].isSelected}"><input
+                        class="label-btn__ckx-ipt" type="checkbox"
+                        ng-model="ctrl.runtimeViewModel[\'back\'].attrOptions[0].isSelected"
+                        ng-change="ctrl.attributeChange(ctrl.runtimeViewModel[\'back\'].attrOptions[0],ctrl.runtimeViewModel[\'back\'])"
+                        ng-disabled="ctrl.isChanging"><span class="label-btn__span">Same image</span></label><span
+                        class="step-operation__detail">Same for all back*</span></div>
+                <div class="step-operation__message"><label class="runtime-model-editor_label-btn"
+                                                            ng-class="{\'model-editor__widget-wait-label\':ctrl.isChanging,\'runtime-model-editor__label-btn_checked\':ctrl.runtimeViewModel[\'back\'].attrOptions[1].isSelected}"><input
+                        class="label-btn__ckx-ipt" type="checkbox"
+                        ng-model="ctrl.runtimeViewModel[\'back\'].attrOptions[1].isSelected"
+                        ng-change="ctrl.attributeChange(ctrl.runtimeViewModel[\'back\'].attrOptions[1],ctrl.runtimeViewModel[\'back\'])"
+                        ng-disabled="ctrl.isChanging"><span class="label-btn__span">Different image</span></label><span
+                        class="step-operation__detail">Different for all backs</span></div>
+            </div>
+        </div>
+        <p class="property-model-editor__notice">{{ctrl.runtimeViewModel.noticeKey|translate}}</p></div>
+</div>

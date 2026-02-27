@@ -1,0 +1,35 @@
+<!--create by nan -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>grid</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../../ClientLibs/extjs/resources/custom-theme/custom_theme.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript" src="../../../js/order/view/cgpplaceorder/view/OrderItemGrid.js"></script>
+    <script type="text/javascript" src="../../../js/order/view/cgpplaceorder/controller/pdf.js"></script>
+    <script type="text/javascript" src="../../../js/order/view/cgpplaceorder/controller/pdf.worker.js"></script>
+
+    <script>
+        Ext.Loader.require(['CGP.order.view.cgpplaceorder.view.EditOrderLineItemPanel']);
+        var createOrEdit = JSGetQueryString('createOrEdit');
+        if (createOrEdit == 'create') {
+            Ext.util.Cookies.clear('cgpOrderItemArr');
+        }
+        Ext.onReady(function () {
+            var page = Ext.create('Ext.container.Viewport', {
+                layout: 'fit'
+            });
+            var grid = Ext.create('CGP.order.view.cgpplaceorder.view.OrderItemGrid', {});
+            page.add(grid);
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

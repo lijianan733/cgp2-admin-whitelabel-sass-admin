@@ -1,0 +1,31 @@
+Ext.define('CGP.orderlineitem.view.status.model.ShipmentBox', {
+    extend: 'Ext.data.Model',
+    fields: [{
+        name: 'productQty',
+        type: 'int'
+    }, {
+        name: 'boxQty',
+        type: 'int'
+    }, {
+        name: 'boxLength',
+        type: 'float'
+    }, {
+        name: 'boxWidth',
+        type: 'float'
+    }, {
+        name: 'boxHeight',
+        type: 'float'
+    }, {
+        name: 'boxSizeUnit',
+        type: 'String'
+    }, {
+        name: 'productWeight',
+        type: 'float'
+    }, {
+        name: 'totalWeight',
+        type: 'float'
+    }, {
+        name: 'packageType',
+        type: 'string'
+    }]
+})

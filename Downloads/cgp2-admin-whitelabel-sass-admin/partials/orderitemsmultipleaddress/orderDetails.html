@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Attribute</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../ClientLibs/extjs/resources/ext-theme-neptune/ext-theme-neptune-all.css">
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript">
+        var pageType = 'preview';
+        function getAllResource() {
+            var requestConfig = {
+                url: adminPath + 'api/resources',
+                method: 'GET',
+                params: {
+                    type: 'CaptionRes',
+                    //access_token: Ext.util.Cookies.get('token'),
+                    locale: Ext.util.Cookies.get('lang')
+                },
+                async: false,
+                headers: {
+                    Authorization: 'Bearer ' + Ext.util.Cookies.get('token')
+                },
+                callback: function (options, success, response) {
+                    var resp = eval('(' + response.responseText + ')');
+                    data = resp.data;
+                }
+            }
+            Ext.Ajax.request(requestConfig);
+
+            var store = new Ext.data.Store({
+                model: 'qpp.model.Resource',
+                data: data
+            });
+            return store;
+        }
+        ////i18n资源包
+        var resStore = getAllResource();
+    </script>
+    <script type="text/javascript" src= ../../js/orderitemsmultipleaddress/main.js></script>
+</head>
+
+<body>
+</body>
+
+</html>

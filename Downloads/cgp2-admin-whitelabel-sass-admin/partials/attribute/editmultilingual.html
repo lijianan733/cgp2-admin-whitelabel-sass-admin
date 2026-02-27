@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Edti_multilingual</title>
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript" src="../../js/product/edit/view/MultiLingualConfig.js"></script>
+    <script type="text/javascript">
+        Ext.onReady(function(){
+            var multilingualKey = JSGetQueryString('multilingualKey');
+            var id = JSGetQueryString('id');
+            var title = JSGetQueryString('title');
+            var optionArr = JSGetQueryString('optionArr');
+            var optionNameArr = JSGetQueryString('optionNameArr');
+            var infoTab = Ext.create('CGP.common.commoncomp.MultilingualConfig',{
+                title: i18n.getKey('info'),
+                multilingualKey: multilingualKey,
+                id: id
+            });
+            var optionTab = Ext.create('CGP.attribute.view.multilingual.OptionMultilingual',{
+                title: i18n.getKey('options'),
+                optionArr: optionArr,
+                optionNameArr: optionNameArr,
+                multilingualKey: 'com.qpp.cgp.domain.attribute.AttributeOption'
+            });
+            var multilingualTab = Ext.create('Ext.tab.Panel',{
+                //title: title,
+                region: 'center',
+                items: [infoTab]
+            });
+            if(!Ext.isEmpty(optionArr)){
+                multilingualTab.add(optionTab);
+            }
+            var page = Ext.create('Ext.container.Viewport',{
+                layout: "border",
+                title: title,
+                /*defaults: {
+                    split: true,
+                    hideCollapseTool: true
+                },*/
+                items: [multilingualTab]
+            })
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>

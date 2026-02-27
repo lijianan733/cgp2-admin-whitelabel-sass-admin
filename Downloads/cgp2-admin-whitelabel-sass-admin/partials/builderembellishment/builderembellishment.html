@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>BuilderBackground</title>
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <style>
+        .vertical-middle {
+            vertical-align: middle;
+        }
+
+		/**自定义file上传的按钮对齐 **/
+		.x-form-item-body td {vertical-align: top;}
+    </style>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/form/field/TriggerField.js"></script>
+	<script type="text/javascript" src="../../ClientLibs/extjs/ux/form/field/FileField.js"></script>
+	<script type="text/javascript" src="../../ClientLibs/extjs/ux/form/field/GridFiledSelect.js"></script>
+    <script type="text/javascript" src="../../js/builderembellishment/overridesubmit.js"></script>
+    <!-- <script type="text/javascript" src="../../js/builderembellishment/controller/gridcontroller.js"></script> -->
+    <script type="text/javascript" src="../../js/builderembellishment/view/modifyClasses.js"></script>
+    <script type="text/javascript" src="../../js/builderembellishment/view/main.js"></script>
+    <script>
+        Ext.ux.util.uploadByJqueryForm = function (options) {
+
+            var scope = options.scope;
+
+            $(options.form).ajaxSubmit({
+                type: 'post',
+                url: adminPath + 'api/admin/builderembellishment?access_token=' + Ext.util.Cookies.get('token'),
+                success: function (data) {
+                    options.form.remove();
+                    //发送成功
+                    if (options.success) options.success.call(scope || this, data);
+                },
+                error: function (XmlHttpRequest, textStatus, errorThrown) {
+                    if (options.failure) options.failure.call(scope, textStatus);
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

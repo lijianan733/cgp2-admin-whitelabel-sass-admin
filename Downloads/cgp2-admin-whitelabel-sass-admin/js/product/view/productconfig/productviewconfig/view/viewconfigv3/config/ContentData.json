@@ -1,0 +1,466 @@
+{
+  "context": {
+    "smv": {
+      "_id": "17154506",
+      "idReference": "SimplifyMaterialView",
+      "clazz": "com.qpp.cgp.domain.simplifyBom.SimplifyMaterialView",
+      "name": "EVA Top",
+      "materialViewType": {
+        "_id": "14632730",
+        "clazz": "com.qpp.cgp.domain.bom.MaterialViewType",
+        "createdDate": 1604373128243,
+        "createdBy": "9528671",
+        "name": "EVA_Dice57mm mvt",
+        "description": "EVA_Dice57mm mvt",
+        "pageContentStrategy": "",
+        "pageContentFetchStrategy": "fixed",
+        "pageContentSchema": {
+          "_id": "14632675",
+          "clazz": "com.qpp.cgp.domain.bom.PageContentSchema",
+          "modifiedDate": 1605076563133,
+          "modifiedBy": "179830",
+          "name": "EVA_Dice57mm",
+          "description": "EVA_Dice57mm",
+          "width": 170.0,
+          "height": 170.0,
+          "layers": [
+            {
+              "clazz": "Layer",
+              "_id": 13702341,
+              "readOnly": false,
+              "items": [
+                {
+                  "clazz": "Container",
+                  "_id": 13702356,
+                  "x": 28,
+                  "y": 28,
+                  "width": 114,
+                  "height": 114,
+                  "rotation": 0,
+                  "clipPath": {
+                    "clazz": "Path",
+                    "_id": "13702342",
+                    "d": "M0,57c0,31.5,25.5,57,57,57c31.5,0,57-25.5,57-57c0-31.5-25.5-57-57-57C25.5,0,0,25.5,0,57"
+                  },
+                  "items": [
+                    {
+                      "clazz": "Picture",
+                      "_id": 13702376,
+                      "x": 0,
+                      "y": 0,
+                      "width": 114,
+                      "height": 114,
+                      "placeholder": {
+                        "style": {
+                          "fontSize": "10"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "clazz": "Layer",
+              "readOnly": true,
+              "_id": 14083426,
+              "items": [
+                {
+                  "clazz": "Container",
+                  "_id": 14609544,
+                  "x": 7,
+                  "y": 7,
+                  "width": 156,
+                  "height": 156,
+                  "rotation": 0,
+                  "items": [
+                    {
+                      "clazz": "Image",
+                      "_id": 14609547,
+                      "x": 0,
+                      "y": 0,
+                      "imageWidth": 156,
+                      "imageHeight": 156,
+                      "imageName": "00f62ad0899ed163ac45eb5f65006f0c.svg",
+                      "width": 156,
+                      "height": 156
+                    },
+                    {
+                      "clazz": "Image",
+                      "_id": 14609548,
+                      "x": 21,
+                      "y": 21,
+                      "imageWidth": 114,
+                      "imageHeight": 114,
+                      "imageName": "3bab9c2d24d324a143522f399b0372e0.svg",
+                      "width": 114,
+                      "height": 114
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "canvases": [
+            {
+              "_id": "13684997",
+              "constraints": [
+                {
+                  "clazz": "CanvasConstraint",
+                  "elements": [
+                    {
+                      "priority": 99,
+                      "filter": {
+                        "clazz": "ClassCanvasElementFilter",
+                        "isInclude": true,
+                        "className": "Picture"
+                      },
+                      "clazz": "CanvasConstraintElement"
+                    }
+                  ],
+                  "rules": [
+                    {
+                      "clazz": "ElementActionConstraintRule",
+                      "key": "ENABLE$EDIT",
+                      "value": {
+                        "rtType": {
+                          "clazz": "com.qpp.cgp.domain.bom.attribute.RtType",
+                          "_id": "10591343"
+                        },
+                        "objectJSON": {
+                          "enable": true,
+                          "clazz": "EnableRtType"
+                        }
+                      }
+                    },
+                    {
+                      "clazz": "FixItemQtyConstraintRule",
+                      "value": 1
+                    }
+                  ]
+                },
+                {
+                  "clazz": "CanvasConstraint",
+                  "elements": [
+                    {
+                      "priority": 0,
+                      "filter": {
+                        "clazz": "ClassCanvasElementFilter",
+                        "isInclude": true,
+                        "className": "MultiLineText"
+                      },
+                      "clazz": "CanvasConstraintElement"
+                    }
+                  ],
+                  "rules": [
+                    {
+                      "clazz": "ElementActionConstraintRule",
+                      "key": "ENABLE$EDIT",
+                      "value": {
+                        "rtType": {
+                          "clazz": "com.qpp.cgp.domain.bom.attribute.RtType",
+                          "_id": "10591343"
+                        },
+                        "objectJSON": {
+                          "enable": true,
+                          "clazz": "EnableRtType"
+                        }
+                      }
+                    },
+                    {
+                      "clazz": "ContinuousItemQtyConstraintRule",
+                      "minValue": "0",
+                      "isEqualToMin": true,
+                      "isEqualToMax": false
+                    },
+                    {
+                      "clazz": "ElementActionConstraintRule",
+                      "key": "ENABLE$DELETE",
+                      "value": {
+                        "rtType": {
+                          "clazz": "com.qpp.cgp.domain.bom.attribute.RtType",
+                          "_id": "10591343"
+                        },
+                        "objectJSON": {
+                          "enable": true,
+                          "clazz": "EnableRtType"
+                        }
+                      }
+                    },
+                    {
+                      "clazz": "ElementActionConstraintRule",
+                      "key": "ENABLE$TRANSFORM",
+                      "value": {
+                        "rtType": {
+                          "clazz": "com.qpp.cgp.domain.bom.attribute.RtType",
+                          "_id": "10591343"
+                        },
+                        "objectJSON": {
+                          "enable": true,
+                          "clazz": "EnableRtType"
+                        }
+                      }
+                    },
+                    {
+                      "clazz": "ElementActionConstraintRule",
+                      "key": "ENABLE$DRAG",
+                      "value": {
+                        "rtType": {
+                          "clazz": "com.qpp.cgp.domain.bom.attribute.RtType",
+                          "_id": "10591343"
+                        },
+                        "objectJSON": {
+                          "enable": true,
+                          "clazz": "EnableRtType"
+                        }
+                      }
+                    },
+                    {
+                      "clazz": "MoveAreaConstraintRule",
+                      "areaShape": {
+                        "clazz": "Rectangle",
+                        "x": 0,
+                        "y": 0,
+                        "width": 114,
+                        "height": 114
+                      },
+                      "elementBound": "BBOX"
+                    }
+                  ]
+                }
+              ],
+              "containPath": {
+                "clazz": "SelectorCanvasContainerPath",
+                "selector": "$.layers[0].items[0]"
+              },
+              "clazz": "Canvas"
+            }
+          ],
+          "multilingualKey": "com.qpp.cgp.domain.bom.PageContentSchema"
+        },
+        "pageContentIndexExpression": "",
+        "pageContentInstanceRange": {
+          "clazz": "com.qpp.cgp.domain.bom.QuantityRange",
+          "rangeType": "RANGE",
+          "minExpression": "",
+          "maxExpression": "",
+          "multilingualKey": "com.qpp.cgp.domain.bom.QuantityRange"
+        },
+        "pageContentRange": {
+          "clazz": "com.qpp.cgp.domain.bom.QuantityRange",
+          "rangeType": "RANGE",
+          "minExpression": "",
+          "maxExpression": "",
+          "multilingualKey": "com.qpp.cgp.domain.bom.QuantityRange"
+        },
+        "mainVariableDataSource": {
+          "_id": "",
+          "idReference": "IVariableDataSource",
+          "clazz": "com.qpp.cgp.domain.bom.datasource.LocalDataSource",
+          "multilingualKey": "com.qpp.cgp.domain.bom.datasource.LocalDataSource"
+        },
+        "pcsPlaceholders": [],
+        "templateType": "NONE",
+        "actualHeight": 0.0,
+        "actualWidth": 0.0,
+        "multilingualKey": "com.qpp.cgp.domain.bom.MaterialViewType"
+      },
+      "isEnable": true,
+      "isInit": true,
+      "pageContents": [
+        {
+          "_id": "17160466",
+          "idReference": "PageContent",
+          "clazz": "com.qpp.cgp.domain.bom.runtime.PageContent",
+          "modifiedBy": "179830",
+          "name": "EVA_Dice57mm",
+          "width": 170.0,
+          "height": 170.0,
+          "layers": [
+            {
+              "clazz": "Layer",
+              "_id": 13702341,
+              "readOnly": false,
+              "items": [
+                {
+                  "clazz": "Container",
+                  "_id": 13702356,
+                  "x": 28,
+                  "y": 28,
+                  "width": 114,
+                  "height": 114,
+                  "rotation": 0,
+                  "clipPath": {
+                    "clazz": "Path",
+                    "_id": "13702342",
+                    "d": "M0,57c0,31.5,25.5,57,57,57c31.5,0,57-25.5,57-57c0-31.5-25.5-57-57-57C25.5,0,0,25.5,0,57"
+                  },
+                  "items": [
+                    {
+                      "clazz": "Picture",
+                      "_id": 13702376,
+                      "x": 0,
+                      "y": 0,
+                      "width": 114,
+                      "height": 114,
+                      "placeholder": {
+                        "style": {
+                          "fontSize": "10"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "clazz": "Layer",
+              "readOnly": true,
+              "_id": 14083426,
+              "items": [
+                {
+                  "clazz": "Container",
+                  "_id": 14609544,
+                  "x": 7,
+                  "y": 7,
+                  "width": 156,
+                  "height": 156,
+                  "rotation": 0,
+                  "items": [
+                    {
+                      "clazz": "Image",
+                      "_id": 14609547,
+                      "x": 0,
+                      "y": 0,
+                      "imageWidth": 156,
+                      "imageHeight": 156,
+                      "imageName": "00f62ad0899ed163ac45eb5f65006f0c.svg",
+                      "width": 156,
+                      "height": 156
+                    },
+                    {
+                      "clazz": "Image",
+                      "_id": 14609548,
+                      "x": 21,
+                      "y": 21,
+                      "imageWidth": 114,
+                      "imageHeight": 114,
+                      "imageName": "3bab9c2d24d324a143522f399b0372e0.svg",
+                      "width": 114,
+                      "height": 114
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "pageContentSchemaId": "14632675",
+          "multilingualKey": "com.qpp.cgp.domain.bom.runtime.PageContent"
+        }
+      ],
+      "productMaterialViewTypeId": "17154506",
+      "groupId": 0,
+      "pageContentQty": 1,
+      "initPageContents": [
+        {
+          "_id": "17160467",
+          "idReference": "PageContent",
+          "clazz": "com.qpp.cgp.domain.bom.runtime.PageContent",
+          "modifiedBy": "179830",
+          "name": "EVA_Dice57mm",
+          "width": 170.0,
+          "height": 170.0,
+          "layers": [
+            {
+              "clazz": "Layer",
+              "_id": 13702341,
+              "readOnly": false,
+              "items": [
+                {
+                  "clazz": "Container",
+                  "_id": 13702356,
+                  "x": 28,
+                  "y": 28,
+                  "width": 114,
+                  "height": 114,
+                  "rotation": 0,
+                  "clipPath": {
+                    "clazz": "Path",
+                    "_id": "13702342",
+                    "d": "M0,57c0,31.5,25.5,57,57,57c31.5,0,57-25.5,57-57c0-31.5-25.5-57-57-57C25.5,0,0,25.5,0,57"
+                  },
+                  "items": [
+                    {
+                      "clazz": "Picture",
+                      "_id": 13702376,
+                      "x": 0,
+                      "y": 0,
+                      "width": 114,
+                      "height": 114,
+                      "placeholder": {
+                        "style": {
+                          "fontSize": "10"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "clazz": "Layer",
+              "readOnly": true,
+              "_id": 14083426,
+              "items": [
+                {
+                  "clazz": "Container",
+                  "_id": 14609544,
+                  "x": 7,
+                  "y": 7,
+                  "width": 156,
+                  "height": 156,
+                  "rotation": 0,
+                  "items": [
+                    {
+                      "clazz": "Image",
+                      "_id": 14609547,
+                      "x": 0,
+                      "y": 0,
+                      "imageWidth": 156,
+                      "imageHeight": 156,
+                      "imageName": "00f62ad0899ed163ac45eb5f65006f0c.svg",
+                      "width": 156,
+                      "height": 156
+                    },
+                    {
+                      "clazz": "Image",
+                      "_id": 14609548,
+                      "x": 21,
+                      "y": 21,
+                      "imageWidth": 114,
+                      "imageHeight": 114,
+                      "imageName": "3bab9c2d24d324a143522f399b0372e0.svg",
+                      "width": 114,
+                      "height": 114
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "pageContentSchemaId": "14632675",
+          "multilingualKey": "com.qpp.cgp.domain.bom.runtime.PageContent"
+        }
+      ],
+      "isNeedPreprocess": false,
+      "isNeedInitPageContent": false,
+      "multilingualKey": "com.qpp.cgp.domain.simplifyBom.SimplifyMaterialView"
+    },
+    "properties": {
+      "6062563": 6062564,
+      "6062471": 6062472,
+      "6062710": 6062711,
+      "6062608": 6062609
+    }
+  }
+}

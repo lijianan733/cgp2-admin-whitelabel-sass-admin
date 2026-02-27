@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Edti_Attribute</title>
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <style>
+        .vertical-middle {
+            vertical-align: middle;
+        }
+        a.colorpick {
+            border: 2px solid #e7e7e7;
+            box-sizing: content-box;
+            display: inline-block;
+            height: 18px;
+            width: 18px;
+        }
+    </style>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <script type="text/javascript" src="../../js/attribute/view/window/DragZone.js"></script>
+    <script type="text/javascript" src="../../js/attribute/view/edit.js"></script>
+    <script>
+    	Ext.Loader.setConfig({
+    		disableCaching : false
+    	});
+    	Ext.Loader.setPath({
+    		enabled : true,
+    		"CGP.attribute": path+'js/attribute'
+    	});
+    	Ext.syncRequire(["CGP.attribute.model.Attribute","CGP.attribute.model.AttributeOption"]);
+    </script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>

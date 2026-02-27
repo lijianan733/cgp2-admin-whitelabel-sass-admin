@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>
+        制裁信息詳情
+    </title>
+    <script language="javascript" type="text/javascript" src="../../ClientLibs/jquery/jquery-3.6.0.min.js"></script>
+    <script language="javascript" type="text/javascript"
+            src="../../ClientLibs/jquery/jquery.json-2.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="../../ClientLibs/extjs/resources/custom-theme/custom_theme.css"><!-- 样式表 -->
+    <link rel="stylesheet" type="text/css" href="../../ClientLibs/extjs/resources/css/icon.css">
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../ClientLibs/extjs/ext-lang.js"></script>
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+
+        /* 容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* 卡片组件 */
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        /* 按钮样式 */
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .btn-primary {
+            background-color: #1e40af;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e3a8a;
+        }
+
+        .btn-primary:active {
+            transform: translateY(1px);
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+        }
+
+        .navbar-logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #1e40af;
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 24px;
+        }
+
+        .navbar-menu a {
+            color: #334155;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .navbar-menu a:hover {
+            color: #1e40af;
+        }
+
+        .mobile-menu-button {
+            display: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* 响应式导航 */
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+            }
+
+            .mobile-menu-button {
+                display: block;
+            }
+
+            .mobile-menu {
+                display: none;
+                padding: 16px 0;
+                border-top: 1px solid #e2e8f0;
+            }
+
+            .mobile-menu a {
+                display: block;
+                padding: 8px 0;
+                color: #334155;
+                text-decoration: none;
+            }
+
+            .mobile-menu a:hover {
+                color: #1e40af;
+            }
+        }
+
+        /* 搜索信息卡片 */
+        .search-info {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .search-info {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .search-info-item {
+            background-color: #f2f3f5;
+            border-radius: 4px;
+            padding: 12px;
+        }
+
+        .search-info-label {
+            font-size: 14px;
+            color: #4b5563;
+            margin-bottom: 4px;
+        }
+
+        .search-info-value {
+            font-weight: bold;
+        }
+
+        /* 概览卡片 */
+        .overview-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .overview-cards {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .overview-card {
+            color: white;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .overview-card.blue {
+            background-color: #3b82f6;
+        }
+
+        .overview-card.green {
+            background-color: #22c55e;
+        }
+
+        .overview-card.purple {
+            background-color: #8b5cf6;
+        }
+
+        .overview-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .overview-card-title {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .overview-card-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .overview-card-icon {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        /* 实体卡片 */
+        .entity-card {
+            border-radius: 8px;
+            margin-bottom: 16px;
+            padding: 16px;
+            border: 1px solid #e5e7eb;
+            transition: background-color 0.3s;
+        }
+
+        .entity-card:hover {
+            background-color: #f9fafb;
+        }
+
+        .entity-header {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .entity-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .entity-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1e40af;
+        }
+
+        .entity-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .entity-tag {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 16px;
+        }
+
+        .entity-tag.entity {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .entity-tag.individual {
+            background-color: #f3e8ff;
+            color: #5b21b6;
+        }
+
+        .entity-tag.source {
+            background-color: #e5e7eb;
+            color: #4b5563;
+        }
+
+        .entity-tag.confidence {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .entity-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .entity-details.expanded {
+            max-height: 1000px;
+        }
+
+        .entity-details-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            padding-top: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .entity-details-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .entity-detail-group {
+            margin-bottom: 16px;
+        }
+
+        .entity-detail-label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #4b5563;
+            margin-bottom: 4px;
+        }
+
+        .entity-detail-value {
+            font-size: 14px;
+        }
+
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 16px 0;
+            color: #6b7280;
+            font-size: 14px;
+            border-top: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+<input name="hidd_sanction" type="hidden" id="hidd_sanction"
+       value="{&quot;count&quot;:12,&quot;next&quot;:null,&quot;previous&quot;:null,&quot;results&quot;:[{&quot;confidence_score&quot;:0.8158969,&quot;name&quot;:&quot;JOHN B. PRIDMORE-SMITH&quot;,&quot;entity_type&quot;:&quot;Individual&quot;,&quot;address&quot;:[&quot;MALABAR FIELDS, DAVENTRY, GB&quot;],&quot;country_residence&quot;:[&quot;GB&quot;],&quot;data_source&quot;:{&quot;name&quot;:&quot;US / BIS Denied Persons List (DPL)&quot;,&quot;short_name&quot;:&quot;DPL&quot;},&quot;source_list_url&quot;:&quot;https://www.bis.doc.gov/index.php/the-denied-persons-list&quot;,&quot;source_information_url&quot;:&quot;https://www.bis.doc.gov/index.php/policy-guidance/lists-of-parties-of-concern/denied-persons-list&quot;,&quot;start_date&quot;:&quot;1984-12-14&quot;,&quot;federal_register_notice&quot;:&quot;49 F.R. 49666 12/21/84&quot;,&quot;standard_order&quot;:true,&quot;si_identifier&quot;:&quot;EUCSLDPL-UNSPECIFED-96F020BDFE3157A878A4360C966C873F091F0E392A950FC6C286B96A&quot;,&quot;data_hash&quot;:&quot;qEgs47/Ra7ePSe5RtAQnJgSblHTZwEtZVu2glP84iYs=&quot;},{&quot;confidence_score&quot;:0.8132513,&quot;name&quot;:&quot;Murad Iraklievich Margoshvili&quot;,&quot;alt_names&quot;:[&quot;Zurab Iraklievich Margoshvili&quot;,&quot;Murad Akhmedovich Madayev&quot;,&quot;Lova Madayev&quot;,&quot;Abu-Muslim Al-Shishani&quot;,&quot;Muslim&quot;,&quot;Lava&quot;,&quot;John&quot;,&quot;George&quot;,&quot;Arthur&quot;,&quot;Sedoy&quot;],&quot;entity_type&quot;:&quot;Individual&quot;,&quot;date_of_birth&quot;:[&quot;1970-01-15&quot;],&quot;year_of_birth&quot;:[1970],&quot;place_of_birth&quot;:[&quot;Grozny, Chechen Republic, RU&quot;],&quot;nationality&quot;:[&quot;GE&quot;,&quot;RU&quot;],&quot;data_source&quot;:{&quot;name&quot;:&quot;INT / United Nations Sanctions List&quot;,&quot;short_name&quot;:&quot;UN&quot;},&quot;source_list_url&quot;:&quot;https://scsanctions.un.org/resources/xml/en/consolidated.xml&quot;,&quot;start_date&quot;:&quot;2017-07-20&quot;,&quot;program&quot;:[&quot;AL-QAIDA&quot;],&quot;remarks&quot;:&quot;Associated with Jabhat al-Nusrah, listed as Al-Nusrah Front for the People of the Levant (QDe.137).Review pursuant to Security Council resolution 2610 (2021) was concluded on 8 November 2022. INTERPOL-UN Security Council Special Notice web link:https://www.interpol.int/en/How-we-work/Notices/View-UN-Notices-Individuals&quot;,&quot;federal_register_notice&quot;:&quot;QDi.406&quot;,&quot;additional_information&quot;:{&quot;list_type&quot;:&quot;UN List&quot;,&quot;alias_quality&quot;:&quot;Low&quot;,&quot;version_number&quot;:&quot;1&quot;,&quot;last_day_updated&quot;:&quot;2022-11-08&quot;},&quot;si_identifier&quot;:&quot;UNSCSIND-ALQAIDA-6908602QDI406&quot;,&quot;entity_number&quot;:6908602,&quot;data_hash&quot;:&quot;EJVlE4dtXtx9yEFHji6Kj00Dd0TVkP4OWHSmA8NMgs0=&quot;},{&quot;confidence_score&quot;:0.8132513,&quot;name&quot;:&quot;Murad Iraklievich Margoshvili&quot;,&quot;alt_names&quot;:[&quot;Sedoy&quot;,&quot;Arthur&quot;,&quot;George&quot;,&quot;John&quot;,&quot;Lava&quot;,&quot;Muslim&quot;,&quot;Abu-Muslim Al-Shishani&quot;,&quot;Lova Madayev&quot;,&quot;Murad Akhmedovich Madayev&quot;,&quot;Zurab Iraklievich Margoshvili&quot;],&quot;entity_type&quot;:&quot;Individual&quot;,&quot;date_of_birth&quot;:[&quot;1970-01-15&quot;],&quot;year_of_birth&quot;:[1970],&quot;place_of_birth&quot;:[&quot;Grozny Chechen Republic RU&quot;],&quot;nationality&quot;:[&quot;RU&quot;],&quot;citizenship&quot;:[&quot;GE&quot;,&quot;RU&quot;],&quot;data_source&quot;:{&quot;name&quot;:&quot;EU / EU Consolidated List of Sanctions&quot;,&quot;short_name&quot;:&quot;CFSP&quot;},&quot;source_list_url&quot;:&quot;http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R1390&amp;from=EN&quot;,&quot;source_information_url&quot;:&quot;http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R1390&amp;from=EN&quot;,&quot;start_date&quot;:&quot;2017-07-27&quot;,&quot;program&quot;:[&quot;TAQA&quot;],&quot;remarks&quot;:&quot;Entity_Remark: UN ID: QDi.406); (Date of UN designation: 2017-07-20; Entity_Remark: UN ID: QDi.406); (Date of UN designation: 2017-07-20; NameAlias_Remark: low quality a.k.a.; Entity_Remark: UN ID: QDi.406); (Date of UN designation: 2017-07-20; BirthDate_Remark: Grozny, Chechen Republic, Russian Federation&quot;,&quot;federal_register_notice&quot;:&quot;2017/1390 (OJ L195)&quot;,&quot;additional_information&quot;:{&quot;birth_date_logical_id&quot;:&quot;113495&quot;,&quot;name_alias_logical_id&quot;:[&quot;113498&quot;,&quot;113499&quot;,&quot;113500&quot;,&quot;113501&quot;,&quot;113502&quot;,&quot;113503&quot;,&quot;113504&quot;,&quot;113505&quot;,&quot;113506&quot;,&quot;113507&quot;,&quot;113508&quot;],&quot;citizenship_logical_id&quot;:[&quot;113496&quot;,&quot;113497&quot;],&quot;entity_regulation_type&quot;:&quot;amendment&quot;,&quot;entity_designation_date&quot;:&quot;2017-07-20&quot;,&quot;entity_united_nation_id&quot;:&quot;QDi.406&quot;,&quot;birth_date_calendar_type&quot;:&quot;GREGORIAN&quot;,&quot;birth_date_regulation_type&quot;:&quot;amendment&quot;,&quot;entity_eu_reference_number&quot;:&quot;EU.4023.92&quot;,&quot;name_alias_regulation_type&quot;:&quot;amendment&quot;,&quot;citizenship_regulation_type&quot;:&quot;amendment&quot;,&quot;birth_date_country_description&quot;:&quot;RUSSIAN FEDERATION&quot;,&quot;birth_date_regulation_language&quot;:&quot;EN&quot;,&quot;entity_regulation_number_title&quot;:&quot;2017/1390 (OJ L195)&quot;,&quot;name_alias_regulation_language&quot;:&quot;EN&quot;,&quot;birth_date_regulation_programme&quot;:&quot;TAQA&quot;,&quot;citizenship_regulation_language&quot;:&quot;EN&quot;,&quot;name_alias_regulation_programme&quot;:&quot;TAQA&quot;,&quot;citizenship_regulation_programme&quot;:&quot;TAQA&quot;,&quot;birth_date_regulation_number_title&quot;:&quot;2017/1390 (OJ L195)&quot;,&quot;entity_regulation_publication_date&quot;:&quot;2017-07-27&quot;,&quot;name_alias_regulation_number_title&quot;:&quot;2017/1390 (OJ L195)&quot;,&quot;citizenship_regulation_number_title&quot;:&quot;2017/1390 (OJ L195)&quot;,&quot;entity_regulation_organisation_type&quot;:&quot;commission&quot;,&quot;birth_date_regulation_publication_url&quot;:&quot;http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R1390&amp;from=EN&quot;,&quot;name_alias_regulation_publication_url&quot;:&quot;http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R1390&amp;from=EN&quot;,&quot;birth_date_regulation_publication_date&quot;:&quot;2017-07-27&quot;,&quot;citizenship_regulation_publication_url&quot;:&quot;http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32017R1390&amp;from=EN&quot;,&quot;name_alias_regulation_publication_date&quot;:&quot;2017-07-27&quot;,&quot;birth_date_regulation_organisation_type&quot;:&quot;commission&quot;,&quot;citizenship_regulation_publication_date&quot;:&quot;2017-07-27&quot;,&quot;entity_regulation_entry_into_force_date&quot;:&quot;2017-07-27&quot;,&quot;entity_subject_type_classification_code&quot;:&quot;person&quot;,&quot;name_alias_regulation_organisation_type&quot;:&quot;commission&quot;,&quot;citizenship_regulation_organisation_type&quot;:&quot;commission&quot;,&quot;birth_date_regulation_entry_into_force_date&quot;:&quot;2017-07-27&quot;,&quot;name_alias_regulation_entry_into_force_date&quot;:&quot;2017-07-27&quot;,&quot;citizenship_regulation_entry_into_force_date&quot;:&quot;2017-07-27&quot;},&quot;si_identifier&quot;:&quot;EUFINANCIAL-TAQA-113363&quot;,&quot;entity_number&quot;:113363,&quot;identifiers&quot;:[{&quot;identifier&quot;:&quot;EU.4023.92&quot;,&quot;type&quot;:&quot;eu_referencenumber&quot;,&quot;type_family&quot;:&quot;sanctions_id&quot;},{&quot;identifier&quot;:&quot;QDi.406&quot;,&quot;type&quot;:&quot;united_nation_id&quot;,&quot;type_family&quot;:&quot;sanctions_id&quot;}],&quot;data_hash&quot;:&quot;ZNCy+k88jlxOMnrTb1oCjP8TAUVNQSYbz5DZpvgg1Os=&quot;},{&quot;confidence_score&quot;:0.8132513,&quot;name&quot;:&quot;Murad Iraklievich Margoshvili&quot;,&quot;alt_names&quot;:[&quot;Zurab Iraklievich Margoshvili&quot;,&quot;Sedoy&quot;,&quot;Arthur&quot;,&quot;George&quot;,&quot;John&quot;,&quot;Lava&quot;,&quot;Muslim&quot;,&quot;Abu-Muslim Al-Shishani&quot;,&quot;Lova Madayev&quot;,&quot;Murad Akhmedovich Madayev&quot;],&quot;entity_type&quot;:&quot;Individual&quot;,&quot;date_of_birth&quot;:[&quot;1970-01-15&quot;],&quot;year_of_birth&quot;:[1970],&quot;place_of_birth&quot;:[&quot;Grozny, République tchétchène, Fédération de Russie, RU&quot;],&quot;nationality&quot;:[&quot;GE&quot;,&quot;RU&quot;],&quot;data_source&quot;:{&quot;name&quot;:&quot;FR / Ministry of Economy, Finance and Recovery France - Asset Freezes&quot;,&quot;short_name&quot;:&quot;FR-GELS&quot;},&quot;source_list_url&quot;:&quot;https://gels-avoirs.dgtresor.gouv.fr/ApiPublic/api/v1/publication/derniere-publication-fichier-json&quot;,&quot;program&quot;:[&quot;GELSAVOIRS&quot;],&quot;si_identifier&quot;:&quot;FR-GELSAVOIRS-3086&quot;,&quot;entity_number&quot;:3086,&quot;data_hash&quot;:&quot;/9i45h4Qu1nW56x1v3mATDFg/3RC5dKbhhghw4PIvzA=&quot;},{&quot;confidence_score&quot;:0.8132513,&quot;name&quot;:&quot;Murad Iraklievich Margoshvili&quot;,&quot;alt_names&quot;:[&quot;Zurab Iraklievich Margoshvili&quot;,&quot;Murad Akhmedovich Madayev&quot;,&quot;Lova Madayev&quot;,&quot;Abu-Muslim Al-Shishani&quot;,&quot;Muslim&quot;,&quot;Lava&quot;,&quot;John&quot;,&quot;George&quot;,&quot;Arthur&quot;,&quot;Sedoy&quot;],&quot;entity_type&quot;:&quot;Individual&quot;,&quot;place_of_birth&quot;:[&quot;Grozny, Chechen Republic, RU&quot;],&quot;nationality&quot;:[&quot;GE&quot;,&quot;RU&quot;],&quot;data_source&quot;:{&quot;name&quot;:&quot;AR / MJUS - Ministerio de Justicia, RePET&quot;,&quot;short_name&quot;:&quot;AR-MJUS&quot;},&quot;source_list_url&quot;:&quot;https://repet.jus.gob.ar/&quot;,&quot;start_date&quot;:&quot;2017-07-20&quot;,&quot;program&quot;:[&quot;QDI&quot;],&quot;remarks&quot;:&quot;Associated with Jabhat al-Nusrah, listed as Al-Nusrah Front for the People of the Levant (QDe.137).Review pursuant to Security Council resolution 2610 (2021) was concluded on 8 November 2022. INTERPOL-UN Security Council Special Notice web link:https://www.interpol.int/en/How-we-work/Notices/View-UN-Notices-Individuals&quot;,&quot;additional_information&quot;:{&quot;list_type&quot;:&quot;UN List&quot;,&quot;listed_on&quot;:&quot;20/07/2017&quot;,&quot;un_list_type&quot;:&quot;Al-Qaida&quot;,&quot;last_day_updated&quot;:&quot;2022-11-08&quot;},&quot;si_identifier&quot;:&quot;ARMJUS-QDI-6908602&quot;,&quot;entity_number&quot;:6908602,&quot;data_hash&quot;:&quot;x92NqK1XkyabvE2BqBVyYAP7wFDUdYQi6xNGFzOubBI=&quot;},{&quot;confidence_score&quot;:0.8132513,&quot;name&quot;:&quot;Murad Iraklievich Margoshvili&quot;,&quot;alt_names&quot;:[&quot;Abu-Muslim Al-Shishani&quot;,&quot;Lova Madayev&quot;,&quot;Murad Akhmedovich Madayev&quot;,&quot;Zurab Iraklievich Margoshvili&quot;,&quot;Arthur&quot;,&quot;George&quot;,&quot;John&quot;,&quot;Lava&quot;,&quot;Muslim&quot;,&quot;Sedoy&quot;],&quot;entity_type&quot;:&quot;Individual&quot;,&quot;date_of_birth&quot;:[&quot;1970-01-15&quot;],&quot;year_of_birth&quot;:[1970],&quot;place_of_birth&quot;:[&quot;Chechen Republic, RU&quot;],&quot;nationality&quot;:[&quot;RU&quot;],&quot;data_source&quot;:{&quot;name&quot;:&quot;ZA / FIC Targeted Financial Sanctions&quot;,&quot;short_name&quot;:&quot;ZA-FICTFS&quot;},&quot;source_list_url&quot;:&quot;https://tfs.fic.gov.za/Pages/TFSListDownload&quot;,&quot;start_date&quot;:&quot;2017-07-20&quot;,&quot;program&quot;:[&quot;FICTFS&quot;],&quot;remarks&quot;:&quot;Associated with Jabhat al-Nusrah, listed as Al-Nusrah Front for the People of the Levant (QDe.137). INTERPOL-UN Security Council Special Notice web link: https://www.interpol.int/en/How-we-work/Notices/View-UN-Notices-Individuals&quot;,&quot;federal_register_notice&quot;:&quot;QDi.406&quot;,&quot;si_identifier&quot;:&quot;ZA-FICTFS-00100522&quot;,&quot;data_hash&quot;:&quot;II/TasyVKi1jKuFzjQffSCD9vN4gv3uWb2nDPNkIjG8=&quot;},{&quot;confidence_score&quot;:0.8132513,&quot;name&quot;:&quot;Murad Iraklievich MARGOSHVILI&quot;,&quot;alt_names&quot;:[&quot;Murad Akhmedovich MADAYEV&quot;,&quot;Lova MADAYEV&quot;,&quot;LAVA&quot;,&quot;JOHN&quot;,&quot;GEORGE&quot;,&quot;ARTHUR&quot;,&quot;Abu-Muslim AL-SHISHANI&quot;,&quot;Zurab Iraklievich MARGOSHVILI&quot;,&quot;MUSLIM&quot;,&quot;SEDOY&quot;],&quot;entity_type&quot;:&quot;Individual&quot;,&quot;date_of_birth&quot;:[&quot;1970-01-15&quot;],&quot;year_of_birth&quot;:[1970],&quot;place_of_birth&quot;:[&quot;Grozny, Chechen Republic, RU&quot;],&quot;nationality&quot;:[&quot;GE&quot;,&quot;RU&quot;],&quot;data_source&quot;:{&quot;name&quot;:&quot;UK / UK Sanctions List (HM Treasury)&quot;,&quot;short_name&quot;:&quot;HM TREASURY&quot;},&quot;source_list_url&quot;:&quot;https://ofsistorage.blob.core.windows.net/publishlive/2022format/ConList.csv&quot;,&quot;start_date&quot;:&quot;2017-07-24&quot;,&quot;program&quot;:[&quot;HMTREASURY-AQD&quot;],&quot;remarks&quot;:&quot;Other information: (UK Sanctions List Ref):AQD0266. (UN Ref):QDi.406. Associated with Jabhat al-Nusrah, listed as Al-Nusrah Front for the People of the Levant (QDe.137). INTERPOL-UN Security Council Special Notice web link: https://www.interpol.int/en/notice/search/un/6116583&quot;,&quot;additional_information&quot;:{&quot;regime&quot;:&quot;ISIL (Da&#39;esh) and Al-Qaida&quot;,&quot;un_ref&quot;:&quot;QDi.406. Associated with Jabhat al-Nusrah, listed as Al-Nusrah Front for the People of the Levant (QDe.137). INTERPOL-UN Security Council Special Notice web link: https://www.interpol.int/en/notice/search/un/6116583&quot;,&quot;alias_type&quot;:[&quot;AKA&quot;,&quot;Primary name&quot;],&quot;last_updated&quot;:&quot;2020-12-31&quot;,&quot;date_designated&quot;:&quot;2017-07-20&quot;,&quot;uk_sanctions_list_ref&quot;:&quot;AQD0266.&quot;},&quot;si_identifier&quot;:&quot;HMTREASURY-AQD-13517&quot;,&quot;entity_number&quot;:13517,&quot;identifiers&quot;:[{&quot;identifier&quot;:&quot;AQD0266&quot;,&quot;type&quot;:&quot;uk_sanctions_list_ref&quot;,&quot;type_family&quot;:&quot;sanctions&quot;,&quot;country&quot;:&quot;UK&quot;},{&quot;identifier&quot;:&quot;QDi.406.&quot;,&quot;type&quot;:&quot;un_ref&quot;,&quot;type_family&quot;:&quot;sanctions&quot;,&quot;notes&quot;:&quot;Associated with Jabhat al-Nusrah, listed as Al-Nusrah Front for the People of the Levant (QDe.137). INTERPOL-UN Security Council Special Notice web link: https://www.interpol.int/en/notice/search/un/6116583&quot;}],&quot;data_hash&quot;:&quot;EyCwSN+Cd7wGBhc4yGyeCVo1Ryixt3h619N3ZUKQAOM=&quot;},{&quot;confidence_score&quot;:0.8132513,&quot;name&quot;:&quot;Murad Iraklievich Margoshvili&quot;,&quot;alt_names&quot;:[&quot;Zurab Iraklievich Margoshvili&quot;,&quot;Murad Akhmedovich Madayev&quot;,&quot;Lova Madayev&quot;,&quot;Abu-Muslim Al-Shishani&quot;,&quot;Muslim&quot;,&quot;Lava&quot;,&quot;John&quot;,&quot;George&quot;,&quot;Arthur&quot;,&quot;Sedoy&quot;],&quot;entity_type&quot;:&quot;Individual&quot;,&quot;date_of_birth&quot;:[&quot;1970-01-15&quot;],&quot;year_of_birth&quot;:[1970],&quot;place_of_birth&quot;:[&quot;Grozny, Chechen Republic, RU&quot;],&quot;citizenship&quot;:[&quot;GE&quot;,&quot;RU&quot;],&quot;data_source&quot;:{&quot;name&quot;:&quot;AU / Australian Sanctions List&quot;,&quot;short_name&quot;:&quot;AUL&quot;},&quot;source_list_url&quot;:&quot;https://www.dfat.gov.au/international-relations/security/sanctions/consolidated-list&quot;,&quot;program&quot;:[&quot;AU-1267&quot;,&quot;AU-1989&quot;,&quot;AU-2253&quot;],&quot;remarks&quot;:&quot;Listing Information: Listed on: 20 Jul. 2017Listing Information: Listed on: 20 Jul. 2017, Additional Information: Associated with Jabhat al-Nusrah, listed as Al-Nusrah Front for the People of the Levant (QDe.137). Review pursuant to Security Council resolution 2610 (2021) was concluded on 8 November 2022.&quot;,&quot;additional_information&quot;:{&quot;committees&quot;:&quot;1267/1989/2253 (ISIL (Da&#39;esh) and Al-Qaida)&quot;,&quot;control_date&quot;:&quot;2023-03-31&quot;},&quot;si_identifier&quot;:&quot;AUL-AU1267AU1989AU2253-3264&quot;,&quot;entity_number&quot;:3264,&quot;data_hash&quot;:&quot;6SIy9VSPssBVEkXR18bL1uL8znKHiK7hPOS7kOknato=&quot;},{&quot;confidence_score&quot;:0.8132513,&quot;name&quot;:&quot;Murad Iraklievich Margoshvili&quot;,&quot;alt_names&quot;:[&quot;Abu-Muslim Al-Shishani&quot;,&quot;Arthur&quot;,&quot;George&quot;,&quot;John&quot;,&quot;Lava&quot;,&quot;Lova Madayev&quot;,&quot;Murad Akhmedovich Madayev&quot;,&quot;Zurab Iraklievich Margoshvili&quot;,&quot;Muslim&quot;,&quot;Sedoy&quot;],&quot;entity_type&quot;:&quot;Individual&quot;,&quot;date_of_birth&quot;:[&quot;1970-01-15&quot;],&quot;year_of_birth&quot;:[1970],&quot;place_of_birth&quot;:[&quot;Grozny, Chechen Republic, RU&quot;],&quot;nationality&quot;:[&quot;GE&quot;,&quot;RU&quot;],&quot;citizenship&quot;:[&quot;GE&quot;,&quot;RU&quot;],&quot;data_source&quot;:{&quot;name&quot;:&quot;UK / Sanctions list&quot;,&quot;short_name&quot;:&quot;UK-SANCTIONS&quot;},&quot;source_list_url&quot;:&quot;https://www.gov.uk/government/publications/the-uk-sanctions-list&quot;,&quot;start_date&quot;:&quot;2017-07-20&quot;,&quot;program&quot;:[&quot;UN&quot;],&quot;remarks&quot;:&quot;QDi.406&quot;,&quot;additional_information&quot;:{&quot;unique_id&quot;:&quot;AQD0266&quot;,&quot;travel_ban&quot;:&quot;True&quot;,&quot;arms_embargo&quot;:&quot;True&quot;,&quot;asset_freeze&quot;:&quot;True&quot;,&quot;other_information&quot;:&quot;Associated with Jabhat al-Nusrah, listed as Al-Nusrah Front for the People of the Levant (QDe.137). INTERPOL-UN Security Council Special Notice web link: https://www.interpol.int/en/notice/search/un/6116583&quot;},&quot;si_identifier&quot;:&quot;UKSANCTIONS-UN-13517&quot;,&quot;entity_number&quot;:13517,&quot;data_hash&quot;:&quot;lP7dxNJWTwzyLtqoZEJEqkuNBS3a8Nj0Bn3FYyegnYk=&quot;},{&quot;confidence_score&quot;:0.8132513,&quot;name&quot;:&quot;Murad Iraklievich Margoshvili&quot;,&quot;alt_names&quot;:[&quot;Zurab Iraklievich Margoshvili&quot;,&quot;Murad Akhmedovich Madayev&quot;,&quot;Lova Madayev&quot;,&quot;Abu-Muslim Al-Shishani&quot;,&quot;Muslim&quot;,&quot;Lava&quot;,&quot;John&quot;,&quot;George&quot;,&quot;Arthur&quot;,&quot;Sedoy&quot;],&quot;entity_type&quot;:&quot;Individual&quot;,&quot;date_of_birth&quot;:[&quot;1970-01-15&quot;],&quot;year_of_birth&quot;:[1970],&quot;place_of_birth&quot;:[&quot;Chechen Republic, Grozny, RU&quot;],&quot;nationality&quot;:[&quot;RU&quot;],&quot;data_source&quot;:{&quot;name&quot;:&quot;CH / SECO State Secretariat for Economic Affairs&quot;,&quot;short_name&quot;:&quot;SWISS-SECO&quot;},&quot;source_list_url&quot;:&quot;https://www.sesam.search.admin.ch/sesam-search-web/pages/downloadXmlGesamtliste.xhtml?lang=en&amp;action=downloadXmlGesamtlisteAction&quot;,&quot;program&quot;:[&quot;SWISS-«AL-QAÏDA»&quot;,&quot;TALIBAN&quot;],&quot;remarks&quot;:&quot;Associated with Jabhat al-Nusrah, listed as Al-Nusrah Front for the People of the Levant (SSID 10-27843). Review pursuant to Security Council resolution 2610 (2021) was concluded on 8 Nov 2022. INTERPOL-UN Security Council Special Notice web link available.&quot;,&quot;si_identifier&quot;:&quot;SWISSSECO-ALQADATALIBAN-1347736834&quot;,&quot;entity_number&quot;:36834,&quot;data_hash&quot;:&quot;BcxGa6xL32Dfn6cMeZMugLpQc0SVTM/MhD5czMX+6fA=&quot;},{&quot;confidence_score&quot;:0.8132513,&quot;name&quot;:&quot;Murad Iraklievich Margoshvili&quot;,&quot;alt_names&quot;:[&quot;Zurab Iraklievich Margoshvili&quot;,&quot;Murad Akhmedovich Madayev&quot;,&quot;Lova Madayev&quot;,&quot;Abu-Muslim Al-Shishani&quot;,&quot;Muslim&quot;,&quot;Lava&quot;,&quot;John&quot;,&quot;George&quot;,&quot;Arthur&quot;,&quot;Sedoy&quot;],&quot;entity_type&quot;:&quot;Individual&quot;,&quot;date_of_birth&quot;:[&quot;1970-01-15&quot;],&quot;year_of_birth&quot;:[1970],&quot;place_of_birth&quot;:[&quot;Chechen Republic, Grozny, RU&quot;],&quot;nationality&quot;:[&quot;RU&quot;],&quot;data_source&quot;:{&quot;name&quot;:&quot;CH / SECO State Secretariat for Economic Affairs&quot;,&quot;short_name&quot;:&quot;SWISS-SECO&quot;},&quot;source_list_url&quot;:&quot;https://www.sesam.search.admin.ch/sesam-search-web/pages/downloadXmlGesamtliste.xhtml?lang=en&amp;action=downloadXmlGesamtlisteAction&quot;,&quot;program&quot;:[&quot;SWISS-ISIL (DA&#39;ESH) AND AL-QAIDA&quot;],&quot;remarks&quot;:&quot;Associated with Jabhat al-Nusrah, listed as Al-Nusrah Front for the People of the Levant (QDe.137).Review pursuant to Security Council resolution 2610 (2021) was concluded on 8 November 2022. INTERPOL-UN Security Council Special Notice web link available.&quot;,&quot;si_identifier&quot;:&quot;SWISSSECO-ISILDAESHANDALQAIDA-4722485059&quot;,&quot;entity_number&quot;:85059,&quot;data_hash&quot;:&quot;jTyhmD7EZvrXTeSDt2WkkwubYCozSdz4+qu0HOq4J0E=&quot;},{&quot;confidence_score&quot;:0.80011046,&quot;name&quot;:&quot;Guowei Group (Shenzhen) Co., Ltd.&quot;,&quot;alt_names&quot;:[&quot;Guowei Group&quot;,&quot;SMIT Group&quot;,&quot;SMIT Shenzhen&quot;],&quot;entity_type&quot;:&quot;Entity&quot;,&quot;address&quot;:[&quot;Room 22A, Guoshi Building, No. 1801 Shahe West Road, High-tech Zone Community, Nanshan District, Shenzhen, CN&quot;],&quot;country_residence&quot;:[&quot;CN&quot;],&quot;data_source&quot;:{&quot;name&quot;:&quot;US / BIS Entity List (EL)&quot;,&quot;short_name&quot;:&quot;EL&quot;},&quot;source_list_url&quot;:&quot;https://www.bis.doc.gov/index.php/policy-guidance/lists-of-parties-of-concern/entity-list&quot;,&quot;source_information_url&quot;:&quot;https://www.bis.doc.gov/index.php/policy-guidance/lists-of-parties-of-concern/entity-list&quot;,&quot;start_date&quot;:&quot;2024-12-02&quot;,&quot;federal_register_notice&quot;:&quot;89 FR 96837&quot;,&quot;license_requirement&quot;:&quot;For all items subject to the EAR.  (See §744.11 of the EAR).&quot;,&quot;license_policy&quot;:&quot;Presumption of denial &quot;,&quot;si_identifier&quot;:&quot;EUCSLEL-UNSPECIFED-C4D70D95295A90E464C7D6CB1BCC20B87539041C995DA5187F4E6CA0&quot;,&quot;data_hash&quot;:&quot;sGGKxAKqd+PxwJOMmlXqjT40SBcowwcNy3k8uKSdmMo=&quot;}],&quot;search&quot;:{&quot;params&quot;:{&quot;name&quot;:&quot;John Smith&quot;,&quot;min_score&quot;:&quot;0.8&quot;,&quot;data_source&quot;:&quot;SANCTIONS-LISTS&quot;},&quot;timestamp&quot;:&quot;2025-05-19T06:02:31.452466+00:00&quot;,&quot;api_version&quot;:&quot;2.2&quot;,&quot;id&quot;:&quot;1acc5a04-0edd-4214-82f6-3719dbd31dad&quot;}}"/>
+<!-- 导航栏 -->
+<div class="navbar">
+    <div class="container navbar-container">
+        <div class="navbar-logo">制裁名单信息</div>
+
+        <div class="mobile-menu-button" id="mobile-menu-button">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+</div>
+<!-- 搜索信息卡片 -->
+<div class="container" style="padding-top: 24px; padding-bottom: 24px;">
+
+    <div class="card">
+        <div class="card-header">
+            <h2 style="font-size: 20px; font-weight: bold;">搜索信息</h2>
+        </div>
+        <div class="card-body">
+            <div class="search-info">
+                <div class="search-info-item">
+                    <div class="search-info-label">搜索个人或实体</div>
+                    <div id="search_name" class="search-info-value"></div>
+                </div>
+                <div class="search-info-item">
+                    <div class="search-info-label">最低置信度</div>
+                    <div id="min_score" class="search-info-value"></div>
+                </div>
+                <div class="search-info-item">
+                    <div class="search-info-label">数据源</div>
+                    <div id="data_source" class="search-info-value"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 结果概览 -->
+    <div class="overview-cards">
+        <div class="overview-card blue">
+            <div class="overview-card-header">
+                <div>
+                    <div class="overview-card-title">总结果数</div>
+                    <div id="search_count" class="overview-card-value">6</div>
+                </div>
+            </div>
+            <div style="font-size: 14px; opacity: 0.8; margin-top: 8px;">
+                <i class="fa fa-clock-o" style="margin-right: 4px;"></i>
+                更新时间:
+                <label id="timestamp"></label>
+            </div>
+        </div>
+
+        <div class="overview-card green">
+            <div class="overview-card-header">
+                <div>
+                    <div class="overview-card-title">实体数量</div>
+                    <div id="search_entity" class="overview-card-value">2</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="overview-card purple">
+            <div class="overview-card-header">
+                <div>
+                    <div class="overview-card-title">个人数量</div>
+                    <div id="search_individual" class="overview-card-value">4</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 结果列表 -->
+    <div class="card">
+        <div class="card-header">
+            <h2 style="font-size: 20px; font-weight: bold;">制裁实体列表</h2>
+        </div>
+
+        <div class="card-body" id="entity-list">
+            <!-- 实体卡片动态生成 -->
+        </div>
+    </div>
+</div>
+<!-- 页脚 -->
+<div id="footer" class="footer">
+</div>
+<script type="text/javascript">
+    Ext.Loader.syncRequire([
+        'CGP.orderstatusmodify.controller.Controller',
+    ])
+
+    var controller = Ext.create('CGP.orderstatusmodify.controller.Controller'),
+        addressFlag = JSGetQueryString('addressFlag'),
+        data = controller.getAddressDeliveryDetail(),
+        addressDelivery = data.filter(item => {
+            return item['addressFlag'] === +addressFlag;
+        })[0],
+        sanctionsData = addressDelivery['sanctionCheckResult'];
+
+    /*// 制裁名单数据
+    const sanctionsData = {
+        "count": 6,
+        "next": null,
+        "previous": null,
+        "results": [
+            {
+                "confidence_score": 0.8774172,
+                "name": "Shenzhen Zhangge Instrument Co., Ltd.",
+                "alt_names": [
+                    "Shenzhen Zhangge",
+                    "Zhangge",
+                    "Shenzhenshi Zhangge Yiqi Youxian Gongsi"
+                ],
+                "entity_type": "Entity",
+                "address": [
+                    "Room 135, Longguang Jiuyu Mansion, No. 115 Guanlan Avenue, Xinhe Community, Fucheng Street, Longhua District, Shenzhen, CN"
+                ],
+                "country_residence": [
+                    "CN"
+                ],
+                "data_source": {
+                    "name": "US / BIS Entity List (EL)",
+                    "short_name": "EL"
+                },
+                "source_list_url": "https://www.bis.doc.gov/index.php/policy-guidance/lists-of-parties-of-concern/entity-list",
+                "source_information_url": "https://www.bis.doc.gov/index.php/policy-guidance/lists-of-parties-of-concern/entity-list",
+                "start_date": "2024-12-02",
+                "federal_register_notice": "89 FR 96837",
+                "license_requirement": "For all items subject to the EAR (See §744.11 of the EAR) ",
+                "license_policy": "Presumption of denial ",
+                "si_identifier": "EUCSLEL-UNSPECIFED-87B54DB3F380AB8E465C4DE9528206B537860B5FFE970CB8D0756978",
+                "data_hash": "OozMfKzHzMVRFHL9w8NlOwHcVUBnAsqx8hEf1tk9120="
+            },
+            {
+                "confidence_score": 0.85186553,
+                "name": "CHANG, Myong-Chin",
+                "alt_names": [
+                    "JANG, Myong-Jin",
+                    "Myong-Chin CHANG",
+                    "Myong-Jin JANG",
+                    "Chin",
+                    "Chin CHANG",
+                    "Jin JANG",
+                    "Jin"
+                ],
+                "entity_type": "Individual",
+                "date_of_birth": [
+                    "1966",
+                    "1965"
+                ],
+                "year_of_birth": [
+                    1965,
+                    1966
+                ],
+                "data_source": {
+                    "name": "US / OFAC Specially Designated Nationals (SDN)",
+                    "short_name": "SDN"
+                },
+                "source_list_url": "https://home.treasury.gov/policy-issues/financial-sanctions/consolidated-sanctions-list-non-sdn-lists",
+                "program": [
+                    "NPWMD"
+                ],
+                "additional_information": {
+                    "secondary_sanctions_risk": "North Korea Sanctions Regulations, sections 510.201 and 510.210",
+                    "transactions_prohibited_for_persons_owned_or_controlled_by_u_s_financial_institutions": "North Korea Sanctions Regulations section 510.214"
+                },
+                "si_identifier": "EUCSLSDN-NPWMD-15668",
+                "entity_number": 15668,
+                "data_hash": "mGr21Yb4uOp4StM/H4cGl689Noq80RQbnlJaKcbEq5E="
+            },
+            {
+                "confidence_score": 0.82828176,
+                "name": "Jong-chon PAK",
+                "alt_names": [
+                    "PAK Jong Chon",
+                    "박정천"
+                ],
+                "entity_type": "Individual",
+                "title": "Vice-président de la commission militaire centrale, Secrétaire du comité central du Parti des travailleurs de Corée, Membre du Bureau politique du comité central du Parti des travailleurs, Maréchal et ancien chef d'état-major des armées, Membre de la commission des affaires publiques",
+                "data_source": {
+                    "name": "FR / Ministry of Economy, Finance and Recovery France - Asset Freezes",
+                    "short_name": "FR-GELS"
+                },
+                "source_list_url": "https://gels-avoirs.dgtresor.gouv.fr/ApiPublic/api/v1/publication/derniere-publication-fichier-json",
+                "program": [
+                    "GELSAVOIRS"
+                ],
+                "si_identifier": "FR-GELSAVOIRS-2538",
+                "entity_number": 2538,
+                "data_hash": "ZE0V5PsRw9BhmjrKb3CkccRHUsoWEEjroT0OJNTs4bs="
+            },
+            {
+                "confidence_score": 0.82828176,
+                "name": "Jong-chon PAK",
+                "alt_names": [
+                    "박정천",
+                    "Jong Chon PAK"
+                ],
+                "entity_type": "Individual",
+                "data_source": {
+                    "name": "EU / EU Consolidated List of Sanctions",
+                    "short_name": "CFSP"
+                },
+                "source_list_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202403152",
+                "source_information_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202403152, https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202302576",
+                "start_date": "2024-12-16",
+                "program": [
+                    "PRK"
+                ],
+                "remarks": "Entity_Remark: Date of UN designation: 2016-05-20",
+                "federal_register_notice": "2024/3152 (OJ L16122024)",
+                "additional_information": {
+                    "name_alias_gender": "M",
+                    "name_alias_function": "Member of the Political Bureau of the Central Committee of the Workers' Party, Vice-Chairman of the Central Military Commission, Secretary of the Central Committee of the Worker's Party of Korea. Member of the State Affairs Commission, Marshal and former Chief of the General Staff.",
+                    "name_alias_logical_id": [
+                        "108648",
+                        "112451",
+                        "142070"
+                    ],
+                    "entity_regulation_type": "amendment",
+                    "entity_designation_date": "2016-05-20",
+                    "name_alias_name_language": [
+                        "EN",
+                        "KO"
+                    ],
+                    "entity_eu_reference_number": "EU.4077.54",
+                    "name_alias_regulation_type": "amendment",
+                    "entity_regulation_number_title": "2024/3152 (OJ L16122024)",
+                    "name_alias_regulation_language": "EN",
+                    "name_alias_regulation_programme": "PRK",
+                    "entity_regulation_publication_date": "2024-12-16",
+                    "name_alias_regulation_number_title": [
+                        "2024/3152 (OJ L16122024)",
+                        "2023/2576 (OJ L14112023)"
+                    ],
+                    "entity_regulation_organisation_type": "council",
+                    "name_alias_regulation_publication_url": [
+                        "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202403152",
+                        "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202302576"
+                    ],
+                    "name_alias_regulation_publication_date": [
+                        "2024-12-16",
+                        "2023-11-14"
+                    ],
+                    "entity_regulation_entry_into_force_date": "2024-12-16",
+                    "entity_subject_type_classification_code": "person",
+                    "name_alias_regulation_organisation_type": "council",
+                    "name_alias_regulation_entry_into_force_date": [
+                        "2024-12-16",
+                        "2023-11-15"
+                    ]
+                },
+                "si_identifier": "EUFINANCIAL-PRK-108647",
+                "entity_number": 108647,
+                "data_hash": "mZSENOWXtJeO2o6uo15xlZwauE/PwcxJ8uN3IrgKBWY="
+            },
+            {
+                "confidence_score": 0.82638246,
+                "name": "ZHANG, Jicheng",
+                "alt_names": [
+                    "Jicheng ZHANG"
+                ],
+                "entity_type": "Individual",
+                "date_of_birth": [
+                    "1973-11-12"
+                ],
+                "year_of_birth": [
+                    1973
+                ],
+                "place_of_birth": [
+                    "China"
+                ],
+                "nationality": [
+                    "CN"
+                ],
+                "citizenship": [
+                    "CN"
+                ],
+                "data_source": {
+                    "name": "US / OFAC Specially Designated Nationals (SDN)",
+                    "short_name": "SDN"
+                },
+                "source_list_url": "https://home.treasury.gov/policy-issues/financial-sanctions/consolidated-sanctions-list-non-sdn-lists",
+                "program": [
+                    "SDNTK"
+                ],
+                "remarks": "(Linked To: CEC LIMITED)",
+                "additional_information": {
+                    "passport": {
+                        "value": "G60761595",
+                        "country": "CN"
+                    },
+                    "chinese_commercial_code": "1728 3444 2052"
+                },
+                "si_identifier": "EUCSLSDN-SDNTK-16818",
+                "entity_number": 16818,
+                "data_hash": "gX21c1IbR21hDlptl52XwntrCaC3kDEtH4YMnw6otLk="
+            },
+            {
+                "confidence_score": 0.82479024,
+                "name": "Zhou Zhenyong",
+                "alt_names": [
+                    "Benny Zhou"
+                ],
+                "entity_type": "Entity",
+                "address": [
+                    "Room 1007, Block C2, Galaxy Century Bldg., CaiTian Rd., FuTian District, Shenzhen, CN",
+                    "Room 1702, Tower B, Honesty Building, Humen, Dongguan, Guangdong, CN",
+                    "G/F, No. 89, Fuyan Street, Kwun Tong, HK",
+                    "Flat 12, 9F Po Hong Kong 2 Wang Tung Street, Kowloon Bay, HK",
+                    "Flat/RM B 8/F, Chong Ming Bldg., 72 Cheung Sha Wan Road, KL, HK",
+                    "Flat/RM 2309, 23/F, Ho King COMM Center, 2-16 Fa Yuen Street, Mongkok KLN, HK"
+                ],
+                "country_residence": [
+                    "HK",
+                    "CN"
+                ],
+                "data_source": {
+                    "name": "US / BIS Entity List (EL)",
+                    "short_name": "EL"
+                },
+                "source_list_url": "https://www.bis.doc.gov/index.php/policy-guidance/lists-of-parties-of-concern/entity-list",
+                "source_information_url": "https://www.bis.doc.gov/index.php/policy-guidance/lists-of-parties-of-concern/entity-list",
+                "start_date": "2011-10-31",
+                "remarks": "(see alternate address under Hong Kong)",
+                "federal_register_notice": "76 FR 67059 No. 210",
+                "license_requirement": "For all items subject to the EAR. (See §744.11 of the EAR).",
+                "license_policy": "Presumption of denial.",
+                "si_identifier": "EUCSLEL-UNSPECIFED-AD3821EB64ECDA2562102600A8063CAAE43E098BAAA91D59953E3F05",
+                "data_hash": "2XcFvNRBDJGoMzXVXbQ2mJMFHo8m6NvoaGbnHkClv2Q="
+            }
+        ],
+        "search": {
+            "params": {
+                "name": "ZHANG ZHEN",
+                "min_score": "0.8",
+                "data_source": "SANCTIONS-LISTS"
+            },
+            "timestamp": "2025-05-16T02:23:50.362533+00:00",
+            "api_version": "2.1",
+            "id": "3863a7a8-90da-408e-b446-9c1239826ec5"
+        },
+        "control_hash": "aHf/c1KJ+/fxvglgw7WH9x6KlM3t3Fd6cZcdypy1V3k=",
+        "search_query_id": 220015563
+    };*/
+
+    // 移动端菜单切换
+    document.getElementById('mobile-menu-button').addEventListener('click', function () {
+        var mobileMenu = document.getElementById('mobile-menu');
+        mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // 展开/折叠详情
+    function toggleEntityDetails(button) {
+        var details = button.parentElement.nextElementSibling;
+        var icon = button.querySelector('i');
+
+        if (details.classList.contains('expanded')) {
+            details.classList.remove('expanded');
+            button.innerHTML = "展开详情" + ' <i class="fa fa-chevron-down" style="margin-left: 4px;"></i>';
+        } else {
+            details.classList.add('expanded');
+            button.innerHTML = "收起详情" + ' <i class="fa fa-chevron-up" style="margin-left: 4px;"></i>';
+        }
+    }
+
+    // 渲染实体列表
+    function renderEntityList() {
+        var entitynum = 0;
+        var individual = 0;
+
+        for (var i = 0; i < sanctionsData.results.length; i++) {
+            if (sanctionsData.results[i].entity_type == "Entity")
+                entitynum++;
+
+            if (sanctionsData.results[i].entity_type == "Individual")
+                individual++;
+
+        }
+
+        // 搜索关键词（
+        document.getElementById("search_name").innerText = sanctionsData.search.params.name;
+        // 最低置信度（
+        document.getElementById("min_score").innerText = sanctionsData.search.params.min_score;
+        // 数据源（
+        document.getElementById("data_source").innerText = sanctionsData.search.params.data_source;
+        // 总结果数（
+        document.getElementById("search_count").innerText = sanctionsData.results.length;
+        // 实体数量（
+        document.getElementById("search_entity").innerText = entitynum;
+        // 个人数量（
+        document.getElementById("search_individual").innerText = individual;
+        // 更新时间（
+        document.getElementById("timestamp").innerText = formatIsoTime(sanctionsData.search.timestamp);
+
+        var entityListElement = document.getElementById('entity-list');
+        entityListElement.innerHTML = '';
+
+        sanctionsData.results.forEach(function (entity, index) {
+            // 创建实体卡片
+            var entityCard = document.createElement('div');
+            entityCard.className = 'entity-card';
+
+            // 设置卡片内容（传统字符串拼接）
+            var entityHeader = '';
+            var entityDetails = '';
+            var entityDetailGroup = '';
+
+            // ------------------------- 头部内容 -------------------------
+            entityHeader += '<div class="entity-header">';
+            entityHeader += '<div>';
+            entityHeader += '<div class="entity-title">' + entity.name + '</div>';
+            entityHeader += '<div class="entity-tags">';
+
+            var entityTypeClass = entity.entity_type === 'Entity' ? 'entity' : 'individual';
+            entityHeader += '<span class="entity-tag ' + entityTypeClass + '">' + entity.entity_type + '</span>';
+            entityHeader += '<span class="entity-tag source">' + entity.data_source.name + '</span>';
+
+            entityHeader += '<span class="entity-tag confidence">置信度: ' + entity.confidence_score.toFixed(2) + '</span>';
+
+            entityHeader += '</div>';
+            entityHeader += '</div>';
+            entityHeader += '<button class="btn btn-primary expand-btn" onclick="toggleEntityDetails(this)">';
+
+            entityHeader += "展开详情" + ' <i class="fa fa-chevron-down" style="margin-left: 4px;"></i>';
+            entityHeader += '</button>';
+            entityHeader += '</div>';
+
+            // ------------------------- 详情内容 -------------------------
+            // 第一部分详情
+            entityDetailGroup = '';
+            if (entity.alt_names) {
+
+                entityDetailGroup += '<div class="entity-detail-group">';
+                entityDetailGroup += '<div class="entity-detail-label">别名</div>';
+                entityDetailGroup += '<div class="entity-detail-value">' + entity.alt_names.join(', ') + '</div>';
+                entityDetailGroup += '</div>';
+            }
+            if (entity.date_of_birth) {
+
+                entityDetailGroup += '<div class="entity-detail-group">';
+                entityDetailGroup += '<div class="entity-detail-label">出生日期</div>';
+                entityDetailGroup += '<div class="entity-detail-value">' + entity.date_of_birth.join(', ') + '</div>';
+                entityDetailGroup += '</div>';
+            }
+            if (entity.place_of_birth) {
+
+                entityDetailGroup += '<div class="entity-detail-group">';
+                entityDetailGroup += '<div class="entity-detail-label">出生地点</div>';
+                entityDetailGroup += '<div class="entity-detail-value">' + entity.place_of_birth.join(', ') + '</div>';
+                entityDetailGroup += '</div>';
+            }
+            if (entity.nationality) {
+
+                entityDetailGroup += '<div class="entity-detail-group">';
+                entityDetailGroup += '<div class="entity-detail-label">国籍</div>';
+                entityDetailGroup += '<div class="entity-detail-value">' + entity.nationality.join(', ') + '</div>';
+                entityDetailGroup += '</div>';
+            }
+            if (entity.citizenship) {
+
+                entityDetailGroup += '<div class="entity-detail-group">';
+                entityDetailGroup += '<div class="entity-detail-label">公民身份</div>';
+                entityDetailGroup += '<div class="entity-detail-value">' + entity.citizenship.join(', ') + '</div>';
+                entityDetailGroup += '</div>';
+            }
+            if (entity.address) {
+
+                entityDetailGroup += '<div class="entity-detail-group">';
+                entityDetailGroup += '<div class="entity-detail-label">地址</div>';
+                entityDetailGroup += '<div class="entity-detail-value">' + entity.address.join('<br>') + '</div>';
+                entityDetailGroup += '</div>';
+            }
+            if (entity.country_residence) {
+
+                entityDetailGroup += '<div class="entity-detail-group">';
+                entityDetailGroup += '<div class="entity-detail-label">国家/地区</div>';
+                entityDetailGroup += '<div class="entity-detail-value">' + entity.country_residence.join(', ') + '</div>';
+                entityDetailGroup += '</div>';
+            }
+            if (entity.start_date) {
+
+                entityDetailGroup += '<div class="entity-detail-group">';
+                entityDetailGroup += '<div class="entity-detail-label">制裁开始日期</div>';
+                entityDetailGroup += '<div class="entity-detail-value">' + entity.start_date + '</div>';
+                entityDetailGroup += '</div>';
+            }
+            if (entity.title) {
+
+                entityDetailGroup += '<div class="entity-detail-group">';
+                entityDetailGroup += '<div class="entity-detail-label">职位</div>';
+                entityDetailGroup += '<div class="entity-detail-value">' + entity.title + '</div>';
+                entityDetailGroup += '</div>';
+            }
+            if (entity.program) {
+
+                entityDetailGroup += '<div class="entity-detail-group">';
+                entityDetailGroup += '<div class="entity-detail-label">制裁项目</div>';
+                entityDetailGroup += '<div class="entity-detail-value">' + entity.program.join(', ') + '</div>';
+                entityDetailGroup += '</div>';
+            }
+
+            // 第二部分详情
+            var entityDetailGroup2 = '';
+            if (entity.license_requirement) {
+
+                entityDetailGroup2 += '<div class="entity-detail-group">';
+                entityDetailGroup2 += '<div class="entity-detail-label">许可证要求</div>';
+                entityDetailGroup2 += '<div class="entity-detail-value">' + entity.license_requirement + '</div>';
+                entityDetailGroup2 += '</div>';
+            }
+            if (entity.license_policy) {
+
+                entityDetailGroup2 += '<div class="entity-detail-group">';
+                entityDetailGroup2 += '<div class="entity-detail-label">许可证政策</div>';
+                entityDetailGroup2 += '<div class="entity-detail-value">' + entity.license_policy + '</div>';
+                entityDetailGroup2 += '</div>';
+            }
+            if (entity.federal_register_notice) {
+
+                entityDetailGroup2 += '<div class="entity-detail-group">';
+                entityDetailGroup2 += '<div class="entity-detail-label">联邦公报通知</div>';
+                entityDetailGroup2 += '<div class="entity-detail-value">' + entity.federal_register_notice + '</div>';
+                entityDetailGroup2 += '</div>';
+            }
+            if (entity.remarks) {
+
+                entityDetailGroup2 += '<div class="entity-detail-group">';
+                entityDetailGroup2 += '<div class="entity-detail-label">备注</div>';
+                entityDetailGroup2 += '<div class="entity-detail-value">' + entity.remarks + '</div>';
+                entityDetailGroup2 += '</div>';
+            }
+            if (entity.si_identifier) {
+
+                entityDetailGroup2 += '<div class="entity-detail-group">';
+                entityDetailGroup2 += '<div class="entity-detail-label">标识符</div>';
+                entityDetailGroup2 += '<div class="entity-detail-value">' + entity.si_identifier + '</div>';
+                entityDetailGroup2 += '</div>';
+            }
+            if (entity.entity_number) {
+
+                entityDetailGroup2 += '<div class="entity-detail-group">';
+                entityDetailGroup2 += '<div class="entity-detail-label">实体编号</div>';
+                entityDetailGroup2 += '<div class="entity-detail-value">' + entity.entity_number + '</div>';
+                entityDetailGroup2 += '</div>';
+            }
+            if (entity.source_list_url) {
+
+                entityDetailGroup2 += '<div class="entity-detail-group">';
+                entityDetailGroup2 += '<div class="entity-detail-label">来源</div>';
+                entityDetailGroup2 += '<div class="entity-detail-value"><a href="' + entity.source_list_url + '" target="_blank">' + entity.source_list_url + '</a></div>';
+                entityDetailGroup2 += '</div>';
+            }
+            if (entity.additional_information) {
+
+                entityDetailGroup2 += '<div class="entity-detail-group">';
+                entityDetailGroup2 += '<div class="entity-detail-label">附加信息</div>';
+                entityDetailGroup2 += '<div class="entity-detail-value">';
+                entityDetailGroup2 += '<ul style="padding-left: 16px; margin: 0;">';
+                entityDetailGroup2 += formatAdditionalInformation(entity.additional_information);
+                entityDetailGroup2 += '</ul>';
+                entityDetailGroup2 += '</div>';
+                entityDetailGroup2 += '</div>';
+            }
+
+            // 组合完整HTML
+            entityDetails += '<div class="entity-details">';
+            entityDetails += '<div class="entity-details-content">';
+            entityDetails += '<div>' + entityDetailGroup + '</div>';
+            entityDetails += '<div>' + entityDetailGroup2 + '</div>';
+            entityDetails += '</div>';
+            entityDetails += '</div>';
+
+            // 拼接完整卡片内容
+            entityCard.innerHTML = entityHeader + entityDetails;
+
+            // 添加到列表
+            entityListElement.appendChild(entityCard);
+        });
+    }
+
+    // 格式化附加信息
+    function formatAdditionalInformation(info) {
+        var result = '';
+        var key, value, subKey, subValue;
+        var i, j;
+
+        for (key in info) {
+            if (info.hasOwnProperty(key)) {
+                value = info[key];
+
+                if (Array.isArray(value)) {
+                    // 处理数组值
+                    if (value.length > 0 && typeof value[0] === 'object') {
+                        // 对象数组
+                        result += '<li><strong>' + key + ':</strong><ul>';
+
+                        for (i = 0; i < value.length; i++) {
+
+                            result += '<li> 项' + (i + 1) + ':<ul>';
+
+                            if (value[i] !== null && value[i] !== undefined) {
+                                for (subKey in value[i]) {
+                                    if (value[i].hasOwnProperty(subKey)) {
+                                        subValue = value[i][subKey];
+                                        result += '<li><strong>' + subKey + ':</strong> ' + subValue + '</li>';
+                                    }
+                                }
+                            }
+
+                            result += '</ul></li>';
+                        }
+
+                        result += '</ul></li>';
+                    } else {
+                        result += '<li><strong>' + key + ':</strong> ' + value.join(', ') + '</li>';
+                    }
+                } else if (typeof value === 'object') {
+                    // 处理嵌套对象
+                    result += '<li><strong>' + key + ':</strong><ul>';
+
+                    if (value !== null && value !== undefined) {
+                        for (subKey in value) {
+                            if (value.hasOwnProperty(subKey)) {
+                                subValue = value[subKey];
+                                result += '<li><strong>' + subKey + ':</strong> ' + subValue + '</li>';
+                            }
+                        }
+                    }
+
+                    result += '</ul></li>';
+                } else {
+                    // 处理普通值
+                    result += '<li><strong>' + key + ':</strong> ' + value + '</li>';
+                }
+            }
+        }
+
+        return result;
+    }
+
+    // 页面加载完成后渲染实体列表
+    window.addEventListener('load', renderEntityList);
+
+    // 格式化时间
+    function formatIsoTime(isoTime) {
+        const date = new Date(isoTime);
+
+        return date.toLocaleString('zh-CN', {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false,
+        }).replace(/\//g, "-");
+    }
+</script>
+</body>
+</html>

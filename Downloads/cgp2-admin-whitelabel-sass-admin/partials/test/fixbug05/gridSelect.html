@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css"
+          href="../../../ClientLibs/extjs/resources/custom-theme/custom_theme.css">
+    <!-- 样式表 -->
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ux/ux-all.js"></script>
+    <script type="text/javascript" src="../../../ClientLibs/extjs/ext-lang.js"></script>
+    <style type="text/css">
+
+        .select_disable .x-grid-td{
+            background: #0000dd;
+        }
+
+        .x-grid-record-red td {
+            background: #E60000;
+        }
+    </style>
+    <script type="text/javascript">
+        Ext.onReady(function () {
+            Ext.create('Ext.data.Store', {
+                storeId: 'simpsonsStore',
+                fields: ['name', 'email', 'phone'],
+                data: {
+                    'items': [
+                        {'name': 'Lisa', "email": "lisa@simpsons.com", "phone": "555-111-1224"},
+                        {'name': 'Bart', "email": "bart@simpsons.com", "phone": "555-222-1234"},
+                        {'name': 'Homer', "email": "home@simpsons.com", "phone": "555-222-1244"},
+                        {'name': 'Marge', "email": "marge@simpsons.com", "phone": "555-222-1254"}
+                    ]
+                },
+                proxy: {
+                    type: 'memory',
+                    reader: {
+                        type: 'json',
+                        root: 'items'
+                    }
+                }
+            });
+
+            var grid = Ext.create('Ext.grid.Panel', {
+                title: 'Simpsons',
+                selType: "checkboxmodel",
+                height: 200,
+                width: 400,
+                renderTo: Ext.getBody(),
+                store: Ext.data.StoreManager.lookup('simpsonsStore'),
+                columns: [
+                    {header: 'Name', dataIndex: 'name'},
+                    {header: 'Email', dataIndex: 'email', flex: 1},
+                    {header: 'Phone', dataIndex: 'phone'}
+                ],
+                viewConfig: {
+                    getRowClass: function (record) {
+                        if (record.get('name') == 'Marge') {
+                            return 'select_disable';
+                        }
+                    }
+                },
+                listeners: {
+                    beforeselect: {
+                        fn: function (me, record, index, eOpts) {
+                            if (record.get('name') == 'Marge') {
+                                return false;
+                            }
+                        }
+                    },
+                    select: function (comp, record, index) {
+                        if (record.get('name') == 'Homer') {
+                            comp.deselect(index);
+                        }
+                    }
+                }
+            });
+        })
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>
